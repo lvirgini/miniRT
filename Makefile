@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/02/26 13:10:34 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/02/27 17:52:01 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,34 +17,27 @@ NAME =		miniRT
 
 LIB_DIR =	lib/libft lib/minilibx
 OBJ_DIR =	obj/
-SRC_DIR =	$(shell find src -type d)
-INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/mlx/elcapitan
-
-LIB		=	ft 
-
-SRC 	=	ft_printf.c 		\
-			ft_printf_utils.c	\
-			flags_collect.c 	\
-			type_args.c			\
-			init_and_clean.c 	\
-			conversion.c 		\
-			dispatch.c 			\
-			make_options.c		\
-			print_character.c 	\
-			print_number.c 		\
-			print_string.c 		\
-			unicode.c
+SRC_DIR =	$(shell find srcs -type d)
+INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx/
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
+LIB		=	ft mlx
+
+SRC 	=	
 OBJ 	=	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
+HEADERS = 	$(foreach headers, $(INC_DIR), $(headers)%.h)
+
+vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
+
+
 
 #	COMPILATION		#
 
 CC = 		gcc
 
-CFLAG = 	-Wall -Werror -Wextra 
-IFLAG = 	-I src/ -I libft/	
+CFLAG = 	-Wall -Werror -Wextra -fsanitize=address -g
+IFLAG = 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG  =	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
 
 
@@ -56,7 +49,7 @@ all:		$(NAME)
 $(LIB):
 			make -C $(LIB_DIR) all
 
-$(OBJ_DIR)%.o: %.c src/ft_printf.h
+$(OBJ_DIR)%.o: %.c $(HEADERS)
 			mkdir -p $(OBJ_DIR)
 			$(CC) $(CFLAG) $(IFLAG) -o $@ -c $<
 
