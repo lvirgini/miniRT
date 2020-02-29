@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/29 17:18:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:32:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 **	INCLUDES
 */
 
+# define SUCCESS 0
+# define FAIL	-1
 
 # include <sys/types.h>
 # include <sys/stat.h>

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/29 17:21:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:45:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ struct s_triange
 	t_vector3	pos3;
 	t_color		color;	
 };
-
 
 #endif
