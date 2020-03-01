@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/29 16:04:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 15:33:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		file_error(int error)
 	if (error == 2)
 		ft_putstr_fd("ERROR : file is not .rt\n", 1);
 	if (error == 3)
-		ft_putstr_fd("ERROR : file not read by the (read) function\n", 1);
+		ft_putstr_fd("ERROR : file cannot be read by the (read) function\n", 1);
 	return (-1);
 }
 
@@ -42,7 +42,8 @@ int		file_type(char *str)
 }
 
 /*
-** Checking if file.rt is correct.
+** Checking arguments of the program.
+** minimum required is file.rt
 */
 
 int		file_checking(int ac, char **av)

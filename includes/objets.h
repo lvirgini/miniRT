@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/29 19:26:53 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 16:00:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,26 @@ struct	s_color
 	t_uchar g;
 	t_uchar b;
 	t_uchar a;
+};
+
+struct s_camera
+{
+	int			fov;
+	t_vector3	pos;
+	t_vector3	orient;
+};
+
+struct s_ambiant
+{
+	int			ratio;
+	t_color		color;
+};
+
+struct s_light
+{
+	int			ratio;
+	t_vector3	pos;
+	t_color		color;
 };
 
 struct s_sphere
