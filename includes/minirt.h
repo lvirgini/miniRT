@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 16:44:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 16:57:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 # include "libft.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
+
+
 # include "objets.h"
 # include "ft_file.h"
 
