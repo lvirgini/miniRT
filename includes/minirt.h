@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 15:39:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 16:44:26 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
+ 
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -53,13 +53,20 @@ struct 	s_app
 {
 	int 	x;
 	int 	y;
-	t_img	*img;
+	//t_img	*img;
 	t_scene	*scene;
 };
 
 struct s_scene
 {
-	t_vector
+	t_camera	*cam;
+	t_ambiant	*ambiant;
+	t_light		*light;
+	t_sphere	**sp;
+	t_plane		**pl;
+	t_square	**sq;
+	t_cyl		**cyl;
+	t_triangle	**tri;
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 16:00:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 16:28:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include "minirt.h"
 
-typedef	int (*t_func)(char *);
+typedef	int 				(*t_func)(char *);
 typedef unsigned char		t_uchar;
 
 
 typedef struct s_color		t_color;
+typedef struct s_camera		t_camera;
+typedef struct s_ambiant	t_ambiant;
+typedef struct s_light		t_light;
 typedef struct s_vector2	t_vector2;
 typedef struct s_vector3	t_vector3;
 typedef struct s_sphere		t_sphere;

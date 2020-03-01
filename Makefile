@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/01 14:14:32 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/03/01 16:47:00 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,16 @@
 NAME =		minirt
 
 LIB_DIR =	lib/libft/	lib/minilibx/ 
-			# lib/NOT_MLX/#
+# lib/NOT_MLX/#
 SRC_DIR =	$(shell find srcs -type d)
-INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx/ 
-			#lib/NOT_MLX/incs#
+INC_DIR = 	$(shell find includes -type d) lib/libft/includes	lib/minilibx/ 
+#lib/NOT_MLX/incs#
 OBJ_DIR =	obj/
 
 LIB		=	ft mlx
 SRC 	=	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdir $(file))))
 OBJ 	=	$(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
-HEADERS = 	$(foreach dir, $(INC_DIR), $(foreach file, $(wildcard $(dir)/*.h), $(notdir $(file))))
+HEADERS = 	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
 FRAMEWORK = AppKit OpenGL
 
 vpath %.c $(foreach dir, $(SRC_DIR)/, $(dir):)
@@ -51,15 +51,13 @@ LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
 all:		$(NAME)
 
 
-$(OBJ_DIR)%.o: %.c
+$(OBJ_DIR)%.o: %.c $(HEADERS)
 			mkdir -p $(OBJ_DIR)
-			$(CC) $(CFLAG $(IFLAG) -o $@ -c $<
+			$(CC) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
-			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@
+			$(CC) $(IFLAG) $(LFLAG) $(OBJ) -o $@
 
-noflag : 	install $(OBJ)
-			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@
 
 install :
 			@make -C lib/libft
@@ -80,7 +78,7 @@ show	:
 			@echo "CFLAG : $(CFLAG)\n"
 			@echo "IFLAG : $(IFLAG)\n"
 			@echo "LFLAG : $(LFLAG)\n"
-			@echo "HEADERS : $(HEADERS)\n"
+			@echo "HEADERS : $(foreach file, $(HEADERS),\n\t$(file))\n"
 			@echo "SRC :$(foreach file, $(SRC),\n\t$(file))\n"
 			@echo "OBJ :$(foreach file, $(OBJ),\n\t$(file))\n"
 
