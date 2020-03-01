@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 15:32:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 17:32:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 int		read_file(char *str)
 {
 	int 	fd_file;
-	char	*line;
-	int		nb_tab;
 	int		num_f;
+	char	*line;
 	t_func 	*f;
 
 	f = set_functions(f);
@@ -25,10 +24,9 @@ int		read_file(char *str)
 		return(file_error(3));
 	while (get_next_line(fd_file, &line) > 0)
 	{
-		if (line && line[0] != '\0' && ((num_f = set_num_func(line)) != -1))
+		if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
 		{
 			f[num_f](line);
-			nb_tab++;
 		}
 		free(line);
 	}
@@ -36,9 +34,13 @@ int		read_file(char *str)
 	return (check_file_is_complete());
 }
 
-int		set_nb_set(char *s)
+/*
+**  recherche l'index de fonctions correspondant a set_functions()
+*/
+
+int		index_set(char *s)
 {
-	char *set = "RAlcpcts";
+	char *set = "RAlcpct";
 
 	if(s[0] == 's')
 	{
@@ -49,11 +51,11 @@ int		set_nb_set(char *s)
 		else
 			return (-1);
 	}
-	return (strchr_i(*set, s[0])); 
+	return (ft_strchr_i(set, s[0])); 
 }
 
 /*
-**	initialise le tableau de fonctions suivant SET definit dans minirt.h
+**	initialise le tableau de fonctions en correlation avec index_set();
 **		0	1	2	3	4	5	6	7	8
 ** 		R	A	l	c	p	c	t	sp	sq
 */
@@ -76,7 +78,7 @@ t_func		*set_functions(t_func *f)
 }
 
 /*
-** verifie s'il ne manque pas un parametre essentiel
+** verifie s'il ne manque pas un parametre obligatoire pour le scene.
 */
 
 int	check_file_is_complete(void)

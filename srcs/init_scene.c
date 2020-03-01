@@ -6,11 +6,15 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 15:50:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:25:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Mise a zero d'une t_scene / cretion sans malloc
+*/
 
 t_scene		create_scene(void)
 {
@@ -19,20 +23,33 @@ t_scene		create_scene(void)
 	return (scene);
 }
 
+/*
+** Creation avec Malloc d'une t_scene
+*/
+
 t_scene		*malloc_scene(void)
 {
 	t_scene *scene;
 
 	if (!(scene = (t_scene *)malloc(sizeof(scene))))
 		return (NULL);
-	scene = create_scene;
+	*scene = create_scene();
 	return (scene);
 }
+
+/*
+** free du contenu d'une t_scene
+*/
 
 void		destroy_scene(t_scene to_destroy)
 {
 	(void)to_destroy;
 }
+
+/*
+** free de l'integralite d'une t_scene
+*/
+
 void		free_scene(t_scene *to_free)
 {
 	destroy_scene(*to_free);

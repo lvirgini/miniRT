@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objets.h                                           :+:      :+:    :+:   */
+/*   struct_objet.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 16:28:42 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 17:16:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJETS_H
-# define OBJETS_H
+#ifndef STRUCT_OBJET_H
+# define STRUCT_OBJET_H
 
 # include "minirt.h"
 

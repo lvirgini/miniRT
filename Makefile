@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/01 16:50:14 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/03/01 17:21:40 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME =		minirt
 LIB_DIR =	lib/libft/	lib/minilibx/ 
 # lib/NOT_MLX/#
 SRC_DIR =	$(shell find srcs -type d)
-INC_DIR = 	$(shell find includes -type d) lib/libft/includes	lib/minilibx/ 
+INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx 
 #lib/NOT_MLX/incs#
 OBJ_DIR =	obj/
 
@@ -30,6 +30,7 @@ HEADERS = 	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
 FRAMEWORK = AppKit OpenGL
 
 vpath %.c $(foreach dir, $(SRC_DIR)/, $(dir):)
+vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 
 
 # ----------------- #
