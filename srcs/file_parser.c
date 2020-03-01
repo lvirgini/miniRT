@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:32:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:30:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int		read_file(char *str)
 	{
 		if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
 		{
-			f[num_f](line);
+			if (f[num_f](line) == -1);
+			{
+				free(line);
+				return (-1);
+			}
 		}
 		free(line);
 	}

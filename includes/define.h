@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_ambiant.c                                   :+:      :+:    :+:   */
+/*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 19:03:27 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/03/01 19:02:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef DEFINE_H
+# define DEFINE_H
 
-int create_resolution(char *str)
-{
-	if ((g_app->x) || (g_app->y))
-	{
-		file_error(1); // a modif erreur
-		return (-1);
-	}
-	
+/*
+**	DEFINES classiques
+*/
 
-	return(0);
-}
+# define SUCCESS 0
+# define FAIL -1
 
-int create_ambiant_ligth(char *str)
-{
-	return(0);
-}
+/*
+** DEFINE ERRORS
+*/
 
-int create_light(char *str)
-{
-	return(0);
-}
-
-int create_camera(char *str)
-{
-	return(0);
-}
+#endif

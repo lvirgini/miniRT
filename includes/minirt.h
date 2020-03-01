@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:36:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:02:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@
 ** INCLUDES propre a minirt
 */
 
+# include "define.h"
 # include "struct_objet.h"
 # include "struct_image.h"
 # include "ft_prototype.h"
 
 extern t_scene	*g_scene;
+extern t_app	*g_app;
 
 #endif

@@ -6,13 +6,14 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:41:31 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:02:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_scene		*g_scene;
+t_app		*g_app;
 
 int		main(int ac, char **av)
 {

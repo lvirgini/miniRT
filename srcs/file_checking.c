@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:36:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:04:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 
 int		file_error(int error)
 {
+	ft_printf("l.%d, %s, %s\n", _LINE_, _FUNCTION_, _FILE_);
 	if (error == 1)
 		ft_putstr_fd("ERROR : no file in first argument\n", 1);
 	if (error == 2)
 		ft_putstr_fd("ERROR : file is not .rt\n", 1);
 	if (error == 3)
 		ft_putstr_fd("ERROR : file cannot be read by the (read) function\n", 1);
-	return (-1);
+/*	if (error == 10)
+		ft_putchar_fd(ERROR_10, 1);
+*/	return (-1);
 }
 
 /*
