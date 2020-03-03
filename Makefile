@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/01 17:21:40 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/03/03 13:53:01 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ CC 		=	gcc
 CFLAG 	= 	-Wall -Werror -Wextra -fsanitize=address -g
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
-LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
+LFLAG 	+= 	$(fgccoreach framework, $(FRAMEWORK), -framework $(framework) )
 
 
 # ----------------- #
@@ -54,10 +54,10 @@ all:		$(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 			mkdir -p $(OBJ_DIR)
-			$(CC) $(IFLAG) -o $@ -c $< 
+			$(CC)  $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
-			$(CC) $(IFLAG) $(LFLAG) $(OBJ) -o $@
+			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@
 
 
 install :

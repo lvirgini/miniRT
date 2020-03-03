@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 18:30:56 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:06:06 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int		read_file(char *str)
 
 	f = set_functions(f);
 	if ((fd_file = open(str, O_RDONLY)) == -1)
-		return(file_error(3));
+		return(file_error("file cannot be read by the (read) function"));
 	while (get_next_line(fd_file, &line) > 0)
 	{
 		if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
 		{
-			if (f[num_f](line) == -1);
+			if (f[num_f](line) == -1)
 			{
 				free(line);
-				return (-1);
+				return (-1); 
 			}
 		}
 		free(line);

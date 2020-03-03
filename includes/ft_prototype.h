@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:57:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:55:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,25 @@
 
 int			file_checking(int ac, char **av);
 int			file_type(char *str);
-int			file_error(int error);
+int			file_error(char *error);
 int			read_file(char *str);
 int			line_parser(char *line);
 int			index_set(char *s);
 t_func		*set_functions(t_func *f);
 int			check_file_is_complete(void);
+int			line_recup_number_float(char *str, float *result);
+int			line_recup_number_int(char *str, int *result);
+int			recup_nb_negative(char *dst, char c);
+
 
 /*
 ** Fonction qui gerent la variable t_app
 */
 
-t_app	create_application(void);
-t_app	 *malloc_application(void);
-void	destroy_application(t_app to_destroy);
-void 	free_application(t_app *to_free);
+t_app		create_application(void);
+t_app		 *malloc_application(void);
+void		destroy_application(t_app to_destroy);
+void 		free_application(t_app *to_free);
 
 /*
 ** Fonctions qui gerent les variable t_scene

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 17:16:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:20:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ struct s_vector2
 
 struct s_vector3
 {
-	int 	x;
-	int 	y;
-	int		z;
+	float 	x;
+	float 	y;
+	float	z;
 };
 
 struct	s_color
@@ -54,20 +54,20 @@ struct	s_color
 
 struct s_camera
 {
-	int			fov;
+	int			fov; //compris entre 0 et 180
 	t_vector3	pos;
 	t_vector3	orient;
 };
 
 struct s_ambiant
 {
-	int			ratio;
+	float		ratio;
 	t_color		color;
 };
 
 struct s_light
 {
-	int			ratio;
+	float		ratio;
 	t_vector3	pos;
 	t_color		color;
 };
@@ -75,7 +75,7 @@ struct s_light
 struct s_sphere
 {
 	t_vector3	pos;
-	int			diameter;
+	float		diameter;
 	t_color		color;
 };
 
@@ -90,7 +90,7 @@ struct s_square
 {
 	t_vector3	pos;
 	t_vector3	orient;
-	int			hight;
+	float		hight;
 	t_color		color;
 };
 
@@ -99,8 +99,8 @@ struct s_cyl
 	t_vector3	pos;
 	t_vector3	orient;
 	t_color		color;
-	int			hight;
-	int			diameter;
+	float		hight;
+	float		diameter;
 };
 
 struct s_triange

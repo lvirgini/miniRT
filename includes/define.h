@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 19:02:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:58:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 /*
 ** DEFINE ERRORS
 */
+
+# define AFFICHE_INFO_DEBUG //
 
 #endif
