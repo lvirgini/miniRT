@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 15:00:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:03:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		line_recup_number_float(char *str, float *result)
 	}
 	else 
 		*result = 0;
-	while (*result > 1)
+	while (*result >= 1)
 		*result /= 10;
 	result += integer_part;
 	return (0);
