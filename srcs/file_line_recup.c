@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 16:03:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:21:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,26 @@
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_recup_number_float(char *str, float *result)
+float		line_recup_number_float(char *str, float *result)
 {
 	char 	*tmp;
 	int 	integer_part;
 
-	line_recup_number_int(str, &integer_part);
-	if (str && *str == '.')
-	{
+	while (str && (ft_isalpha(*str) || ft_isspace(*str)))
 		str++;
-		line_recup_number_int(str, (int *)result);
+	if (ft_is_digits(*str))
+	{
+		*result = ft_atof(str); ///// A VERIFIER si atoi rien 
+		return(0);
 	}
-	else 
-		*result = 0;
-	while (*result >= 1)
-		*result /= 10;
-	result += integer_part;
-	return (0);
+	return (-1);
 }
 
 /*
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_recup_number_int(char *str, int *result)
+int		line_recup_number_int(char *str, int *result) /// A REFAIRE
 {
 	char 	*tmp;
 	int		i;
