@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 13:20:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:40:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <stdio.h> // 
+# include <stdio.h> //
 
 /*
 ** INCLUDES de librairies internes
@@ -37,7 +37,6 @@
 # include "ft_printf.h"
 # include "libft.h"
 # include "get_next_line.h"
-
 
 /*
 ** INCLUDES propre a minirt
@@ -48,7 +47,6 @@
 # include "struct_image.h"
 # include "ft_prototype.h"
 
-extern t_scene	*g_scene;
 extern t_app	*g_app;
 
 #endif

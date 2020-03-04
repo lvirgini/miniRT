@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/03 13:53:01 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/03/04 14:44:40 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #	 VARIABLES		#
 # ----------------- #
 
-NAME =		minirt
+NAME =		a.out #####################
 
 LIB_DIR =	lib/libft/	lib/minilibx/ 
 # lib/NOT_MLX/#
@@ -39,10 +39,10 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 
 CC 		=	gcc
 
-CFLAG 	= 	-Wall -Werror -Wextra -fsanitize=address -g
+CFLAG 	= 	-Wall -Werror -Wextra -g
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
-LFLAG 	+= 	$(fgccoreach framework, $(FRAMEWORK), -framework $(framework) )
+LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
 
 
 # ----------------- #
@@ -54,7 +54,7 @@ all:		$(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 			mkdir -p $(OBJ_DIR)
-			$(CC)  $(IFLAG) -o $@ -c $< 
+			$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
 			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@

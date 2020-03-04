@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 16:21:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:32:26 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,21 @@
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-float		line_recup_number_float(char *str, float *result)
+int		line_recup_number_float(char *str, float *result)
 {
-	char 	*tmp;
-	int 	integer_part;
+	int		neg;
+	int		i;
 
-	while (str && (ft_isalpha(*str) || ft_isspace(*str)))
-		str++;
-	if (ft_is_digits(*str))
+	i = 0;
+	while (str[i] && (ft_isalpha(str[i]) || ft_isspace(str[i])))
+		i++;
+	neg = str[i] == '-' ? -1 : 1;
+	if (ft_isdigit(str[i]))
 	{
-		*result = ft_atof(str); ///// A VERIFIER si atoi rien 
-		return(0);
+		*result = ft_atof(str + i) * neg;
+		while (ft_isdigit(str[i++]))
+			;
+		return (i);
 	}
 	return (-1);
 }
@@ -35,41 +39,21 @@ float		line_recup_number_float(char *str, float *result)
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_recup_number_int(char *str, int *result) /// A REFAIRE
+int		line_recup_number_int(char *str, int *result)
 {
-	char 	*tmp;
+	int		neg;
 	int		i;
 
 	i = 0;
-	while (str && (ft_isalpha(*str) || ft_isspace(*str)))
-		str++;
-	i = recup_nb_negative(tmp, *str);
-	while(str && ft_isdigit(str[i]))
-	{
-		tmp[i] = str[i];
+	while (str[i] && (ft_isalpha(str[i]) || ft_isspace(str[i])))
 		i++;
-	}
-	tmp[i] = '\0';
-	str += i;
-	if (i != 0)
-	{	
-		*result = atoi(tmp);
-		return (0); // annuler le malloc de atoi
+	neg = str[i] == '-' ? -1 : 1;
+	if (str[i] && ft_isdigit(str[i]))
+	{
+		*result = atoi(str + i) * neg;
+		while (ft_isdigit(str[i++]))
+			;
+		return (i);
 	}
 	return (-1);
-}
-
-/*
-** 
-*/
-
-int		recup_nb_negative(char *dst, char c)
-{
-	if (c == '-')
-	{
-		dst[0] = c;
-		dst[1] = '\0';
-		return (1);
-	}
-	return (0);
 }

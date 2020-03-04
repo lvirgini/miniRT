@@ -6,33 +6,43 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/29 19:36:06 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:29:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int create_sphere(char *str)
+int		create_sphere(char *str)
 {
+	if (str)
+		;
 	return (0);
 }
 
-int create_plane(char *str)
+int		create_plane(char *str)
 {
-	return(0);
+	if (str)
+		;
+	return (0);
 }
 
-int create_square(char *str)
+int		create_square(char *str)
 {
-	return(0);
+	if (str)
+		;
+	return (0);
 }
 
-int create_cyl(char *str)
+int		create_cyl(char *str)
 {
-	return(0);
+	if (str)
+		;
+	return (0);
 }
 
-int create_triangle(char *str)
+int		create_triangle(char *str)
 {
-	return(0);
+	if (str)
+		;
+	return (0);
 }

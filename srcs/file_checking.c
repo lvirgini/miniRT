@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 13:06:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:32:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int		file_checking(int ac, char **av)
 		return (file_error("no file in first argument"));
 	if (file_type(av[1]) == -1)
 		return (file_error("file is not .rt"));
-	return (read_file(av[1]));	
+	return (read_file(av[1]));
 }

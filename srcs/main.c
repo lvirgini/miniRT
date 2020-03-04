@@ -6,20 +6,19 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 19:02:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:30:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_scene		*g_scene;
 t_app		*g_app;
 
 int		main(int ac, char **av)
 {
-	g_scene = malloc_scene();
+	g_app = malloc_application();
 	if (file_checking(ac, av) == -1)
 		return (-1);
-	free_scene(g_scene);
+	free_application(g_app);
 	return (0);
 }

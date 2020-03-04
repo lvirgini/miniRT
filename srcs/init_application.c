@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/01 18:22:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:31:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 t_app	create_application(void)
 {
 	t_app app;
+
 	ft_bzero(&app, sizeof(app));
 	return (app);
 }
@@ -27,13 +28,14 @@ t_app	create_application(void)
 ** Creation avec malloc d'une t_app
 */
 
-t_app	 *malloc_application(void)
+t_app	*malloc_application(void)
 {
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
 		return (NULL);
 	*app = create_application();
+	app->scene = malloc_scene();
 	return (app);
 }
 
@@ -43,6 +45,7 @@ t_app	 *malloc_application(void)
 
 void	destroy_application(t_app to_destroy)
 {
+	free_scene(to_destroy.scene);
 	(void)to_destroy;
 }
 
@@ -50,7 +53,7 @@ void	destroy_application(t_app to_destroy)
 ** free de l'integralite d'une t_app
 */
 
-void 	free_application(t_app *to_free)
+void	free_application(t_app *to_free)
 {
 	destroy_application(*to_free);
 	free(to_free);

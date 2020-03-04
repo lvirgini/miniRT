@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 14:20:56 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:38:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 # include "minirt.h"
 
-typedef	int 				(*t_func)(char *);
+typedef	int					(*t_func)(char *);
 typedef unsigned char		t_uchar;
-
 
 typedef struct s_color		t_color;
 typedef struct s_camera		t_camera;
@@ -31,16 +30,16 @@ typedef struct s_square		t_square;
 typedef struct s_cyl		t_cyl;
 typedef struct s_triangle	t_triangle;
 
-struct s_vector2
+struct	s_vector2
 {
-	int 	x;
-	int 	y;
+	int		x;
+	int		y;
 };
 
-struct s_vector3
+struct	s_vector3
 {
-	float 	x;
-	float 	y;
+	float	x;
+	float	y;
 	float	z;
 };
 
@@ -52,41 +51,41 @@ struct	s_color
 	t_uchar a;
 };
 
-struct s_camera
+struct	s_camera
 {
 	int			fov; //compris entre 0 et 180
 	t_vector3	pos;
 	t_vector3	orient;
 };
 
-struct s_ambiant
+struct	s_ambiant
 {
 	float		ratio;
 	t_color		color;
 };
 
-struct s_light
+struct	s_light
 {
 	float		ratio;
 	t_vector3	pos;
 	t_color		color;
 };
 
-struct s_sphere
+struct	s_sphere
 {
 	t_vector3	pos;
 	float		diameter;
 	t_color		color;
 };
 
-struct s_plane
+struct	s_plane
 {
 	t_vector3	pos;
 	t_vector3	orient;
 	t_color		color;
 };
 
-struct s_square
+struct	s_square
 {
 	t_vector3	pos;
 	t_vector3	orient;
@@ -94,7 +93,7 @@ struct s_square
 	t_color		color;
 };
 
-struct s_cyl
+struct	s_cyl
 {
 	t_vector3	pos;
 	t_vector3	orient;
@@ -103,12 +102,12 @@ struct s_cyl
 	float		diameter;
 };
 
-struct s_triange
+struct	s_triange
 {
 	t_vector3	pos1;
 	t_vector3	pos2;
 	t_vector3	pos3;
-	t_color		color;	
+	t_color		color;
 };
 
 #endif

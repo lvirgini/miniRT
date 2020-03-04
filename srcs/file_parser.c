@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 13:06:06 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:18:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		read_file(char *str)
 {
-	int 	fd_file;
+	int		fd_file;
 	int		num_f;
 	char	*line;
-	t_func 	*f;
+	t_func	f[9];
 
-	f = set_functions(f);
+	set_functions(f);
 	if ((fd_file = open(str, O_RDONLY)) == -1)
-		return(file_error("file cannot be read by the (read) function"));
+		return (file_error("file cannot be read by the (read) function"));
 	while (get_next_line(fd_file, &line) > 0)
 	{
 		if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
@@ -29,7 +29,7 @@ int		read_file(char *str)
 			if (f[num_f](line) == -1)
 			{
 				free(line);
-				return (-1); 
+				return (-1);
 			}
 		}
 		free(line);
@@ -44,9 +44,12 @@ int		read_file(char *str)
 
 int		index_set(char *s)
 {
-	char *set = "RAlcpct";
+	char	*set;
 
-	if(s[0] == 's')
+	set = "RAlcpct";
+	if (!s)
+		return (-1);
+	if (s[0] == 's')
 	{
 		if (s[1] == 'p')
 			return (7);
@@ -55,7 +58,7 @@ int		index_set(char *s)
 		else
 			return (-1);
 	}
-	return (ft_strchr_i(set, s[0])); 
+	return (ft_strchr_i(set, s[0]));
 }
 
 /*
@@ -64,9 +67,8 @@ int		index_set(char *s)
 ** 		R	A	l	c	p	c	t	sp	sq
 */
 
-
-t_func		*set_functions(t_func *f) 
-{	
+void	set_functions(t_func *f)
+{
 	f[0] = &create_resolution;
 	f[1] = &create_ambiant_ligth;
 	f[2] = &create_light;
@@ -76,45 +78,13 @@ t_func		*set_functions(t_func *f)
 	f[6] = &create_triangle;
 	f[7] = &create_sphere;
 	f[8] = &create_square;
-
-
-		return(f);
 }
 
 /*
 ** verifie s'il ne manque pas un parametre obligatoire pour le scene.
 */
 
-int	check_file_is_complete(void)
+int		check_file_is_complete(void)
 {
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-/* foret de if
-int	line_parser(char *line)
-{
-	
-		
-	if (line[0] == 'R')
-		return(line_resolution(line));
-	else if (line[0] == 'A')
-		return(line_ambiant_light(line));
-	else if (line[0] == 'l')
-		return (line_light(line));
-	else if (line[0] == 'c')
-		return(line_ambiant_light(line));
-	else if (line[0] == '')
-		return (line_light(line));
-	
-	return (0);
-}*/

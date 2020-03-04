@@ -74,5 +74,8 @@ int main()
 	char *s = "1234567.1234549";
 	printf("%f\n", ft_atof(s));
 	printf("%f\n", atof(s));
+
+	
+	
 	return (0);
 }

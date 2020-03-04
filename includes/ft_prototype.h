@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/03 14:55:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:39:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,20 @@ int			file_error(char *error);
 int			read_file(char *str);
 int			line_parser(char *line);
 int			index_set(char *s);
-t_func		*set_functions(t_func *f);
+void		set_functions(t_func *f);
 int			check_file_is_complete(void);
 int			line_recup_number_float(char *str, float *result);
 int			line_recup_number_int(char *str, int *result);
 int			recup_nb_negative(char *dst, char c);
-
 
 /*
 ** Fonction qui gerent la variable t_app
 */
 
 t_app		create_application(void);
-t_app		 *malloc_application(void);
+t_app		*malloc_application(void);
 void		destroy_application(t_app to_destroy);
-void 		free_application(t_app *to_free);
+void		free_application(t_app *to_free);
 
 /*
 ** Fonctions qui gerent les variable t_scene
@@ -54,20 +53,19 @@ void		free_scene(t_scene *to_free);
 ** Fonctions qui creent une donnee d'un objet
 */
 
-int 		create_sphere(char *str);
-int 		create_plane(char *str);
-int 		create_square(char *str);
-int 		create_triangle(char *str);
-int 		create_cyl(char *str);
+int			create_sphere(char *str);
+int			create_plane(char *str);
+int			create_square(char *str);
+int			create_triangle(char *str);
+int			create_cyl(char *str);
 
 /*
 ** Fonctions qui creent les elements indispensables d'une scene.
 */
 
-int 		create_resolution(char *str);
-int 		create_ambiant_ligth(char *str);
-int 		create_light(char *str);
-int 		create_camera(char *str);
-
+int			create_resolution(char *str);
+int			create_ambiant_ligth(char *str);
+int			create_light(char *str);
+int			create_camera(char *str);
 
 #endif
