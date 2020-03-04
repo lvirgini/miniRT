@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 15:38:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:57:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ struct	s_color
 	t_uchar r;
 	t_uchar g;
 	t_uchar b;
-	t_uchar a;
 };
 
 struct	s_camera

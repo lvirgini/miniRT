@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 15:39:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:57:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		set_functions(t_func *f);
 int			check_file_is_complete(void);
 int			line_recup_number_float(char *str, float *result);
 int			line_recup_number_int(char *str, int *result);
+int			line_recup_t_color(char *s, t_color *res);
 int			recup_nb_negative(char *dst, char c);
 
 /*

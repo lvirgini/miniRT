@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 15:21:08 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:31:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,16 @@ int		create_resolution(char *str)
 
 int		create_ambiant_ligth(char *str)
 {
-	if (str)
-		;
+	int 		i;
+	t_ambiant 	*l_ambiant;
+
+	i = line_recup_number_float(str, &(l_ambiant->ratio));
+	if (i < 0 || l_ambiant->ratio < 0 || l_ambiant->ratio > 1)
+		return (file_error("AMBIANT LIGHT : le ratio doit etre compris entre 0 et 1"));
+	i = line_recup_t_color(str + i, &(l_ambiant->color));
+	if (i < 0)
+		return (file_error("AMBIANT LIGHT : les couleurs doivent etre comprise entre 0 et 255"));
+	g_app->scene->ambiant = l_ambiant;
 	return (0);
 }
 

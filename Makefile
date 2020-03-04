@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/04 14:44:40 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/03/04 17:31:56 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ all:		$(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 			mkdir -p $(OBJ_DIR)
-			$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
+			$(CC) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
 			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@
