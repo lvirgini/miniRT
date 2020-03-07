@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 16:57:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:40:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,12 @@
 */
 
 int			file_checking(int ac, char **av);
-int			file_type(char *str);
-int			file_error(char *error);
+int			file_error(char *location, int error);
 int			read_file(char *str);
 int			line_parser(char *line);
-int			index_set(char *s);
-void		set_functions(t_func *f);
-int			check_file_is_complete(void);
-int			line_recup_number_float(char *str, float *result);
-int			line_recup_number_int(char *str, int *result);
-int			line_recup_t_color(char *s, t_color *res);
-int			recup_nb_negative(char *dst, char c);
+int			line_get_float(char *str, float *result);
+int			line_get_int(char *str, int *result);
+int			line_get_t_color(char *s, t_color *res);
 
 /*
 ** Fonction qui gerent la variable t_app
@@ -51,22 +46,17 @@ void		destroy_scene(t_scene to_destroy);
 void		free_scene(t_scene *to_free);
 
 /*
-** Fonctions qui creent une donnee d'un objet
+** Fonctions qui récupèrent les éléments fournis dans le .rt
 */
 
-int			create_sphere(char *str);
-int			create_plane(char *str);
-int			create_square(char *str);
-int			create_triangle(char *str);
-int			create_cyl(char *str);
-
-/*
-** Fonctions qui creent les elements indispensables d'une scene.
-*/
-
-int			create_resolution(char *str);
-int			create_ambiant_ligth(char *str);
-int			create_light(char *str);
-int			create_camera(char *str);
+int			get_sphere(char *str);
+int			get_plane(char *str);
+int			get_square(char *str);
+int			get_triangle(char *str);
+int			get_cyl(char *str);
+int			get_resolution(char *str);
+int			get_ambiant_ligth(char *str);
+int			get_light(char *str);
+int			get_camera(char *str);
 
 #endif

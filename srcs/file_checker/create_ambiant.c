@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 21:01:59 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:36:43 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,42 @@
 ** Recuperation de la resolution a partir de la ligne R du fichier.rt
 */
 
-int		create_resolution(char *str)
+int		get_resolution(char *str)
 {
 	int		i;
 
 	if ((g_app->x) || (g_app->y))
-		return (file_error("RESOLUTION : definit deux fois dans le fichier"));
-	if ((i = line_recup_number_int(str, &(g_app->x))) < 0
-		|| (i = line_recup_number_int(str + i, &(g_app->y))) < 0)
-		return (file_error("RESOLUTION : tailles mal definies"));
-	if (g_app->x == -1 || g_app->y == -1)
-		return (file_error("RESOLUTION : resolution impossible"));
+		return (file_error("RESOLUTION", 1));
+	if (!(i = line_get_int(str, &(g_app->x)))
+		|| !(i = line_get_int(str + i, &(g_app->y))) 
+		|| g_app->x < 0 || g_app->y < 0) 
+		return (file_error("RESOLUTION", 2));
 	return (0);
 }
 
-int		create_ambiant_ligth(char *str)
+int		get_ambiant_ligth(char *str)
 {
 	int 		i;
 	t_ambiant 	*l_ambiant;
 
-	i = line_recup_number_float(str, &(l_ambiant->ratio));
-	if (i < 0 || l_ambiant->ratio < 0 || l_ambiant->ratio > 1)
-		return (file_error("AMBIANT LIGHT : le ratio doit etre compris entre 0 et 1"));
-	i = line_recup_t_color(str + i, &(l_ambiant->color));
-	if (i < 0)
-		return (file_error("AMBIANT LIGHT : les couleurs doivent etre comprise entre 0 et 255"));
+	if (g_app->scene->ambiant)
+		return (file_error("AMBIANT LIGHT", 1));
+	if (!(i = line_get_float(str, &(l_ambiant->ratio)))
+		|| l_ambiant->ratio < 0 || l_ambiant->ratio > 1
+		|| !(i = line_get_t_color(str + i, &(l_ambiant->color))))
+		return (file_error("AMBIANT LIGHT", 2));
 	g_app->scene->ambiant = l_ambiant;
 	return (0);
 }
 
-int		create_light(char *str)
+int		get_light(char *str)
 {
 	if (str)
 		;
 	return (0);
 }
 
-int		create_camera(char *str)
+int		get_camera(char *str)
 {
 	if (str)
 		;

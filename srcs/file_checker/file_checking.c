@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 15:32:53 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:38:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,32 @@
 ** print error of file
 */
 
-int		file_error(char *error)
+int		file_error(char *location, int error)
 {
-//	ft_printf("l.%d, %s, %s\n", _LINE_, _FUNCTION_, _FILE_);
-	ft_printf("Error : %s\n", error);
+	ft_putstr("Error in file :\n");
+	if (location)
+		ft_putstr(location);
+	if (error == 0)
+		;
+	else if (error == 1)
+		ft_putstr("defined twice in file\n");
+	else if (error == 2)
+		ft_putstr("badly defined value\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	else if (error == 1)
+		ft_putstr("\n");
+	
 	return (-1);
 }
 
@@ -27,7 +49,7 @@ int		file_error(char *error)
 ** Checking if file is .rt;
 */
 
-int		file_type(char *str)
+static int		file_type(char *str)
 {
 	int		len;
 
@@ -47,8 +69,8 @@ int		file_checking(int ac, char **av)
 	if (ac == 3 && ft_strcmp(av[2], "--save"))
 		;
 	if (ac < 2)
-		return (file_error("no file in first argument"));
+		return (file_error("no file in first argument", 0));
 	if (file_type(av[1]) == -1)
-		return (file_error("file is not .rt"));
+		return (file_error("file is not .rt", 0));
 	return (read_file(av[1]));
 }

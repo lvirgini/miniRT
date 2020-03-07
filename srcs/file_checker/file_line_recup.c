@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 17:38:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:40:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_recup_number_float(char *str, float *result)
+int		line_get_float(char *str, float *result)
 {
 	int		neg;
 	int		i;
@@ -41,7 +41,7 @@ int		line_recup_number_float(char *str, float *result)
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_recup_number_int(char *str, int *result)
+int		line_get_int(char *str, int *result)
 {
 	int		neg;
 	int		i;
@@ -62,7 +62,11 @@ int		line_recup_number_int(char *str, int *result)
 	return (-1);
 }
 
-int		line_recup_t_color(char *s, t_color *res)
+/*
+** Recupere un t_color
+*/
+
+int		line_get_t_color(char *s, t_color *res)
 {
 	int i;
 	int j;
@@ -72,7 +76,7 @@ int		line_recup_t_color(char *s, t_color *res)
 	j = -1;
 	while (++j < 4)
 	{
-		i = line_recup_number_int(s + i, recup + j);
+		i = line_get_int(s + i, recup + j);
 		if (i < 0 || (recup[j] < 0 && recup[j] > 255))
 			return (-1);
 		if (j < 3 && s[i] != ',')
