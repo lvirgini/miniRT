@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/07 15:38:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:53:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		file_error(char *location, int error)
 		ft_putstr("defined twice in file\n");
 	else if (error == 2)
 		ft_putstr("badly defined value\n");
-	else if (error == 1)
-		ft_putstr("\n");
+	else if (error == 3)
+		ft_putstr(" is undefined\n");
 	else if (error == 1)
 		ft_putstr("\n");
 	else if (error == 1)

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/07 15:36:43 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:44:16 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int		get_resolution(char *str)
 		return (file_error("RESOLUTION", 1));
 	if (!(i = line_get_int(str, &(g_app->x)))
 		|| !(i = line_get_int(str + i, &(g_app->y))) 
-		|| g_app->x < 0 || g_app->y < 0) 
+		|| g_app->x <= 0 || g_app->y <= 0) 
 		return (file_error("RESOLUTION", 2));
+	g_app->x = g_app->x > RES_X_MAX ? RES_X_MAX : g_app->x ;
+	g_app->y = g_app->y > RES_Y_MAX ? RES_Y_MAX : g_app->y ;
+
 	return (0);
 }
 

@@ -6,11 +6,12 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/07 15:40:30 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/11 17:27:23 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "../../includes/minirt.h"
 
 /*
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.

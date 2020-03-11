@@ -6,12 +6,12 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/11 13:02:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:55:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+#include "../../includes/minirt.h"
 /*
 **  recherche l'index de fonctions correspondant a set_functions_get()
 */
@@ -30,6 +30,7 @@ static int		index_set(char *s)
 		if (s[1] == 'y')
 			return (6);
 		return (-1);
+	}
 	if (s[0] == 's')
 	{
 		if (s[1] == 'p')
@@ -66,6 +67,12 @@ static void		set_functions_get(t_func *f)
 
 static int			check_file_is_complete(void)
 {
+	if (g_app->x == 0 && g_app->y == 0)
+		return(file_error("RESOLUTION", 3));
+	if (g_app->scene->ambiant == NULL)
+		return(file_error("AMBIANT LIGHT", 3));
+	if (g_app->scene->cam == NULL)
+		return(file_error("CAMERA", 3));
 	return (0);
 }
 
@@ -83,18 +90,20 @@ int		read_file(char *str)
 	set_functions_get(f);
 	if ((fd_file = open(str, O_RDONLY)) == -1)
 		return (file_error("file cannot be read by the (read) function", 0));
+	get_next_line(fd_file, &line);
+	/*
 	while (get_next_line(fd_file, &line) > 0)
 	{
-		if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
+		/*if (line && line[0] != '\0' && ((num_f = index_set(line)) != -1))
 		{
-			if (f[num_f](line) == -1)
+		/*	if (f[num_f](line) == -1)
 			{
 				free(line);
 				return (-1);
 			}
-		}
-		free(line);
-	}
+		}*/
+		//free(line);
+	//}
 	close(fd_file);
 	return (check_file_is_complete());
 }

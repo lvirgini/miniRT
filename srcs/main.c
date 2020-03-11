@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/07 15:15:27 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:43:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int		main(int ac, char **av)
 		return (file_error("MALLOC", 1)); // errno ?
 	if (file_checking(ac, av) == -1)
 		return (-1);
-	free_application(g_app);
+	//free_application(g_app);
 	return (0);
 }
