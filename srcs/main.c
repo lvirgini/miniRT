@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 10:14:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 15:28:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		main(int ac, char **av)
 	int		x = 800;
 	int		y = 600;
 	char	*title = "Premier test";
-
+	void *test = 0;
+/*
 	t_xvar	*xvar;
 	
 	if (!(xvar = malloc(sizeof(*xvar))))
@@ -36,8 +37,8 @@ int		main(int ac, char **av)
 		printf("xvardisplay\n");
 	if (!(xvar = malloc(sizeof(*xvar))) || (xvar->display = XOpenDisplay(""))==0)
 		printf("xvardisplay2\n");
-	return(0);
-
+	
+	printf("xvar = %d, display = %d\n", xvar, xvar->display);
 	void *test = mlx_init();
 	printf("test = %llx, mlx init = %p\n", test = mlx_init(), mlx_init());
 	while (test == 0)
@@ -47,19 +48,21 @@ int		main(int ac, char **av)
 		printf("fucking ok %p\n", mlx_init());
 	}
 	return (0);
-	//printf("fucking ok %p\n", mlx_init());
+*/	//printf("fucking ok %p\n", mlx_init());
 	//test = mlx_init();
+	//printf("%d test\n",test );
 
-	while (mlx_init() != NULL)
+/*	while (mlx_init() != NULL)
 		printf("fucking ok %p\n", mlx_init());
-	return (0);
+	return (0);*/
 	if (!(g_app = malloc_application(x, y, title, test)))
 		return (file_error("MALLOC", 1));
 	g_app->img = malloc_image(x, y);
 	/*if (file_checking(ac, av) == -1)
 		return (-1);*/
 
-	clear_application(create_color(255, 255, 255, 255));
+	clear_application(create_color(255, 0, 255, 255));
+	premiers_test(NULL);
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
 
 	printf("%p\n", g_app->mlx_ptr);

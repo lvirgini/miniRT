@@ -6,12 +6,12 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 18:12:51 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/06 18:42:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 15:26:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-/*
+
 int		premiers_test(void *param)
 {
 	/*
@@ -38,7 +38,7 @@ int		premiers_test(void *param)
 	draw_rectangle(create_vec2(90, 90), create_vec2(150, 150), create_color(0, 255 , 0, 150));
 	draw_rectangle(create_vec2(140, 140), create_vec2(200, 200), create_color(0, 0 ,255, 150));
 
-	/*	for (int i = - 100; i < 800; i += 1)
+		for (int i = - 100; i < 800; i += 1)
 	{
 		draw_rectangle(create_vec2(i, i + 100), create_vec2(150, 150), create_color(255, 0, 0, 1));
 	}
@@ -57,12 +57,12 @@ int		premiers_test(void *param)
 
 	*/
 
-/*	clear_application(fuze_color(create_color(0,0, 50, 255), create_color(0, 255, 0, 100)));
+	clear_application(fuze_color(create_color(0,0, 50, 255), create_color(0, 255, 0, 100)));
 	draw_rectangle(create_vec2(130,180), create_vec2(160,400), create_color(0,0,0,100));
 	draw_rectangle(create_vec2(150,150), create_vec2(200,200), create_color(255,0,0,100));
 	draw_rectangle(create_vec2(180,180), create_vec2(250,250), create_color(0x33,0x33,0x66,150));
-	*/
-/*	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
+	
+	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
 	
 	return (0);
-}*/
+}

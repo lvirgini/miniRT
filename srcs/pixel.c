@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/06 18:35:33 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 15:25:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,16 @@
 ** 	couleur donnee en parametre.
 */
 
-void put_pixel(t_image *image, int x, int y, t_color color)
+void	put_pixel(t_image *image, int x, int y, t_color color)
 {
-	t_color actual;
-	t_color tmp;
-	int pixel_index;
+	t_color	actual;
+	t_color	tmp;
+	int		pixel_index;
 
 	if (x < 0 || y < 0 || x >= image->size.x || y >= image->size.y)
-		return;
-
+		return ;
 	pixel_index = (y * image->size.x + x) * 4;
-	actual = create_color(	image->pixels[pixel_index + RED_PIXEL],
+	actual = create_color(image->pixels[pixel_index + RED_PIXEL],
 							image->pixels[pixel_index + GREEN_PIXEL],
 							image->pixels[pixel_index + BLUE_PIXEL],
 							255);
