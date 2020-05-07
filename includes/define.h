@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/06 18:03:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 18:43:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@
 # define KEY_Z				17
 
 
-# define KEY_ESC			1
-# define KEY_SPACE			57
-# define KEY_ENTER			28
+# define KEY_ESC			65307 	//1
+# define KEY_SPACE			32		//57
+# define KEY_ENTER			65293  // 28
 
 //
 /* NOT USED //

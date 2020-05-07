@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 18:12:51 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 15:26:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 18:51:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		premiers_test(void *param)
 
 	*/
 
-	clear_application(fuze_color(create_color(0,0, 50, 255), create_color(0, 255, 0, 100)));
+	clear_application(fuze_color(create_color(0,0, 150, 255), create_color(0, 220, 0, 150)));
 	draw_rectangle(create_vec2(130,180), create_vec2(160,400), create_color(0,0,0,100));
 	draw_rectangle(create_vec2(150,150), create_vec2(200,200), create_color(255,0,0,100));
 	draw_rectangle(create_vec2(180,180), create_vec2(250,250), create_color(0x33,0x33,0x66,150));

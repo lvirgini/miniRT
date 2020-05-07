@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 15:28:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 18:52:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			premiers_test(void *param);
 ** Fonctions traitant les events pour les fonctions mlx
 */
 
-//int			 handle_key(int key, void *param);
+int 		handle_key(int key, void **param);
 
 /*
 ** Fonctions de traitement du file.rt
@@ -41,8 +41,8 @@ int			line_get_t_color(char *s, t_color *res);
 ** Fonction qui gerent la variable t_app
 */
 
-t_app		create_application(int x, int y, char *title, void *test);
-t_app		*malloc_application(int x, int y, char *title, void *test);
+t_app		create_application(int x, int y, char *title);
+t_app		*malloc_application(int x, int y, char *title);
 void		destroy_application(t_app to_destroy);
 void		free_application(t_app *to_free);
 void		application_create_content(void);

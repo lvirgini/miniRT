@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 15:21:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/07 15:51:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Mise a zero d'une t_app / creation sans malloc
 */
 
-t_app	create_application(int x, int y, char *title, void *test)
+t_app	create_application(int x, int y, char *title)
 {
 	t_app app;
 				
@@ -31,13 +31,13 @@ t_app	create_application(int x, int y, char *title, void *test)
 ** Creation avec malloc d'une t_app
 */
 
-t_app	*malloc_application(int x, int y, char *title, void *test)
+t_app	*malloc_application(int x, int y, char *title)
 {
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
 		return (NULL);
-	*app = create_application(x, y, title, test);
+	*app = create_application(x, y, title);
 	return (app);
 }
 
