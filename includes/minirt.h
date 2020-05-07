@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/07 15:14:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/05 10:38:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <math.h>
 # include <stdio.h> //
 
 /*
 ** INCLUDES de librairies internes
 */
 
-# include "ft_printf.h"
 # include "libft.h"
+# include "ft_printf.h"
+# include "ft_vector.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 /*
 ** INCLUDES propre a minirt

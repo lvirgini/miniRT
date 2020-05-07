@@ -1,48 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_objet.c                                        :+:      :+:    :+:   */
+/*   divers_application.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/29 15:52:27 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/04/29 17:02:24 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/04/30 14:28:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		get_sphere(char *str)
-{
-	if (str)
-		return(0);
-	return (0);
-}
+/*
+** Remplis entierement la fenetre de la couleur donnee en parametre.
+*/
 
-int		get_plane(char *str)
+void clear_application(t_color color)
 {
-	if (str)
-		return (0);
-	return (0);
-}
+	size_t i;
+	size_t j;
 
-int		get_square(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_cyl(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_triangle(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
+	i = 0;
+	while (i < g_app->size.x)
+	{
+		j = 0;
+		while (j < g_app->size.y)
+		{
+			put_pixel(g_app->img, i, j, color);
+			j++;
+		}
+		i++;
+	}
 }
