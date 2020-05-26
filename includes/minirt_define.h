@@ -1,39 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   minirt_define.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 18:43:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/26 11:36:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
-
-/*
-**	DEFINES classiques
-*/
-
-# define SUCCESS 	0
-# define FAIL 		-1
-# define RES_X_MAX 	1500 //
-# define RES_Y_MAX 	1500 //
-
-# define uchar	unsigned char
-
-/*
-** Defini l'emplacement de la couleur sur un pixel
-** un pixel contient 4 u_char : 0 = blue, 1 = green, 2 = red, 3 = alpha
-*/
-
-# define BLUE_PIXEL	 0
-# define GREEN_PIXEL 1
-# define RED_PIXEL	 2
-# define ALPHA_PIXEL 3
-
+#ifndef MINIRT_DEFINE_H
+# define MINIRT_DEFINE_H
 
 /*
 ** EVENT MLX 
@@ -102,12 +80,12 @@
 */
 
 # define KEY_A				16
-# define KEY_B				48
+# define KEY_B				98		//48
 # define KEY_C				46
 # define KEY_D				32
 # define KEY_E				18
 # define KEY_F				33
-# define KEY_G				34
+# define KEY_G				103		//34
 # define KEY_H				35
 # define KEY_I				23
 # define KEY_J				36
@@ -118,7 +96,7 @@
 # define KEY_O				24
 # define KEY_P				25
 # define KEY_Q				30
-# define KEY_R				19
+# define KEY_R				114		//19
 # define KEY_S				31
 # define KEY_T				20
 # define KEY_U				22
