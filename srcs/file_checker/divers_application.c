@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   divers_application.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/11 18:21:35 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/04/29 17:02:24 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/04/30 14:28:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
+#include "minirt.h"
 
 /*
-**	DEFINES classiques
+** Remplis entierement la fenetre de la couleur donnee en parametre.
 */
 
-# define SUCCESS 0
-# define FAIL -1
-# define RES_X_MAX 1500 //
-# define RES_Y_MAX 1500 //
-/*
-** DEFINE ERRORS
-*/
+void clear_application(t_color color)
+{
+	size_t i;
+	size_t j;
 
-# define AFFICHE_INFO_DEBUG //
-
-#endif
+	i = 0;
+	while (i < g_app->size.x)
+	{
+		j = 0;
+		while (j < g_app->size.y)
+		{
+			put_pixel(g_app->img, i, j, color);
+			j++;
+		}
+		i++;
+	}
+}

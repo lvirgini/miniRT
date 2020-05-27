@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/03/04 17:31:56 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/05/07 15:10:57 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,18 +16,16 @@
 
 NAME =		a.out #####################
 
-LIB_DIR =	lib/libft/	lib/minilibx/ 
-# lib/NOT_MLX/#
+LIB_DIR =	lib/libft/	lib/mlx_linux2/ 
 SRC_DIR =	$(shell find srcs -type d)
-INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx 
-#lib/NOT_MLX/incs#
+INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/mlx_linux2
 OBJ_DIR =	obj/
 
-LIB		=	ft mlx
+LIB		=	ft mlx  m GLEW glfw GL
 SRC 	=	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdir $(file))))
 OBJ 	=	$(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 HEADERS = 	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
-FRAMEWORK = AppKit OpenGL
+#FRAMEWORK = AppKit OpenGL
 
 vpath %.c $(foreach dir, $(SRC_DIR)/, $(dir):)
 vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
@@ -39,7 +37,8 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 
 CC 		=	gcc
 
-CFLAG 	= 	-Wall -Werror -Wextra -g
+CFLAG 	= 	-Wall -Wextra -g -O2 -std=gnu99 -Wpedantic
+#-O2 -std=gnu99 
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
 LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
@@ -53,22 +52,20 @@ all:		$(NAME)
 
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
-			mkdir -p $(OBJ_DIR)
-			$(CC) $(IFLAG) -o $@ -c $< 
+			@mkdir -p $(OBJ_DIR)
+			@$(CC) -Wall -Wextra -g $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
-			$(CC) $(CFLAG) $(IFLAG) $(LFLAG) $(OBJ) -o $@
+			$(CC) $(CFLAG) $(IFLAG) $(OBJ) $(LFLAG)-o $@ -lX11 -lXext -lXdamage -lXfixes -lXtst -lm -lbsd
 
 
 install :
 			@make -C lib/libft
-			@make -C lib/minilibx
-#@make -C lib/NOT_MLX
+#	@make -C lib/minilibx-linux
 
 re-install :
 			@make -C lib/libft re
-			@make -C lib/minilibx re
-#@make -C lib/NOT_MLX re
+	#		@make -C lib/minilibx-linux re
 
 bonus : all
 
@@ -82,7 +79,6 @@ show	:
 			@echo "HEADERS : $(foreach file, $(HEADERS),\n\t$(file))\n"
 			@echo "SRC :$(foreach file, $(SRC),\n\t$(file))\n"
 			@echo "OBJ :$(foreach file, $(OBJ),\n\t$(file))\n"
-
 
 
 # ----------------- #

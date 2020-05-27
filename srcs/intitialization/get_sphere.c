@@ -1,48 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_objet.c                                        :+:      :+:    :+:   */
+/*   get_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/29 15:52:27 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/05/27 11:29:51 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/05/27 14:49:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		get_sphere(char *str)
+t_sphere		create_sphere(t_vec3 pos, float radius, t_color color)
 {
-	if (str)
-		return(0);
-	return (0);
+	t_sphere sphere;
+
+	sphere.pos = pos;
+	sphere.radius = radius;
+	sphere.color = color;
+	return(sphere);
 }
 
-int		get_plane(char *str)
+t_sphere		*malloc_sphere(t_vec3 pos, float radius, t_color color)
 {
-	if (str)
-		return (0);
-	return (0);
+	t_sphere *sphere;
+
+		if(!(sphere = malloc(sizeof(t_sphere))))
+			minirt_error(1);
+		*sphere = create_sphere(pos, radius, color);
+	return (sphere);
 }
 
-int		get_square(char *str)
+void			free_sphere(t_sphere *sphere)
 {
-	if (str)
-		return (0);
-	return (0);
+	free(sphere);
 }
 
-int		get_cyl(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
 
-int		get_triangle(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}

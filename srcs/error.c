@@ -1,48 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_objet.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/29 15:52:27 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/05/27 14:44:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		get_sphere(char *str)
+void	minirt_error(int nb_error)
 {
-	if (str)
-		return(0);
-	return (0);
-}
-
-int		get_plane(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_square(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_cyl(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_triangle(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
+	if (nb_error == 1)
+		ft_putstr("Error : Malloc return NULL : allocation problem\n");
 }

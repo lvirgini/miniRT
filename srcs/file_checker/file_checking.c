@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/11 19:53:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:51:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		file_error(char *location, int error)
 		ft_putstr("\n");
 	else if (error == 1)
 		ft_putstr("\n");
-	
 	return (-1);
 }
 
@@ -67,7 +66,7 @@ static int		file_type(char *str)
 int		file_checking(int ac, char **av)
 {
 	if (ac == 3 && ft_strcmp(av[2], "--save"))
-		;
+		return(0);	////
 	if (ac < 2)
 		return (file_error("no file in first argument", 0));
 	if (file_type(av[1]) == -1)

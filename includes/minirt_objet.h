@@ -1,60 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_objet.h                                     :+:      :+:    :+:   */
+/*   minirt_objet.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/04 16:57:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 17:50:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_OBJET_H
-# define STRUCT_OBJET_H
+#ifndef MINIRT_OBJET_H
+# define MINIRT_OBJET_H
 
 # include "minirt.h"
 
-typedef	int					(*t_func)(char *);
-typedef unsigned char		t_uchar;
+# define SPHERE		1
+# define PLANE		2
+# define SQUARE		3
+# define CYLINDRE	4
+# define TRIANGLE	5
 
-typedef struct s_color		t_color;
+typedef	int					(*t_func)(char *);
+
+typedef struct s_obj	t_obj;
+
 typedef struct s_camera		t_camera;
 typedef struct s_ambiant	t_ambiant;
 typedef struct s_light		t_light;
-typedef struct s_vector2	t_vector2;
-typedef struct s_vector3	t_vector3;
 typedef struct s_sphere		t_sphere;
 typedef struct s_plane		t_plane;
 typedef struct s_square		t_square;
 typedef struct s_cyl		t_cyl;
 typedef struct s_triangle	t_triangle;
 
-struct	s_vector2
+struct s_obj
 {
-	int		x;
-	int		y;
+	int		type;
+	void	*shape;
+	void 	*next;
 };
 
-struct	s_vector3
-{
-	float	x;
-	float	y;
-	float	z;
-};
-
-struct	s_color
-{
-	t_uchar r;
-	t_uchar g;
-	t_uchar b;
-};
 
 struct	s_camera
 {
-	int			fov; //compris entre 0 et 180
-	t_vector3	pos;
-	t_vector3	orient;
+	double		fov; //compris entre 0 et 180
+	t_vec3		pos;
+	t_vec3		orient;
 };
 
 struct	s_ambiant
@@ -66,36 +58,37 @@ struct	s_ambiant
 struct	s_light
 {
 	float		ratio;
-	t_vector3	pos;
+	t_vec3		pos;
 	t_color		color;
 };
 
 struct	s_sphere
 {
-	t_vector3	pos;
-	float		diameter;
+	t_vec3		pos;
+	float		radius;
 	t_color		color;
 };
 
 struct	s_plane
 {
-	t_vector3	pos;
-	t_vector3	orient;
+	t_vec3		pos;
+	t_vec3		orient;
+	t_vec3		normal;
 	t_color		color;
 };
 
 struct	s_square
 {
-	t_vector3	pos;
-	t_vector3	orient;
+	t_vec3		pos;
+	t_vec3		orient;
 	float		hight;
 	t_color		color;
 };
 
 struct	s_cyl
 {
-	t_vector3	pos;
-	t_vector3	orient;
+	t_vec3		pos;
+	t_vec3		orient;
 	t_color		color;
 	float		hight;
 	float		diameter;
@@ -103,10 +96,33 @@ struct	s_cyl
 
 struct	s_triange
 {
-	t_vector3	pos1;
-	t_vector3	pos2;
-	t_vector3	pos3;
+	t_vec3		pos1;
+	t_vec3		pos2;
+	t_vec3		pos3;
 	t_color		color;
 };
+
+
+/*
+** Fonctions initialisation de la liste d'object
+*/
+
+t_obj		create_object(int type, void *shape);
+t_obj 		*malloc_object(int type, void *shape);
+void		destroy_object(t_obj obj);
+void		free_object(t_obj *obj);
+void		free_all_object(t_obj **obj);
+
+/*
+** Fonctions initialisation des objets
+*/
+
+t_sphere		create_sphere(t_vec3 pos, float rayon, t_color color);
+t_sphere		*malloc_sphere(t_vec3 pos, float rayon, t_color color);
+void			free_sphere(t_sphere *sphere);
+
+
+t_camera		*malloc_camera(double fov, t_vec3 pos,	t_vec3 orient);
+void			free_camera(t_camera *cam);
 
 #endif

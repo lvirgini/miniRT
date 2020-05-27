@@ -1,48 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_objet.c                                        :+:      :+:    :+:   */
+/*   init_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/29 15:52:27 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/05/27 17:50:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		get_sphere(char *str)
+t_camera		*malloc_camera(double fov, t_vec3 pos,	t_vec3 orient)
 {
-	if (str)
-		return(0);
-	return (0);
+	t_camera *cam;
+
+	if (!(cam = malloc(sizeof(t_camera))))
+		minirt_error(1);
+	cam->fov = fov;
+	cam->pos = pos;
+	cam->orient = orient;
+	return (cam);
 }
 
-int		get_plane(char *str)
+void			free_camera(t_camera *cam)
 {
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_square(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_cyl(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
-}
-
-int		get_triangle(char *str)
-{
-	if (str)
-		return (0);
-	return (0);
+	free(cam);
 }
