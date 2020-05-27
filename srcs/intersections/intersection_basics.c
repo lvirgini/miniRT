@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 17:51:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 19:29:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int			find_intersection(t_camera *cam, int win_x, int win_y)
 	int i;
 	int j;
 
-	double fov = 60 * PI / 180;
-	printf("fov = %f et cam fov = %f\n", fov, cam->fov);
 	t_sphere *sphere;
 
 	sphere = malloc_sphere(create_vec3(0, 0, -55), 20, create_color(0,0,155,255));
@@ -117,8 +115,10 @@ int			find_intersection(t_camera *cam, int win_x, int win_y)
 		while (j < win_y)
 		{
 			ray->direction = ft_normalize_vec3(create_vec3(j - win_x / 2, i - win_y / 2, - win_x / 2 * tan(cam->fov/2)));
+
 			/// ICI A FAIRE COMME A DESSUS
-			if (intersect_sphere(*ray, *sphere) > 0)
+
+			if (intersect_objects(ray, *g_app->scene->objs) > 0)
 				put_pixel(g_app->img, i, j, sphere->color);
 			j++;
 		}
