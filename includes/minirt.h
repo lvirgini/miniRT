@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 11:34:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 15:25:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@
 # include "minirt_define.h"
 # include "minirt_color.h"
 # include "minirt_image.h"
-# include "minirt_application.h"
 # include "minirt_objet.h"
+# include "minirt_scene.h"
+# include "minirt_application.h"
+
 # include "minirt_drawing.h"
 # include "minirt_parsing.h"
 # include "minirt_intersection.h"
+
+void	minirt_error(int nb_error);
 
 extern t_app	*g_app;
 typedef	unsigned char	t_uchar;

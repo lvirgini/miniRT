@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 15:51:15 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 15:19:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_app	create_application(int x, int y, char *title)
 	app.mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ....
 	app.mlx_ptr = mlx_init();
 	app.win_ptr = mlx_new_window(app.mlx_ptr, x, y, title);
+	app.scene = NULL;
 	return (app);
 }
 
@@ -36,7 +37,7 @@ t_app	*malloc_application(int x, int y, char *title)
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
-		return (NULL);
+		minirt_error(1);
 	*app = create_application(x, y, title);
 	return (app);
 }

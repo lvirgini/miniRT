@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 12:24:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 17:11:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ struct	s_ray
 {
 	t_point3	origin;
 	t_vec3		direction;
-	float		tmax;
+	double		tmax;
 };
 
 
 t_ray		create_ray(t_vec3 origin, t_vec3 direction);
 t_ray		*malloc_ray(t_vec3 origin, t_vec3 direction);
 void		free_ray(t_ray *ray);
-t_vec3		point_ray_plus_f(double point_f)
+t_vec3		ray_calculate_t(t_ray ray, double t);
+
+
+int			find_intersection(t_camera *cam, int win_x, int win_y);
+double		intersect_objects(t_ray *ray, t_obj *objs);
+double		intersect_sphere(t_ray ray, t_sphere sphere);
 
 #endif

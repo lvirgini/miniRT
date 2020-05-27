@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 11:08:30 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 15:19:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_app		t_app;
 **		win_ptr : retour de mlx_new_window(), correspond a la fenetre a l'ecran.
 **		size : taille de la fenetre en pixel.
 **		img : le contenu de la fenetre.
+**		scene : toutes les infos concernant la scene.
 */
 
 struct		s_app
@@ -32,7 +33,7 @@ struct		s_app
 	void		*win_ptr;
 	t_vec2		size;
 	t_image		*img;
-	//t_scene		*scene;
+	t_scene		*scene;
 };
 
 /*

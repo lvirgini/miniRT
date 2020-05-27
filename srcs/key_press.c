@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 11:05:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 09:54:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int handle_key(int key, void **param)
 {
 	t_color *color;
-	t_color *color2;
+	//t_color *color2;
 
 	color = ((void **)(param))[0];
-	color2 = ((void **)(param))[1];
+	//color2 = ((void **)(param))[1];
 
 	printf("key = %d\n", key);
 	printf("param = %p\n", param);

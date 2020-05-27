@@ -6,12 +6,18 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 11:36:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 11:25:26 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
+
+/*
+** Divers utils
+*/
+
+# define PI  3.14159265359
 
 /*
 ** EVENT MLX 

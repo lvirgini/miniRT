@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_ray.c                                         :+:      :+:    :+:   */
+/*   get_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 12:15:40 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 14:50:53 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/05/27 11:29:51 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/05/27 14:49:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray		create_ray(t_vec3 origin, t_vec3 direction)
+t_sphere		create_sphere(t_vec3 pos, float radius, t_color color)
 {
-	t_ray result;
+	t_sphere sphere;
 
-	result.origin = origin;
-	result.direction = direction;
-	result.tmax = 50000;
-	return(result);
+	sphere.pos = pos;
+	sphere.radius = radius;
+	sphere.color = color;
+	return(sphere);
 }
 
-t_ray		*malloc_ray(t_vec3 origin, t_vec3 direction)
+t_sphere		*malloc_sphere(t_vec3 pos, float radius, t_color color)
 {
-	t_ray *ray;
-	
+	t_sphere *sphere;
 
-	if (!(ray = malloc(sizeof(t_ray))))
-		minirt_error(1);
-	*ray = create_ray(origin, direction);
-		printf("OK\n");
-	return(ray);
+		if(!(sphere = malloc(sizeof(t_sphere))))
+			minirt_error(1);
+		*sphere = create_sphere(pos, radius, color);
+	return (sphere);
 }
 
-void		free_ray(t_ray *ray)
+void			free_sphere(t_sphere *sphere)
 {
-	free(ray);
+	free(sphere);
 }
+
+

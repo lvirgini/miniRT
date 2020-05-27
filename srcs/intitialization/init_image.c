@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/07 15:23:23 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 14:50:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_image		*malloc_image(int x, int y)
 	t_image	*img;
 
 	if (!(img = malloc(sizeof(t_image))))
-		return (NULL);
+		minirt_error(1);
 	*img = create_image(x, y);
 	return (img);
 }
