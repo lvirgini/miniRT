@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 19:29:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/27 20:31:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ t_vec3		ray_calculate_t(t_ray ray, double t)
 	return (ft_add_vec3(ray.origin, ft_mul_vec3(ray.direction, t)));
 }
 
-
+/*
+** Recherche par type d'objet les intersecition avec le rayon
+*/
 
 
 double		intersect_objects(t_ray *ray, t_obj *objs)
@@ -49,61 +51,52 @@ double		intersect_objects(t_ray *ray, t_obj *objs)
 	return (t);
 }
 
-
-
 /*
-** Pour chaque pixel de l'image, recherche une intersection avec un obj
+** Recherche la premiere intersection avec un objet.
 */
 
+t_obj		*find_first_intersection(t_ray *ray, t_obj *objs)
+{
+	double	t1;
+	double	t2;
+	t_obj	*first_obj;
+	
+	if (!objs || (t1 = intersect_objects(ray, objs) == 0))
+		return (NULL);
+	first_obj = objs;
+	while (objs->next)
+	{
+		objs = objs->next;
+		t2 = intersect_objects(ray, objs);
+		if (t2 < t1)
+			first_obj = objs;
+	}
+	return (first_obj);
+}
+
+
+void		print_object(t_obj *obj, int x, int y)
+{
+	t_sphere *sphere;
+
+	if (obj->type == SPHERE)
+	{
+		sphere = (t_sphere *)obj->shape;
+		put_pixel(g_app->img, x, y, sphere->color);
+	}
+		
+
+}
 /*
-int			find_intersection(t_camera *cam, int win_x, int win_y)
+** Pour chaque pixel de l'image, recherche une intersection avec un obj en fonction du rayon de la camera (cam) envoyé en parametre.
+*/
+
+int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y)
 {
 	int		i;
 	int		j;
-	int		t;
-	
-	double fov = 60 * PI / 180;
-	
-	i = 0;
-	j = 0;
+	t_obj	*first_obj;
 
-	t_sphere *sphere;
-
-	sphere = malloc_sphere(create_vec3(0, 0, -55), 20, create_color(0,0,155,255));
-	t_ray *ray;
-	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-
-	while (i < win_x)
-	{
-		while (j < win_y)
-		{
-			ray->direction = ft_normalize_vec3(create_vec3(j - win_x / 2, i - win_y / 2, - win_x / 2 * tan(fov/2)));
-
-			if (intersect_sphere(*ray, *sphere) == True)
-				put_pixel(g_app->img, i, j, sphere->color);
-
-
-			//t = intersect_objects(ray, *(g_app)->scene->objs);
-			//if (t > 0)
-			//	put_pixel(g_app->img, i, j, create_color(0,0,155,255)); 
-			//j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (0);
-}*/
-
-
-
-int			find_intersection(t_camera *cam, int win_x, int win_y)
-{
-	int i;
-	int j;
-
-	t_sphere *sphere;
-
-	sphere = malloc_sphere(create_vec3(0, 0, -55), 20, create_color(0,0,155,255));
 	i = 0;
 	j = 0;
 
@@ -115,11 +108,12 @@ int			find_intersection(t_camera *cam, int win_x, int win_y)
 		while (j < win_y)
 		{
 			ray->direction = ft_normalize_vec3(create_vec3(j - win_x / 2, i - win_y / 2, - win_x / 2 * tan(cam->fov/2)));
-
-			/// ICI A FAIRE COMME A DESSUS
-
+			first_obj = find_first_intersection(ray, *g_app->scene->objs);
+			if (first_obj != NULL)
+				print_object(first_obj, i, j);
+/*
 			if (intersect_objects(ray, *g_app->scene->objs) > 0)
-				put_pixel(g_app->img, i, j, sphere->color);
+				put_pixel(g_app->img, i, j, create_color(0,0,155,255));*/
 			j++;
 		}
 		j = 0;
