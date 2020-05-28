@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 15:10:15 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/28 15:39:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_scene		t_scene;
 struct	s_scene
 {
 	t_camera	*cam;
-	t_obj		**objs;
+	t_obj		*objs;
 /*	t_camera	**cam;
 	t_ambiant	*ambiant;
 	t_light		**light;
@@ -35,8 +35,8 @@ struct	s_scene
 ** Fonctions qui gerent la variable t_scene
 */
 
-t_scene		create_scene(t_camera *cam, t_obj **objs);
-t_scene		*malloc_scene(t_camera *cam, t_obj **objs);
+t_scene		create_scene(t_camera *cam, t_obj *objs);
+t_scene		*malloc_scene(t_camera *cam, t_obj *objs);
 void		destroy_scene(t_scene to_destroy);
 void		free_scene(t_scene *to_free);
 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 20:31:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/28 16:57:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y)
 		while (j < win_y)
 		{
 			ray->direction = ft_normalize_vec3(create_vec3(j - win_x / 2, i - win_y / 2, - win_x / 2 * tan(cam->fov/2)));
-			first_obj = find_first_intersection(ray, *g_app->scene->objs);
+			first_obj = find_first_intersection(ray, g_app->scene->objs);
 			if (first_obj != NULL)
 				print_object(first_obj, i, j);
 /*

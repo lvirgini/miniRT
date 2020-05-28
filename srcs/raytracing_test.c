@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 20:31:06 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/28 16:54:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,14 @@ int 	find_sphere(void)
 
 int		raytracing_test(void *param)
 {
+	(void*)param;
 
-	t_color *color;
-	color = ((void **)(param))[2];
-
-	t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -55), 20, create_color(0, 0, 200, 200));
-
-	t_obj *obj = malloc_object(SPHERE, sphere);
-
-	t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 1));
-
-	g_app->scene = malloc_scene(cam, &obj);
-
-
+	t_color *color =  malloc_color(200, 50, 70, 255);
 	clear_application(*color);
-
+	
 	//find_sphere();
+
 	browse_image_for_intersection(g_app->scene->cam, g_app->size.x, g_app->size.y);
-
-
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
-
 	return (0);
 }
