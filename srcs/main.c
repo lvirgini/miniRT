@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 16:57:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/28 18:12:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		main(int ac, char **av)
 {
 	int		x = 800;
 	int		y = 600;
-	char	*title = "Premiers test";
+	char	*title = "Minirt";
 
 	if (!(g_app = malloc_application(x, y, title)))
 		return (file_error("MALLOC", 1));
