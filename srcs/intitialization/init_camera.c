@@ -6,11 +6,13 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 17:50:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/29 10:32:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+
 
 t_camera		*malloc_camera(double fov, t_vec3 pos,	t_vec3 orient)
 {
@@ -20,7 +22,7 @@ t_camera		*malloc_camera(double fov, t_vec3 pos,	t_vec3 orient)
 		minirt_error(1);
 	cam->fov = fov;
 	cam->pos = pos;
-	cam->orient = orient;
+	cam->orient = ft_normalize_vec3(orient);
 	return (cam);
 }
 

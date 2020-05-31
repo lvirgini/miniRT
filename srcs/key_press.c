@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 18:16:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 16:55:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int handle_key(int key, void **param)
 	//color = ((void **)(param))[0];
 	//color = ((void **)(param))[1];
 
-	(void **)param;
+	(void)param;
 	t_color *color =  malloc_color(200, 50, 70, 255);
 
 	printf("key = %d\n", key);
@@ -67,7 +67,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
 
-	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / 2 * tan(g_app->scene->cam->fov/2))); //
+	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
 	first_obj = find_first_intersection(ray, g_app->scene->objs);
 
 	if (first_obj)

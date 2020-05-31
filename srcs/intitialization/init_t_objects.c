@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:13:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 15:14:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 16:56:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void		free_object(t_obj *obj)
 ** Free de tous les t_obj
 */
 
-void		free_all_object(t_obj **obj)
+void		free_all_object(t_obj *obj)
 {
 	t_obj *tmp;
 
-	while (*obj)
+	while (obj)
 	{
-		tmp = (*obj)->next;
-		free_object(*obj);
-		obj = &tmp;
+		tmp = obj->next;
+		free_object(obj);
+		obj = tmp;
 	}
 }

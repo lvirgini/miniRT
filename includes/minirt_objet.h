@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 17:50:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 16:56:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_obj		create_object(int type, void *shape);
 t_obj 		*malloc_object(int type, void *shape);
 void		destroy_object(t_obj obj);
 void		free_object(t_obj *obj);
-void		free_all_object(t_obj **obj);
+void		free_all_object(t_obj *obj);
 
 /*
 ** Fonctions initialisation des objets
