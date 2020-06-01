@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/31 20:22:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 21:42:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ double		remap(double a, double b, double t)
 ** a*t*t + b*t + c = 0
 **/
 
-double		intersect_sphere(t_ray ray, t_sphere sphere)
+double		intersect_sphere(t_ray ray, t_sphere sphere, t_vec3 *point, t_vec3 *normal)
 {
 	double a;
 	double b;
@@ -93,8 +93,14 @@ c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2*/
 		return (0);
 	t[0] = (-b - sqrt(delta)) / (2 * a);
 	t[1] = (-b + sqrt(delta)) / (2 * a);
+
 	if (t[0] > 0)
+	{
+		*point = ft_add_vec3(ray.origin, ft_mul_vec3(ray.direction, t[0]));
+		*normal = ft_normalize_vec3(ft_sub_vec3(*point, sphere.pos));
 		return (t[0]);
+	}
+
 	if (t[0] < t[1] && t[0] < 0)
 		return (t[1]); /// DANS LA SPHERE
 	return (0);

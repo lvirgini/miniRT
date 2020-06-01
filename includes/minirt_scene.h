@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 15:39:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 21:05:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ struct	s_scene
 {
 	t_camera	*cam;
 	t_obj		*objs;
+	t_light		*light;
 /*	t_camera	**cam;
 	t_ambiant	*ambiant;
 	t_light		**light;

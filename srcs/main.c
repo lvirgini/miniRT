@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/31 20:10:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/01 12:22:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	testing_scene(void)
 	{
 		while (y < g_app->size.y)
 		{
-			if ((-40 + (g_app->size.x / 2)) == x)
+		/*	if ((-40 + (g_app->size.x / 2)) == x)
 				put_pixel(g_app->img, x, y, create_color(0, 0, 0, 255));
 			if ((-40 + (g_app->size.y / 2)) == y)
-				put_pixel(g_app->img, x, y, create_color(0, 0, 0, 255));
+				put_pixel(g_app->img, x, y, create_color(0, 0, 0, 255));*/
 			if (((g_app->size.x / 2)) == x)
 				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
 			if (((g_app->size.y / 2)) == y)
@@ -55,14 +55,19 @@ void	testing_scene(void)
 void	generate_scene(void)
 {
 	t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-	t_sphere *sphere = malloc_sphere(create_vec3(40, 40, -200), 20, create_color(0, 0, 255, 200));
-	t_sphere *sphere2 = malloc_sphere(create_vec3(0, -155, -350), 20, create_color(20, 50, 80, 140));
+	t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -200), 30.0, create_color(0, 0, 255, 200));
+	t_sphere *sphere2 = malloc_sphere(create_vec3(70, 70, -200), 20.0, create_color(180, 20, 1000, 255));
+	t_sphere *sphere3 = malloc_sphere(create_vec3(-70, -70, -200), 20.0, create_color(0, 180, 80, 255));
+	t_light *light = malloc_light(create_vec3(15, 180, -10), 10000000, create_color(255,255,255,255));/// ratio a voir
 
 	t_obj	*obj;
+
 	obj = malloc_object(SPHERE, sphere);
 	obj->next = malloc_object(SPHERE, sphere2);
+	obj->next->next = malloc_object(SPHERE, sphere3);
 	//printf("CREATION obj ->next = %p\n", obj->next);
 	g_app->scene = malloc_scene(cam, obj);
+	g_app->scene->light = light;
 }
 
 

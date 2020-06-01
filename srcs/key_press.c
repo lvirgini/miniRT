@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/31 16:55:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 22:08:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,21 @@ int handle_key(int key, void **param)
 		exit(0);
 	else if (key == KEY_SPACE)
 			;
-	else if (key == KEY_R)
+	/*else if (key == KEY_R)
 		color->r = color->r < 245 ? color->r + 10 : 255;
 	else if (key == KEY_G)
 		color->g = color->g < 245 ? color->g + 10 : 255;
 	else if (key == KEY_B)
-		color->b = color->b < 245 ? color->b + 10 : 255;
+		color->b = color->b < 245 ? color->b + 10 : 255;*/
+	else if (key == 65361) // fleche gauche
+		g_app->scene->light->pos.x -= 10;
+	else if (key == 65363) // fleche droite
+		g_app->scene->light->pos.x += 10;
+	else if (key == 65362) // fleche haut
+		g_app->scene->light->pos.y += 10;
+			else if (key == 65364) // fleche bas
+		g_app->scene->light->pos.y -= 10;
+	raytracing_test(param);
 	return (0);
 }
 
@@ -68,7 +77,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
 
 	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
-	first_obj = find_first_intersection(ray, g_app->scene->objs);
+	first_obj = find_first_intersection(ray, g_app->scene->objs, NULL, NULL);
 
 	if (first_obj)
 	{
