@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_camera.c                                      :+:      :+:    :+:   */
+/*   init_light.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/29 10:32:59 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/05/31 20:45:01 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/05/31 20:54:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-
-
-t_camera		*malloc_camera(double fov, t_vec3 pos,	t_vec3 orient)
+t_light		create_light(t_vec3 pos, double ratio, t_color color)
 {
-	t_camera *cam;
+	t_light light;
 
-	if (!(cam = malloc(sizeof(t_camera))))
-		minirt_error(1);
-	cam->fov = fov;
-	cam->pos = pos;
-	cam->orient = ft_normalize_vec3(orient);
-	return (cam);
+	light.pos = pos;
+	light.ratio = ratio;
+	light.color = color;
+	return (light);
 }
 
-void			free_camera(t_camera *cam)
+t_light		*malloc_light(t_vec3 pos, double ratio, t_color color)
 {
-	free(cam);
+	t_light *light;
+
+	if (!(light = malloc(sizeof(t_light))))
+		minirt_error(1);
+	*light = create_light(pos, ratio, color);
+	return (light);
+}
+
+void		free_light(t_light *light)
+{
+	free(light);
 }

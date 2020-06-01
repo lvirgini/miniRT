@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 15:12:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/28 15:36:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Mise a zero d'une t_scene / cretion sans malloc
 */
 
-t_scene		create_scene(t_camera *cam, t_obj **objs)
+t_scene		create_scene(t_camera *cam, t_obj *objs)
 {
 	t_scene		scene;
 
@@ -30,7 +30,7 @@ t_scene		create_scene(t_camera *cam, t_obj **objs)
 ** Creation avec Malloc d'une t_scene
 */
 
-t_scene		*malloc_scene(t_camera *cam, t_obj **objs)
+t_scene		*malloc_scene(t_camera *cam, t_obj *objs)
 {
 	t_scene		*scene;
 

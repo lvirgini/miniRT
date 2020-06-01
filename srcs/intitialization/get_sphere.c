@@ -6,13 +6,13 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 11:29:51 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 14:49:59 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/05/31 20:46:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere		create_sphere(t_vec3 pos, float radius, t_color color)
+t_sphere		create_sphere(t_vec3 pos, double radius, t_color color)
 {
 	t_sphere sphere;
 
@@ -22,7 +22,7 @@ t_sphere		create_sphere(t_vec3 pos, float radius, t_color color)
 	return(sphere);
 }
 
-t_sphere		*malloc_sphere(t_vec3 pos, float radius, t_color color)
+t_sphere		*malloc_sphere(t_vec3 pos, double radius, t_color color)
 {
 	t_sphere *sphere;
 
