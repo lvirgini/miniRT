@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/31 22:08:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/05 12:51:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,26 @@
 
 int handle_key(int key, void **param)
 {
-	//t_color *color;
-	//t_color *color;
-
-	//color = ((void **)(param))[0];
-	//color = ((void **)(param))[1];
-
 	(void)param;
-	t_color *color =  malloc_color(200, 50, 70, 255);
 
 	printf("key = %d\n", key);
-	//printf("param = %p\n", param);
-	//printf("param[0] = %p\n", param + 1);
 	
 	if (key == KEY_ESC)
 		exit(0);
 	else if (key == KEY_SPACE)
 			;
-	/*else if (key == KEY_R)
-		color->r = color->r < 245 ? color->r + 10 : 255;
-	else if (key == KEY_G)
-		color->g = color->g < 245 ? color->g + 10 : 255;
-	else if (key == KEY_B)
-		color->b = color->b < 245 ? color->b + 10 : 255;*/
 	else if (key == 65361) // fleche gauche
 		g_app->scene->light->pos.x -= 10;
 	else if (key == 65363) // fleche droite
 		g_app->scene->light->pos.x += 10;
 	else if (key == 65362) // fleche haut
 		g_app->scene->light->pos.y += 10;
-			else if (key == 65364) // fleche bas
+	else if (key == 65364) // fleche bas
 		g_app->scene->light->pos.y -= 10;
+	else if (key == 65451) // +
+		g_app->scene->light->pos.z -= 10;
+	else if (key == 65453) // -
+		g_app->scene->light->pos.z += 10;
 	raytracing_test(param);
 	return (0);
 }
@@ -77,7 +66,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
 
 	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
-	first_obj = find_first_intersection(ray, g_app->scene->objs, NULL, NULL);
+	first_obj = find_first_intersection(ray, g_app->scene->objs);
 
 	if (first_obj)
 	{
@@ -86,6 +75,12 @@ int		handle_mouse(int button, int x,int y, void *param)
 			sphere->radius += 1;
 		if (button == 5 && sphere->radius > 1)
 			sphere->radius -= 1;
+		if (button == 1)
+		{
+			t_color color = find_pixel_color(first_obj);
+			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
+		}
+			
 		raytracing_test(param);
 	}	
 

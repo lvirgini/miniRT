@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/01 12:22:27 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/05 12:21:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ int		exit_program(void)
 	return (0);
 }
 
-void	testing_scene(void)
+void	print_vec3(t_vec3 vec)
+{
+	printf("x = %f	y = %f	z = %f\n", vec.x, vec.y, vec.z);
+}
+
+void	make_croix_milieu(void)
 {
 	int x = 0;
 	int y = 0;
@@ -56,9 +61,9 @@ void	generate_scene(void)
 {
 	t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
 	t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -200), 30.0, create_color(0, 0, 255, 200));
-	t_sphere *sphere2 = malloc_sphere(create_vec3(70, 70, -200), 20.0, create_color(180, 20, 1000, 255));
+	t_sphere *sphere2 = malloc_sphere(create_vec3(70, 70, -200), 20.0, create_color(180, 20, 100, 255));
 	t_sphere *sphere3 = malloc_sphere(create_vec3(-70, -70, -200), 20.0, create_color(0, 180, 80, 255));
-	t_light *light = malloc_light(create_vec3(15, 180, -10), 10000000, create_color(255,255,255,255));/// ratio a voir
+	t_light *light = malloc_light(create_vec3(15, 180, -10), 15000000, create_color(255,255,255,255));/// ratio a voir
 
 	t_obj	*obj;
 
@@ -85,15 +90,9 @@ int		main(int ac, char **av)
 
 	void *param[5];
 
-	param[1] = malloc_color(0, 0, 255, 125);
-	param[2] = malloc_color(255, 0, 0, 255);
-	param[3] = malloc_color(0, 255, 0, 125);
-	param[4] = malloc_color(255,255,255,255);
-
-
 	generate_scene();
 	raytracing_test(param);
-	testing_scene();
+	make_croix_milieu();
 
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
  	mlx_key_hook(g_app->win_ptr,handle_key, param);
@@ -104,51 +103,11 @@ int		main(int ac, char **av)
 //	mlx_loop_hook(g_app->mlx_ptr, raytracing_test, param);
 //premiers_test(param);
 
-
-
-
-	printf("%p END g_app->scene->obj->next\n", g_app->scene->objs->next);
-	printf("%p END gapp->obj\n", g_app->scene->objs);
+	/*printf("%p END g_app->scene->obj->next\n", g_app->scene->objs->next);
+	printf("%p END gapp->obj\n", g_app->scene->objs);*/
 
 	return (run_application());
 
 	if(ac == 0 && av[0] == 0) // pour -Werror
 		return(0); //
 }
-/*
-i = -1;
-	while (++i < my_mlx->scene->viewport->width)
-	{
-		args = new_s_args(my_mlx, i, &lock);
-		if (pthread_create(&threads[i], NULL, &thread_function, args))
-			pthread_error(-10);
-	}
-
-
-void	*thread_function(void *arguments)
-{
-	t_vector		*obs;
-	t_vector		*d;
-	int				c;
-	int				y;
-	t_args			*args;
-
-	args = (t_args *)arguments;
-	if (!(t_camera *)args->scene->cameras)
-		return (free_cpy_scene(args->scene) ? NULL : NULL);
-	obs = ((t_camera *)args->scene->cameras->object)->origin;
-	y = -(args->scene->viewport->height / 2) - 1;
-	while (++y <= args->scene->viewport->height / 2)
-	{
-		d = new_vector(
-args->x * (args->scene->viewplane->width / args->scene->viewport->width),
-y * (args->scene->viewplane->height / args->scene->viewport->height), 1);
-		rot(d, ((t_camera *)args->scene->cameras->object)->rotation);
-		c = trace_ray(*d, args->scene);
-		put_pixel(args, ((-(y - (args->scene->viewport->height / 2)))), c);
-		free(d);
-		((t_camera *)args->scene->cameras->object)->origin = obs;
-		args->scene->depth = 3;
-	}
-	return (free_cpy_scene(args->scene) ? NULL : NULL);
-}*/

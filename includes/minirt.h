@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 20:38:31 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/05 10:00:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 
 void	minirt_error(int nb_error);
 int		handle_mouse(int button, int x,int y, void *param);
+void	print_vec3(t_vec3 vec);
 
 extern t_app	*g_app;
 typedef	unsigned char	t_uchar;
