@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 12:56:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/05 15:15:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ t_color		color_sphere(t_sphere *sphere)
 
 		/*if (intensite_pixel > 255)
 			intensite_pixel = 255;*/
-		if (intensite_pixel < 0 )
-			intensite_pixel = 1;
-		if (sphere->color.r == 0)
-			sphere->color.r ++;
+		/*if (intensite_pixel < 0 )
+			intensite_pixel = 1;*/
+		/*if (sphere->color.r == 0)
+			sphere->color.r ++;*/
 		tmp = sphere->color.r * intensite_pixel / 255;
 		if (tmp > 255)
 			color.r = 255;
