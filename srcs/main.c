@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 12:21:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/11 13:16:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,34 @@ void	make_croix_milieu(void)
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
 }
 
+void	generate_scene_2(void)
+{
+		t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
+		t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -55), 20.0, create_color(0, 0, 255, 200));
+		t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(255, 255, 255, 200));
+		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 2000 + 100, 0), 2000.0, create_color(255, 255, 255, 200));
+		t_sphere *sphere3 = malloc_sphere(create_vec3(-2000-50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
+		t_sphere *sphere4 = malloc_sphere(create_vec3(2000 + 50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
+		t_sphere *sphere5 = malloc_sphere(create_vec3(0,0 , -2000 - 100), 2000.0, create_color(0, 255, 255, 200));
+		t_light *light = malloc_light(create_vec3(15, 70, -30), 1000000, create_color(255,255,255,255));/// ratio a voir
+
+		t_obj	*obj;
+
+		obj = malloc_object(SPHERE, sphere);
+		obj->next = malloc_object(SPHERE, sphere1);
+		obj->next->next = malloc_object(SPHERE, sphere2);
+		obj->next->next->next = malloc_object(SPHERE, sphere3);
+		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
+		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
+		g_app->scene = malloc_scene(cam, obj);
+		g_app->scene->light = light;
+}
+
+
 void	generate_scene(void)
 {
-	t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
+	generate_scene_2();
+	/*t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
 	t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -200), 30.0, create_color(0, 0, 255, 200));
 	t_sphere *sphere2 = malloc_sphere(create_vec3(70, 70, -200), 20.0, create_color(180, 20, 100, 255));
 	t_sphere *sphere3 = malloc_sphere(create_vec3(-70, -70, -200), 20.0, create_color(0, 180, 80, 255));
@@ -72,9 +97,8 @@ void	generate_scene(void)
 	obj->next->next = malloc_object(SPHERE, sphere3);
 	//printf("CREATION obj ->next = %p\n", obj->next);
 	g_app->scene = malloc_scene(cam, obj);
-	g_app->scene->light = light;
+	g_app->scene->light = light;*/
 }
-
 
 int		main(int ac, char **av)
 {

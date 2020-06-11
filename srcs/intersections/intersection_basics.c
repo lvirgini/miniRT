@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 12:21:12 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/11 13:25:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_obj		*find_first_intersection(t_ray *ray, t_obj *objs)
 		return (NULL);
 	first_obj = NULL;
 	t1 = intersect_objects(ray, objs);
-	if (t1 == 0.0)
+	if (t1 <= 0.0 || t1 > 1e99)
 		return (find_first_intersection(ray, objs->next));
 	else
 	{

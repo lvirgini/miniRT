@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 15:15:10 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/11 11:34:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,48 +39,59 @@ void	put_pixel2(t_image *image, int x, int y, t_color color)
 	image->pixels[pixel_index + BLUE_PIXEL] = tmp.b;
 }
 
+/*
+** Retourne la couleur a afficher : 
+** intensité = ratio lumiere * produit scalaire (normalisé( L.pos - S.pt_inter), Normal)
+*/
 
 t_color		color_sphere(t_sphere *sphere)
 {
 		double 		intensite_pixel;
 		t_color		color;
-		int tmp;
+		double		tmp;
 		
 		intensite_pixel = g_app->scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, sphere->pt_intersection)), sphere->normal) / ft_norme2_vec3(ft_sub_vec3(g_app->scene->light->pos, sphere->pt_intersection));
 
-		/*if (intensite_pixel > 255)
-			intensite_pixel = 255;*/
-		/*if (intensite_pixel < 0 )
-			intensite_pixel = 1;*/
+		if (intensite_pixel > 255)
+			intensite_pixel = 255;
+		if (intensite_pixel < 0 )
+			intensite_pixel = 1;
 		/*if (sphere->color.r == 0)
 			sphere->color.r ++;*/
-		tmp = sphere->color.r * intensite_pixel / 255;
+
+			/////// 1.02 H video raytracing /////
+		/*tmp = sphere->color.r * intensite_pixel;
 		if (tmp > 255)
 			color.r = 255;
 		else
 			color.r = tmp;
 
-		tmp = sphere->color.g * intensite_pixel / 255;
+		tmp = sphere->color.g * intensite_pixel;
 		if (tmp > 255)
 			color.g = 255;
 		else
 			color.g = tmp;
 
-		tmp = sphere->color.b * intensite_pixel / 255;
+		tmp = sphere->color.b * intensite_pixel ;
 		if (tmp > 255)
 			color.b = 255;
 		else
 			color.b = tmp;
 
-		tmp = sphere->color.a * intensite_pixel / 255;
+		tmp = sphere->color.a * intensite_pixel;
 		if (tmp > 255)
 			color.a = 255;
 		else
-			color.a = tmp;
-		/*
+			color.a = tmp;*/
+		color.r = sphere->color.r * intensite_pixel / 255;
 		color.g = sphere->color.g * intensite_pixel / 255;
 		color.b = sphere->color.b * intensite_pixel / 255;
 		color.a = sphere->color.a * intensite_pixel / 255;//255; //// Suivant la transparence*/
+
+		/*color.r = 1 * intensite_pixel;
+		color.g = 0 * intensite_pixel;
+		color.b = 0 * intensite_pixel;
+		color.a = intensite_pixel;*/
 
 		return (color);
 }
