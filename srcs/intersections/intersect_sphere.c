@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/11 13:24:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/13 12:31:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** t2 = -b + racine(delta) / 2a  -> plus loin
 **/
 
-double		intersect_sphere(t_ray ray, t_sphere *sphere)
+double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, t_vec3 *normal)
 {
 	double a;
 	double b;
@@ -45,8 +45,8 @@ double		intersect_sphere(t_ray ray, t_sphere *sphere)
 	double t[2];
 
 	a = 1.0;
-	b = 2 * ft_dot_vec3(ray.direction, ft_sub_vec3(ray.origin, sphere->pos));
-	c = (ft_norme2_vec3(ft_sub_vec3(ray.origin, sphere->pos)) - (sphere->radius * sphere->radius));
+	b = 2 * ft_dot_vec3(ray->direction, ft_sub_vec3(ray->origin, sphere->pos));
+	c = (ft_norme2_vec3(ft_sub_vec3(ray->origin, sphere->pos)) - (sphere->radius * sphere->radius));
 	delta = (b * b) - (4 * a * c);
 	if (delta < 0)
 		return (0);
@@ -55,8 +55,8 @@ double		intersect_sphere(t_ray ray, t_sphere *sphere)
 
 	if (t[0] > 0 && t[0] < 1e99) // infini max
 	{
-		sphere->pt_intersection = ft_add_vec3(ray.origin, ft_mul_vec3(ray.direction, t[0]));
-		sphere->normal = ft_normalize_vec3(ft_sub_vec3(sphere->pt_intersection, sphere->pos));
+		*pt_intersection = ft_add_vec3(ray->origin, ft_mul_vec3(ray->direction, t[0]));
+		*normal = ft_normalize_vec3(ft_sub_vec3(*pt_intersection, sphere->pos));
 		return (t[0]);
 	}
 	//if (t[0] < t[1] && t[0] < 0) 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 10:21:00 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/13 12:38:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,32 @@
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même
 ** RAY_T_MAX : pour donner une limite de l'infini
 */
-
+/*
 # define RAY_T_MIN	0.0001f
 # define RAY_T_MAX	1.0e30f
-
+*/
 /*
 ** Defini le nom t_point pour diférencier un point d'un vecteur. a voir si ca
 ** pose probleme par la suite.
 */
-
+/*
 typedef	struct s_vec2		t_point2;
 typedef	struct s_vec3		t_point3;
 typedef struct s_ray		t_ray;
-
+*/
+/*
+** Rayon avec un point origine, un vecteur de direction, si intersection : 
+** pt_intersection sur un objet, et la normal a ce pt d'intersection.
+*/
+/*
 struct	s_ray
 {
 	t_point3	origin;
 	t_vec3		direction;
+	t_vec3		pt_intersection;
+	t_vec3		normal;
 	double		tmax;
-};
+};*/
 
 
 t_ray		create_ray(t_vec3 origin, t_vec3 direction);
@@ -48,7 +55,7 @@ t_vec3		ray_calculate_t(t_ray ray, double t);
 
 int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y);
 t_obj		*find_first_intersection(t_ray *ray, t_obj *obj);
-double		intersect_objects(t_ray *ray, t_obj *objs);
-double		intersect_sphere(t_ray ray, t_sphere *sphere);
+double		intersect_objects(t_ray *ray, t_obj *objs, t_vec3 *pt_intersection, t_vec3 *normal);
+double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, t_vec3 *normal);
 
 #endif

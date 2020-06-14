@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/11 13:16:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/13 13:50:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	generate_scene_2(void)
 		t_sphere *sphere3 = malloc_sphere(create_vec3(-2000-50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
 		t_sphere *sphere4 = malloc_sphere(create_vec3(2000 + 50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
 		t_sphere *sphere5 = malloc_sphere(create_vec3(0,0 , -2000 - 100), 2000.0, create_color(0, 255, 255, 200));
-		t_light *light = malloc_light(create_vec3(15, 70, -30), 1000000, create_color(255,255,255,255));/// ratio a voir
+		t_light *light = malloc_light(create_vec3(15, 70, -30), 1000000000000, create_color(255,255,255,255));/// ratio a voir
 
 		t_obj	*obj;
 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/05 12:51:27 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/13 12:23:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 			sphere->radius -= 1;
 		if (button == 1)
 		{
-			t_color color = find_pixel_color(first_obj);
+			t_color color = find_pixel_color(first_obj, ray);
 			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
 		}
 			

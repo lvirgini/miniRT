@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/11 13:25:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/13 12:59:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 ** Renvoie a la fonction d'intersection suivant le type d'objet.
 */
 
-double		intersect_objects(t_ray *ray, t_obj *objs)
+double		intersect_objects(t_ray *ray, t_obj *objs, t_vec3 *pt_intersection, t_vec3 *normal)
 {
 	//printf("obj = %d\n", objs->type);
 	if (objs->type == SPHERE)
-		return(intersect_sphere(*ray, (t_sphere *)objs->shape));
+		return(intersect_sphere(ray, (t_sphere *)objs->shape, pt_intersection, normal));
 	/*else if (objs->type == PLANE)
 		intersect_plane(ray, *objs);
 	else if (objs->type == SQUARE)
@@ -41,23 +41,33 @@ t_obj		*find_first_intersection(t_ray *ray, t_obj *objs)
 	t_obj	*first_obj;
 	double	t1;
 	double	t2;
+	t_vec3	pt_intersection;
+	t_vec3	normal;
 	
 	if (!objs)
 		return (NULL);
 	first_obj = NULL;
-	t1 = intersect_objects(ray, objs);
+	pt_intersection = create_vec3(0, 0, 0);
+	normal = create_vec3(0, 0, 0);
+	t1 = intersect_objects(ray, objs, &pt_intersection, &normal);
 	if (t1 <= 0.0 || t1 > 1e99)
 		return (find_first_intersection(ray, objs->next));
 	else
 	{
 		first_obj = objs;
+		ray->pt_intersection = copy_vec3(pt_intersection);
+		ray->normal = copy_vec3(normal);
+		ray->t = t1;
 		while (objs->next)
 		{
-			t2 = intersect_objects(ray, objs->next);
+			t2 = intersect_objects(ray, objs->next, &pt_intersection, &normal);
 			if (t2 != 0.0 && t2 < t1 )
 			{
 				t1 = t2;
 				first_obj = objs->next;
+				ray->pt_intersection = copy_vec3(pt_intersection);
+				ray->normal = copy_vec3(normal);
+				ray->t = t1;
 			}
 			objs = objs->next;
 		}
@@ -108,7 +118,9 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 			ray->direction = ft_normalize_vec3(create_vec3(j - (W / 2), i - (H / 2), - W / (2 * tan(cam->fov /2)))); 
 			first_obj = find_first_intersection(ray, g_app->scene->objs);
 			if (first_obj != NULL)
-				put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj));
+				put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj, ray));
+			ray->pt_intersection = create_vec3(0, 0, 0);
+			ray->normal = create_vec3(0, 0, 0);
 			j++;
 		}
 		i++;
