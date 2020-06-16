@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/13 12:31:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:18:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 ** delta = b² - 4ac
 ** t1 = -b - racine(delta) / 2a  -> plus proche
 ** t2 = -b + racine(delta) / 2a  -> plus loin
+**
+** retourne la longueur la plus petite ou 0 si pas d'intersection.
+** modifie le pt_intersection et la normal a celui ci
 **/
 
 double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, t_vec3 *normal)
@@ -59,8 +62,9 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 		*normal = ft_normalize_vec3(ft_sub_vec3(*pt_intersection, sphere->pos));
 		return (t[0]);
 	}
-	//if (t[0] < t[1] && t[0] < 0) 
-	//	return (t[1]); /// DANS LA SPHERE
+		/// DANS LA SPHERE ///
+	//	if (t[0] < t[1] && t[0] < 0) 
+	//	return (t[1]); 
 	return (0);
 }
 

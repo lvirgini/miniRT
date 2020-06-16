@@ -6,11 +6,16 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/13 12:23:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:13:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Gestion des touches du clavier
+**** Pour le moment gere la lumiere unique.
+*/
 
 int handle_key(int key, void **param)
 {
@@ -38,15 +43,15 @@ int handle_key(int key, void **param)
 	return (0);
 }
 
-
 /*
+** Gestion de la souris : Pour le moment gere la premiere sphere touchee par la souris.
+**
 ** 1 = clic gauche
 ** 2 = clic molette
 ** 3 = clic droit
 ** 4 = molette vers le haut
 ** 5 molette vers le bas.
 */
-
 
 int		handle_mouse(int button, int x,int y, void *param)
 {	
@@ -55,16 +60,8 @@ int		handle_mouse(int button, int x,int y, void *param)
 	t_ray 		*ray;
 	t_sphere 	*sphere;
 	t_obj		*first_obj;
-	sphere = g_app->scene->objs->shape;
-
-	/*printf("%p g_app->scene->obj->shape\n", g_app->scene->objs->shape);
-	printf("%p sphere\n", sphere);
-	printf("radius = %f\n", sphere->radius);
-*/
-
 
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-
 	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
 	first_obj = find_first_intersection(ray, g_app->scene->objs);
 
@@ -80,12 +77,8 @@ int		handle_mouse(int button, int x,int y, void *param)
 			t_color color = find_pixel_color(first_obj, ray);
 			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
 		}
-			
 		raytracing_test(param);
-	}	
-
-
-	
-
+	}
+	free(ray);
 	return (0);
 }

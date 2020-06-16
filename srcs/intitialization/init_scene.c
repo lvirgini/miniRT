@@ -6,37 +6,34 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 15:36:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 12:04:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Mise a zero d'une t_scene / cretion sans malloc
+** Gestion des t_scene : creation, malloc, destroy et free.
 */
 
-t_scene		create_scene(t_camera *cam, t_obj *objs)
+t_scene		create_scene(t_camera *cam, t_obj *objs, t_light *light)
 {
 	t_scene		scene;
 
-	ft_bzero(&scene, sizeof(scene));
+//	ft_bzero(&scene, sizeof(scene));
 	scene.cam = cam;
 	scene.objs = objs;
+	scene.light = light;
 	return (scene);
 }
 
-/*
-** Creation avec Malloc d'une t_scene
-*/
-
-t_scene		*malloc_scene(t_camera *cam, t_obj *objs)
+t_scene		*malloc_scene(t_camera *cam, t_obj *objs, t_light *light)
 {
 	t_scene		*scene;
 
 	if (!(scene = (t_scene *)malloc(sizeof(scene))))
-		minirt_error(1);
-	*scene = create_scene(cam, objs);
+		minirt_exit_on_error(1);
+	*scene = create_scene(cam, objs, light);
 	return (scene);
 }
 
@@ -47,6 +44,7 @@ t_scene		*malloc_scene(t_camera *cam, t_obj *objs)
 void		destroy_scene(t_scene to_destroy)
 {
 	free_camera(to_destroy.cam);
+	free_light(to_destroy.light);
 	free_all_object(to_destroy.objs);
 }
 

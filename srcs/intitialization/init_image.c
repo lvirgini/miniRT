@@ -6,14 +6,14 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 15:23:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:56:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Creer sans malloc une t_image.
+** Gestion des t_image : creation malloc et free.
 */
 
 t_image		create_image(int x, int y)
@@ -29,22 +29,18 @@ t_image		create_image(int x, int y)
 	return (img);
 }
 
-/*
-** Creer avec malloc une t_image
-*/
-
 t_image		*malloc_image(int x, int y)
 {
 	t_image	*img;
 
 	if (!(img = malloc(sizeof(t_image))))
-		minirt_error(1);
+		minirt_exit_on_error(1);
 	*img = create_image(x, y);
 	return (img);
 }
 
 /*
-**	Free l'interieur d'une t_image.
+**	Free le contenu d'une t_image.
 **	Ne pas free to_destroy.pixels car ca fait planter la mlx
 */
 

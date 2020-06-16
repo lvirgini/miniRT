@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 18:12:51 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 09:53:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 12:11:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		premiers_test(void *param)
 	draw_rectangle(create_vec2(0,0), create_vec2(450,150), create_color(150,0,100,200));
 	draw_rectangle(create_vec2(400,70), create_vec2(600,200), create_color(50,0,100,200));
 
-	*/
+	
 	t_color *color;
 	//t_color *color2;
 
@@ -69,6 +69,7 @@ int		premiers_test(void *param)
 	draw_rectangle(create_vec2(180,180), create_vec2(250,250), create_color(0x33,0x33,0x66,150));
 	
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
-	
+	*/
+(void)param;
 	return (0);
 }

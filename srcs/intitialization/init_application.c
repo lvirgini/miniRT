@@ -6,14 +6,17 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/28 15:23:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:55:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Mise a zero d'une t_app / creation sans malloc
+** Gestion des t_app : creation, malloc, destroy et free.
+** avec la mlx : 
+** 		mlx_ptr recupere le retour de mlx_init
+** 		win_ptr recupere le retour de mlx_new_window.
 */
 
 t_app	create_application(int x, int y, char *title)
@@ -37,7 +40,7 @@ t_app	*malloc_application(int x, int y, char *title)
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
-		minirt_error(1);
+		minirt_exit_on_error(1);
 	*app = create_application(x, y, title);
 	return (app);
 }
@@ -48,9 +51,8 @@ t_app	*malloc_application(int x, int y, char *title)
 
 void	destroy_application(t_app to_destroy)
 {
-	//free_scene(to_destroy.scene);
+	free_scene(to_destroy.scene);
 	mlx_destroy_window(to_destroy.mlx_ptr, to_destroy.win_ptr);
-	(void)to_destroy;
 }
 
 /*
@@ -61,10 +63,4 @@ void	free_application(t_app *to_free)
 {
 	destroy_application(*to_free);
 	free(to_free);
-}
-
-void	application_create_content(void)
-{
-	g_app->img = malloc_image(g_app->size.x, g_app->size.y);
-	//app->scene = malloc_scene();
 }

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/13 13:50:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:06:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 t_app		*g_app;
 
+/*
+** Derniere chose a faire : demarrer l'application.
+*/
 int		run_application(void)
 {
 	mlx_loop(g_app->mlx_ptr);
 	free_application(g_app);
-	return (0);
-}
-
-int		exit_program(void)
-{
-	exit(0);
 	return (0);
 }
 
@@ -32,6 +29,7 @@ void	print_vec3(t_vec3 vec)
 	printf("x = %f	y = %f	z = %f\n", vec.x, vec.y, vec.z);
 }
 
+/// A VIRER : 
 void	make_croix_milieu(void)
 {
 	int x = 0;
@@ -41,10 +39,6 @@ void	make_croix_milieu(void)
 	{
 		while (y < g_app->size.y)
 		{
-		/*	if ((-40 + (g_app->size.x / 2)) == x)
-				put_pixel(g_app->img, x, y, create_color(0, 0, 0, 255));
-			if ((-40 + (g_app->size.y / 2)) == y)
-				put_pixel(g_app->img, x, y, create_color(0, 0, 0, 255));*/
 			if (((g_app->size.x / 2)) == x)
 				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
 			if (((g_app->size.y / 2)) == y)
@@ -57,16 +51,19 @@ void	make_croix_milieu(void)
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
 }
 
+//// TEST DE SCENE 2:
+
 void	generate_scene_2(void)
 {
 		t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-		t_sphere *sphere = malloc_sphere(create_vec3(0, 0, -55), 20.0, create_color(0, 0, 255, 200));
-		t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(255, 255, 255, 200));
-		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 2000 + 100, 0), 2000.0, create_color(255, 255, 255, 200));
-		t_sphere *sphere3 = malloc_sphere(create_vec3(-2000-50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
-		t_sphere *sphere4 = malloc_sphere(create_vec3(2000 + 50,0 , 0), 2000.0, create_color(0, 255, 0, 200));
-		t_sphere *sphere5 = malloc_sphere(create_vec3(0,0 , -2000 - 100), 2000.0, create_color(0, 255, 255, 200));
-		t_light *light = malloc_light(create_vec3(15, 70, -30), 1000000000000, create_color(255,255,255,255));/// ratio a voir
+		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
+		t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
+		t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(255, 255, 255, 200), 0);
+		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 2000 + 100, 0), 2000.0, create_color(255, 255, 255, 200), 0);
+		t_sphere *sphere3 = malloc_sphere(create_vec3(-2000-50,0 , 0), 2000.0, create_color(0, 255, 0, 200), 0);
+		t_sphere *sphere4 = malloc_sphere(create_vec3(2000 + 50,0 , 0), 2000.0, create_color(0, 0, 255, 200), 0);
+		t_sphere *sphere5 = malloc_sphere(create_vec3(0,0 , -2000 - 100), 2000.0, create_color(0, 255, 255, 15), 0);
+		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.6, create_color(255,255,255,255));/// ratio a voir
 
 		t_obj	*obj;
 
@@ -76,11 +73,11 @@ void	generate_scene_2(void)
 		obj->next->next->next = malloc_object(SPHERE, sphere3);
 		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
 		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
-		g_app->scene = malloc_scene(cam, obj);
-		g_app->scene->light = light;
+		obj->next->next->next->next->next->next = malloc_object(SPHERE, sphere6);
+		g_app->scene = malloc_scene(cam, obj, light);
 }
 
-
+/// TEST DE SCENE 1:
 void	generate_scene(void)
 {
 	generate_scene_2();
@@ -100,35 +97,40 @@ void	generate_scene(void)
 	g_app->scene->light = light;*/
 }
 
+/*
+** 1) Check ac, av
+** 2) Creation global g_app, initialisation de la mlx
+** 3) Mise en place de la scene avec le fichier (check des erreurs) file_checking
+** 4) Creation de l'image avec le raytracing
+** 5) lancement de l'application (Mise en place des fonctionnalités clavier souris)
+**		OU sauvegarder l'image en fichier image.
+*/
 int		main(int ac, char **av)
 {
 	int		x = 1024;
 	int		y = 1024;
 	char	*title = "Minirt";
-
+	void 	*param[5]; ///
 	if (!(g_app = malloc_application(x, y, title)))
-		return (file_error("MALLOC", 1));
-	g_app->img = malloc_image(x, y);
+		minirt_exit_on_error(1);
+	if (!(g_app->img = malloc_image(x, y)))
+		minirt_exit_on_error(1);
 	/*if (file_checking(ac, av) == -1)
-		return (-1);*/
-
-	void *param[5];
+		minirt_exit_on_error(?);*/
 
 	generate_scene();
 	raytracing_test(param);
-	make_croix_milieu();
+	make_croix_milieu(); ///
 
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
+
  	mlx_key_hook(g_app->win_ptr,handle_key, param);
 	mlx_mouse_hook (g_app->win_ptr,handle_mouse, g_app->scene->objs);
 	mlx_hook(g_app->win_ptr, 17, (1L << 17), exit_program, 0);
 
 //	mlx_hook(g_app->win_ptr, 3, 2, handle_key, &param);
 //	mlx_loop_hook(g_app->mlx_ptr, raytracing_test, param);
-//premiers_test(param);
-
-	/*printf("%p END g_app->scene->obj->next\n", g_app->scene->objs->next);
-	printf("%p END gapp->obj\n", g_app->scene->objs);*/
+//	premiers_test(param);
 
 	return (run_application());
 

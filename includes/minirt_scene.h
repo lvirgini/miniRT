@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/31 21:05:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 12:04:39 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,15 @@ struct	s_scene
 	t_camera	*cam;
 	t_obj		*objs;
 	t_light		*light;
-/*	t_camera	**cam;
-	t_ambiant	*ambiant;
-	t_light		**light;
-	t_sphere	**sp;
-	t_plane		**pl;
-	t_square	**sq;
-	t_cyl		**cyl;
-	t_triangle	**tri;*/
+//	t_ambiant	*ambiant;
 };
 
 /*
 ** Fonctions qui gerent la variable t_scene
 */
 
-t_scene		create_scene(t_camera *cam, t_obj *objs);
-t_scene		*malloc_scene(t_camera *cam, t_obj *objs);
+t_scene		create_scene(t_camera *cam, t_obj *objs, t_light *light);
+t_scene		*malloc_scene(t_camera *cam, t_obj *objs, t_light *light);
 void		destroy_scene(t_scene to_destroy);
 void		free_scene(t_scene *to_free);
 

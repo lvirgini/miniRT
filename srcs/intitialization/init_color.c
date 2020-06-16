@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   init_color.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:46:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/30 14:28:09 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/16 12:06:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_color		*malloc_color(uchar r, uchar g, uchar b, uchar a)
 	t_color *color;
 
 	if(!(color = malloc(sizeof(t_color))))
-		return (NULL);
+		minirt_exit_on_error(1);
 	*color = create_color(r, g, b, a);
 	return (color);
 	
@@ -46,7 +46,7 @@ void		free_color(t_color *to_free)
 **	2 - La couleur a ajouter -> la couleur dessus -> to_add
 ** Retour de la fonction :
 **	La couleur une fois fusionnee
-**	couleur finale = (X% de la couleur a ajouter) **+ (100 - X% de la couleur
+**	couleur finale = (X% de la couleur a ajouter) + (100 - X% de la couleur
 **	de base)
 */
 
