@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 14:36:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 16:45:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 		while (j < W)
 		{
 			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
-			ray->direction = ft_normalize_vec3(create_vec3(j - (W / 2), i - (H / 2), - W / (2 * tan(cam->fov /2))));
+			ray->direction = ft_normalize_vec3(create_vec3(j - (W / 2) + 0.5, i - (H / 2) + 0.5, - W / (2 * tan(cam->fov /2))));
+
+			
 
 			// recherche le premier objet intersepté sur le lancer de rayon
 			first_obj = find_first_intersection(ray, g_app->scene->objs);

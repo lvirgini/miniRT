@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 13:18:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 17:31:17 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 ** t2 = -b + racine(delta) / 2a  -> plus loin
 **
 ** retourne la longueur la plus petite ou 0 si pas d'intersection.
-** modifie le pt_intersection et la normal a celui ci
+** modifie le pt_intersection = rayon origin + (t * rayon direction)
+**	la normale = vecteur normalise (pt intersection - sphere origine)
 **/
 
 double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, t_vec3 *normal)
@@ -47,6 +48,9 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 	double delta;
 	double t[2];
 
+
+	//ray->direction = ft_normalize_vec3(ray->direction);
+
 	a = 1.0;
 	b = 2 * ft_dot_vec3(ray->direction, ft_sub_vec3(ray->origin, sphere->pos));
 	c = (ft_norme2_vec3(ft_sub_vec3(ray->origin, sphere->pos)) - (sphere->radius * sphere->radius));
@@ -56,15 +60,18 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 	t[0] = (-b - sqrt(delta)) / (2 * a);
 	t[1] = (-b + sqrt(delta)) / (2 * a);
 
-	if (t[0] > 0 && t[0] < 1e99) // infini max
+	if (t[1] < 0.01)
+		return (0);
+
+	if (t[0] > 0.01 && t[0] < 1e99) // infini max
 	{
 		*pt_intersection = ft_add_vec3(ray->origin, ft_mul_vec3(ray->direction, t[0]));
 		*normal = ft_normalize_vec3(ft_sub_vec3(*pt_intersection, sphere->pos));
 		return (t[0]);
 	}
 		/// DANS LA SPHERE ///
-	//	if (t[0] < t[1] && t[0] < 0) 
-	//	return (t[1]); 
+	//if (t[0] < t[1] && t[0] < 0.01) 
+		//return (0); 
 	return (0);
 }
 

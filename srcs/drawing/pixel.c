@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 16:24:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 17:28:06 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,43 @@ t_color		find_mirroir_color(t_ray ray_incident, t_color obj_color)
 
 static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int texture)
 {
-		double 		intensite_pixel;
-		t_color		color;
-		t_vec3 		light_orient;
-		double		light_distance;
+	double 		intensite_pixel;
+	t_color		color;
+	t_vec3 		light_orient;
+	double		light_distance;
 
-		if (texture == TEXTURE_MIRROIR)
-			return(find_mirroir_color(*ray_origin, obj_color));
-		color = calculate_shadow(obj_color, ray_origin, g_app->scene->light);
+	if (texture == TEXTURE_MIRROIR)
+		return(find_mirroir_color(*ray_origin, obj_color));
+	color = calculate_shadow(obj_color, ray_origin, g_app->scene->light);
 
-		// faire une fonction pour plusieurs lumiere /////////////////////
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
-		light_distance = ft_norme_vec3(ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection)));
 
-		// calcul l'intensité du pixel (nouveau ratio) suivant le ratio de la lumiere, la normal au pt d'intersection.
-		// avec correction gamma = puissance 1/2.2
-		intensite_pixel =  0.8 * ft_dot_vec3(light_orient, ray_origin->normal) /  light_distance ;
-		/*if (intensite_pixel > 1)
-			return (color);
-		if (intensite_pixel < 0)
-			intensite_pixel = 0;*/
-		int r =  color.r * intensite_pixel;// / light_distance * light_distance;
+	// intensité de la lumière
+	// dot (light_pos - normal)
+
+	t_vec3 light_vec = ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection);
+
+	double light_scalaire = ft_dot_vec3(ft_normalize_vec3(light_vec), ray_origin->normal);
+
+	if (light_scalaire < 0.)
+		light_scalaire = 0;
+	int light_intensity = 3000 * g_app->scene->light->ratio ;
+	intensite_pixel = light_intensity * light_scalaire / ft_norme2_vec3(light_vec);
+
+
+	if (light_intensity < 0)
+		light_intensity = 0;
+
+	int r =  color.r * intensite_pixel;// / light_distance * light_distance;
 		color.r = r > 255 ? 255 : r;
-		color.g =  color.g * intensite_pixel;// / light_distance * light_distance;
-		color.b =  color.b * intensite_pixel;// / light_distance * light_distance;
-		color.a =  color.a * intensite_pixel ;/// light_distance * light_distance;
-		return (color);
+		r =  color.g * intensite_pixel;// / light_distance * light_distance;
+		color.g = r > 255 ? 255 : r;
+		r =  color.b * intensite_pixel;// / light_distance * light_distance;
+		color.b = r > 255 ? 255 : r;
+		r =  color.a * intensite_pixel;// / light_distance * light_distance;
+		color.a = r > 255 ? 255 : r;
+		color.a = 255;
+
+	return (color);
 }
 
 /*
