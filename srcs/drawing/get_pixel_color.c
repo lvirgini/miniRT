@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 15:31:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 21:45:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 		// avec correction gamma = puissance 1/2.2
 		intensite_pixel =  0.5 * ft_dot_vec3(light_orient, ray_origin->normal) /  light_distance * light_distance;
 
-	/*	INTENSITE
+	*//*	INTENSITE
 	**	lumiere speculaire = ks(R.V)^n
 			ks = contribution speculaire par rapport a la matiere de l'obj
 			R.V = produit scalaire entre rayon reflechis et rayon camera obj
@@ -59,7 +59,7 @@
 		if (intensite_pixel < 0)
 			intensite_pixel = 0;
 
-		/*color.r = (color.r + 255) * intensite_pixel;
+		*//*color.r = (color.r + 255) * intensite_pixel;
 		color.g = (color.g + 255) * intensite_pixel;
 		color.b = (color.b + 255) * intensite_pixel;
 		color.a = 255; //(color.a/2 + 255/2) * intensite_pixel;*/
@@ -132,7 +132,7 @@
 		color.a = r > 255 ? 255 : r;
 
 
-/*
+*//*
 
 
 		color.g =  color.g * intensite_pixel;// / light_distance * light_distance;

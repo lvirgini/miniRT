@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 17:17:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 17:43:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 	light_ambiant = 0.2; ///
 
 	obj_to_light = ft_sub_vec3(light->pos, ray_origin->pt_intersection);
-	ray_light = create_ray(ft_add_vec3(ray_origin->pt_intersection, ft_mul_vec3(ray_origin->normal, 0.001)), ft_normalize_vec3((obj_to_light)));
+	ray_light = create_ray(ft_add_vec3(ray_origin->pt_intersection, ft_mul_vec3(ray_origin->normal, 0.01)), ft_normalize_vec3((obj_to_light)));
 
 	if (find_first_intersection(&ray_light, g_app->scene->objs) != NULL)
 	{	

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 16:45:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/28 17:50:39 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 	t1 = intersect_objects(ray, objs, &pt_intersection, &normal);
 
 	// s'il n'y a pas d'intersection avec l'objet courant, on passe au prochain obj.
-	if (t1 <= 0.0 || t1 > 1e99)
+	if (t1 <= 0.01 || t1 > 1e99)
 		return (find_first_intersection(ray, objs->next));
 
 	// S'il y a intersection, verifie s'il y a un autre objet plus proche que celui ci.
@@ -70,7 +70,7 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 		while (objs->next)
 		{
 			t2 = intersect_objects(ray, objs->next, &pt_intersection, &normal);
-			if (t2 != 0.0 && t2 < t1 )
+			if (t2 > 0.01 && t2 < t1)
 			{
 				t1 = t2;
 				first_obj = objs->next;
@@ -102,8 +102,6 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 		{
 			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
 			ray->direction = ft_normalize_vec3(create_vec3(j - (W / 2) + 0.5, i - (H / 2) + 0.5, - W / (2 * tan(cam->fov /2))));
-
-			
 
 			// recherche le premier objet intersepté sur le lancer de rayon
 			first_obj = find_first_intersection(ray, g_app->scene->objs);
@@ -156,7 +154,7 @@ int			intersect_type_object(t_obj	*obj)
 	inter[obj->type](obj->shape);
 }
 
-/*
+*//*
 ** dessine l'objet indiqué
 */
 /*

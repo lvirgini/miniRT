@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 20:45:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:56:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/26 20:19:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,4 @@ void		free_light(t_light *light)
 {
 	free(light);
 }
+
