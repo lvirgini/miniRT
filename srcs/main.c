@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 21:49:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:02:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,36 @@ void	make_croix_milieu(void)
 void	generate_scene_2(void)
 {
 		t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.6, create_color(255,255,255,255));/// ratio a voir
-		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.2, create_color(200,0,200,255));
+		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.9, create_color(255,255,255,255));/// ratio a voir
+		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.4, create_color(200,0,200,255));
 
 		
 		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -55), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
 		//t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
-		t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200),0);
-		t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(210, 180, 220, 200), 0);
-		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 2000 + 100, 0), 2000.0, create_color(150, 150, 170, 200), 0);
-		t_sphere *sphere3 = malloc_sphere(create_vec3(-2000-50,0 , 0), 2000.0, create_color(0, 255, 100, 200), 0);
-		t_sphere *sphere4 = malloc_sphere(create_vec3(2000 + 50,0 , 0), 2000.0, create_color(0, 0, 255, 200), 0);
-		t_sphere *sphere5 = malloc_sphere(create_vec3(0,0 , -2000 - 100), 2000.0, create_color(0, 255, 255, 15), 0);
 		
-		t_sphere *sphere7 = malloc_sphere(create_vec3(0, 15, -55), 10.0, create_color(255, 0, 0, 255), 0);
+	//	t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(210, 180, 220, 200), 0);
+
+		t_plane *plan = malloc_plane(create_vec3(0, -30, 0), create_vec3(0, 1, 0), create_color(102, 51, 153, 255), 0);
+		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(204, 153, 102, 255), 0);
+		t_plane *plan3 = malloc_plane(create_vec3(70, 0, 0), create_vec3(1, 0, 0), create_color(51, 204, 255, 255), 0);
+
+		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
+		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
+
+		t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
+		t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
+
+		
 		t_obj	*obj;
 
 		obj = malloc_object(SPHERE, sphere);
-		obj->next = malloc_object(SPHERE, sphere1);
-		obj->next->next = malloc_object(SPHERE, sphere2);
-		obj->next->next->next = malloc_object(SPHERE, sphere3);
+		obj->next = malloc_object(PLANE, plan);
+		obj->next->next = malloc_object(PLANE, plan2);
+		obj->next->next->next = malloc_object(PLANE, plan3);
 		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
 		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
-		obj->next->next->next->next->next->next = malloc_object(SPHERE, sphere6);
-		obj->next->next->next->next->next->next->next = malloc_object(SPHERE, sphere7);
+		obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
+
 		g_app->scene = malloc_scene(cam, obj, light, light_ambiant);
 }
 
@@ -143,6 +149,3 @@ int		main(int ac, char **av)
 	if(ac == 0 && av[0] == 0) // pour -Werror
 		return(0); //
 }
-
-
-

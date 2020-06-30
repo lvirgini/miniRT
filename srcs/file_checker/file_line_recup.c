@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:27:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/03/11 17:27:23 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:55:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Recupere le prochain nombre de la chaine *str, le retourne en INT.
 */
 
-int		line_get_float(char *str, float *result)
+int		line_get_double(char *str, double *result)
 {
 	int		neg;
 	int		i;

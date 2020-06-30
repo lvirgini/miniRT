@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/26 11:36:09 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:54:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			file_checking(int ac, char **av);
 int			file_error(char *location, int error);
 int			read_file(char *str);
 int			line_parser(char *line);
-int			line_get_float(char *str, float *result);
+int			line_get_double(char *str, double *result);
 int			line_get_int(char *str, int *result);
 int			line_get_t_color(char *s, t_color *res);
 

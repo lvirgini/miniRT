@@ -6,22 +6,12 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:53:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 10:14:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-
-/*
-**	DEFINES
-*/
-
-# define SUCCESS 	0 // a voir pour utilisation
-# define FAILURE 	1
-# define RES_X_MAX 	1500 //
-# define RES_Y_MAX 	1500 //
-# define uchar	unsigned char
 
 /*
 ** INCLUDES de librairies officielles

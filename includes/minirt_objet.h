@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:42:33 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 15:03:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,21 @@
 # define CYLINDRE	4
 # define TRIANGLE	5
 
-# define TEXTURE_MIRROIR 1
+# define TEXTURE_DIFFUS		0
+# define TEXTURE_MIRROIR	1
+# define TEXTURE_REFLE
 
 typedef	int					(*t_func)(char *);
 
 typedef struct s_obj		t_obj;
 
 typedef struct s_camera		t_camera;
-typedef struct s_ambiant	t_ambiant;
 typedef struct s_light		t_light;
 typedef struct s_sphere		t_sphere;
 typedef struct s_plane		t_plane;
 typedef struct s_square		t_square;
 typedef struct s_cyl		t_cyl;
 typedef struct s_triangle	t_triangle;
-
-/*
-** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même
-** RAY_T_MAX : pour donner une limite de l'infini
-*/
-
-# define RAY_T_MIN	0.0001f
-# define RAY_T_MAX	1.0e30f
 
 /*
 ** Defini le nom t_point pour diférencier un point d'un vecteur. a voir si ca
@@ -89,12 +82,6 @@ struct	s_camera
 	t_vec3		orient;
 };
 
-struct	s_ambiant
-{
-	float		ratio;
-	t_color		color;
-};
-
 struct	s_light
 {
 	double		ratio;
@@ -113,9 +100,9 @@ struct	s_sphere
 struct	s_plane
 {
 	t_vec3		pos;
-	t_vec3		orient;
 	t_vec3		normal;
 	t_color		color;
+	int			texture;
 };
 
 struct	s_square
@@ -135,12 +122,14 @@ struct	s_cyl
 	float		diameter;
 };
 
-struct	s_triange
+struct	s_triangle
 {
 	t_vec3		pos1;
 	t_vec3		pos2;
 	t_vec3		pos3;
+	t_vec3		normal;
 	t_color		color;
+	int			texture;
 };
 
 /*
@@ -157,32 +146,25 @@ void		free_all_object(t_obj *obj);
 ** Fonctions initialisation des objets
 */
 
-t_sphere	create_sphere(t_vec3 pos, double rayon, t_color color, int texture);
-/*t_plane	create_plane(t_vec3 pos, t_vec3 orient, t_color color);
+t_sphere	create_sphere(t_vec3 pos, double radius, t_color color, int texture);
+/*
 t_square	create_square(t_vec3 pos, t_vec3 orient, double hight, t_color color);
 t_cyl		create_cylindre(t_vec3 pos, t_vec3 orient, double hight, double diameter, t_color color);
 t_triangle	create_triange(t_vec3 pos1, t_vec3 pos2, t_vec3 pos3, t_color color);*/
 
 
-t_sphere	*malloc_sphere(t_vec3 pos, double rayon, t_color color, int texture);/*
-t_plane		malloc_plane(t_vec3 pos, t_vec3 orient, t_color color);
+t_sphere	*malloc_sphere(t_vec3 pos, double radius, t_color color, int texture);
+t_plane		*malloc_plane(t_vec3 pos, t_vec3 orient, t_color color, int texture);/*
 t_square	malloc_square(t_vec3 pos, t_vec3 orient, double hight, t_color color);
-t_cyl		malloc_cylindre(t_vec3 pos, t_vec3 orient, double hight, double diameter, t_color color);
-t_triangle	malloc_triange(t_vec3 pos1, t_vec3 pos2, t_vec3 pos3, t_color color);*/
+t_cyl		malloc_cylindre(t_vec3 pos, t_vec3 orient, double hight, double diameter, t_color color);*/
+t_triangle		*malloc_triangle(t_vec3 pos[3], t_color color, int texture);
 
 
-void		free_sphere(t_sphere *sphere);/*
-void		free_plane(t_plane *plane);
+void		free_sphere(t_sphere *sphere);
+void		free_plane(t_plane *plane);/*
 void		free_square(t_square *square);
-void		free_triange(t_triangle *triange);
 void		free_cylindre(t_cyl *cylindre)*/
-
-
-t_color		color_sphere(t_sphere *sphere,t_ray *ray_origin);/*
-t_color		color_plane(t_sphere *plane);
-t_color		color_square(t_sphere *square);
-t_color		color_triangle(t_sphere *triangle);
-t_color		color_cylindre(t_sphere *cylindre);*/
+void		free_triange(t_triangle *triange);
 
 
 t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient);

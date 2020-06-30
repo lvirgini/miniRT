@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 11:25:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 11:08:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,22 @@
 ** Divers utils
 */
 
-# define PI  3.14159265359
+# define PI  		3.14159265359
+# define SUCCESS 	0 // a voir pour utilisation
+# define FAILURE 	1
+# define RES_X_MAX 	1500 //
+# define RES_Y_MAX 	1500 //
+# define uchar	unsigned char
+
+/*
+** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même
+** RAY_T_MAX : pour donner une limite de l'infini
+** MAX_REBOUND : rebond maximum de rayon  récursif (find mirroir color)
+*/
+
+# define RAY_T_MIN		0.001f
+# define RAY_T_MAX		1.0e30f //1e99
+# define MAX_REBOUND	10
 
 /*
 ** EVENT MLX 

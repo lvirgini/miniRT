@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/28 17:50:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 11:45:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@ static double	intersect_objects(t_ray *ray, t_obj *objs, t_vec3 *pt_intersection
 {
 	if (objs->type == SPHERE)
 		return(intersect_sphere(ray, (t_sphere *)objs->shape, pt_intersection, normal));
-	/*else if (objs->type == PLANE)
-		intersect_plane(ray, *objs);
-	else if (objs->type == SQUARE)
+	else if (objs->type == PLANE)
+		return(intersect_plane(ray, (t_plane *)objs->shape, pt_intersection, normal));
+	else if (objs->type == TRIANGLE)
+		return(intersect_triangle(ray, (t_triangle *)objs->shape, pt_intersection, normal));
+	/*else if (objs->type == SQUARE)
 		intersect_square(ray, *objs);
 	else if (objs->type == CYLINDRE)
-		intersect_cylindre(ray, *objs);
-	else if (objs->type == TRIANGLE)
-		intersect_triange(ray, *objs);*/
+		intersect_cylindre(ray, *objs);*/
 	return (0);
 }
-
 
 static void		update_ray(t_ray *ray, t_vec3 pt_intersection, t_vec3 normal, int t)
 {
@@ -59,7 +58,7 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 	t1 = intersect_objects(ray, objs, &pt_intersection, &normal);
 
 	// s'il n'y a pas d'intersection avec l'objet courant, on passe au prochain obj.
-	if (t1 <= 0.01 || t1 > 1e99)
+	if (t1 <= RAY_T_MIN || t1 > RAY_T_MAX)
 		return (find_first_intersection(ray, objs->next));
 
 	// S'il y a intersection, verifie s'il y a un autre objet plus proche que celui ci.
@@ -70,7 +69,7 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 		while (objs->next)
 		{
 			t2 = intersect_objects(ray, objs->next, &pt_intersection, &normal);
-			if (t2 > 0.01 && t2 < t1)
+			if (t2 > RAY_T_MIN && t2 < t1)
 			{
 				t1 = t2;
 				first_obj = objs->next;
@@ -109,7 +108,12 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 			// s'il y a intersection / s'il y a un obj sur le rayon : 
 			//		color le pixel de la couleur retourné par find pixel color.
 			if (first_obj != NULL)
-				put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj, ray));
+			{
+				/*if (first_obj->type == PLANE)
+					put_pixel(g_app->img, j, H - i - 1, create_color(255,255,255,255));
+				else*/
+					put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj, ray));
+			}
 			
 			// remet a zero le point d'intersection et la normal modifié dans 
 			// find intersection.
@@ -122,56 +126,3 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 	free_ray(ray);
 	return (0);
 }
-
-/*
-** En partant de l'origin du rayon, retourne l'emplacement du point lorsque
-** direction * t.
-** return = origin + (direction * t)
-
-
-t_vec3		ray_calculate_t(t_ray ray, double t)
-{
-	return (ft_add_vec3(ray.origin, ft_mul_vec3(ray.direction, t)));
-}
-*/
-
-
-/*
-** Renvoi le numero correspondant au type d'objet
-*/
-/*
-int			intersect_type_object(t_obj	*obj)
-{
-	t_ft_intersect inter[5];
-
-	inter[0] = NULL; //
-	inter[SPHERE] = intersect_sphere;
-	inter[PLANE] = intersect_plane;
-	inter[SQUARE] = intersect_square;
-	inter[CYLINDRE] = intersect_cylendre;
-	inter[TRIANGLE] = intersect_triangle;
-	
-	inter[obj->type](obj->shape);
-}
-
-*//*
-** dessine l'objet indiqué
-*/
-/*
-void		print_object(t_obj *obj, int x, int y)
-{
-	t_sphere *sphere;
-
-	if (obj->type == SPHERE)
-	{
-		sphere = (t_sphere *)obj->shape;
-		put_pixel(g_app->img, x, y, sphere->color);
-	}
-	
-		if obj == SHAPE
-			color = find color sphere(t_sphere SHAPE)
-		else if obj == SHAPE 2
-			color = ...
-		put pixel (color)
-	
-}*/

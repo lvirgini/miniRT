@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 17:31:17 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 14:59:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 	b = 2 * ft_dot_vec3(ray->direction, ft_sub_vec3(ray->origin, sphere->pos));
 	c = (ft_norme2_vec3(ft_sub_vec3(ray->origin, sphere->pos)) - (sphere->radius * sphere->radius));
 	delta = (b * b) - (4 * a * c);
-	if (delta < 0)
+	if (delta < 0) /// SI dans la sphere
 		return (0);
 	t[0] = (-b - sqrt(delta)) / (2 * a);
 	t[1] = (-b + sqrt(delta)) / (2 * a);
 
-	if (t[1] < 0.01)
+	if (t[1] < RAY_T_MIN)
 		return (0);
 
-	if (t[0] > 0.01 && t[0] < 1e99) // infini max
+	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
 	{
 		*pt_intersection = ft_add_vec3(ray->origin, ft_mul_vec3(ray->direction, t[0]));
 		*normal = ft_normalize_vec3(ft_sub_vec3(*pt_intersection, sphere->pos));
-		return (t[0]);
+		return (t[0]); // si normal negative dans la sphere
 	}
 		/// DANS LA SPHERE ///
-	//if (t[0] < t[1] && t[0] < 0.01) 
+	//if (t[0] < RAY_T_MIN && (t[1] > RAY_T_MIN déja mis plus haut) && t[1] < RAY_T_MAX) 
 		//return (0); 
 	return (0);
 }
