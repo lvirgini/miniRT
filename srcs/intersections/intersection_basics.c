@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 11:45:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 15:48:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static double	intersect_objects(t_ray *ray, t_obj *objs, t_vec3 *pt_intersection
 		return(intersect_sphere(ray, (t_sphere *)objs->shape, pt_intersection, normal));
 	else if (objs->type == PLANE)
 		return(intersect_plane(ray, (t_plane *)objs->shape, pt_intersection, normal));
-	else if (objs->type == TRIANGLE)
-		return(intersect_triangle(ray, (t_triangle *)objs->shape, pt_intersection, normal));
+	//else if (objs->type == TRIANGLE)
+	//	return(intersect_triangle(ray, (t_triangle *)objs->shape, pt_intersection, normal));
 	/*else if (objs->type == SQUARE)
 		intersect_square(ray, *objs);
 	else if (objs->type == CYLINDRE)
@@ -100,7 +100,7 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 		while (j < W)
 		{
 			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
-			ray->direction = ft_normalize_vec3(create_vec3(j - (W / 2) + 0.5, i - (H / 2) + 0.5, - W / (2 * tan(cam->fov /2))));
+			ray->direction = normalize_vec3(create_vec3(j - (W / 2) + 0.5, i - (H / 2) + 0.5, - W / (2 * tan(cam->fov /2))));
 
 			// recherche le premier objet intersepté sur le lancer de rayon
 			first_obj = find_first_intersection(ray, g_app->scene->objs);
@@ -109,9 +109,9 @@ int			browse_image_for_intersection(t_camera *cam, int W, int H)
 			//		color le pixel de la couleur retourné par find pixel color.
 			if (first_obj != NULL)
 			{
-				/*if (first_obj->type == PLANE)
+				if (first_obj->type == TRIANGLE)
 					put_pixel(g_app->img, j, H - i - 1, create_color(255,255,255,255));
-				else*/
+				else
 					put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj, ray));
 			}
 			

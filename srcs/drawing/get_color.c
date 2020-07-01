@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 11:46:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:02:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_color		find_mirroir_color(t_ray ray_incident, t_color obj_color)
 	max_rebound--;
 	if (max_rebound == 0)
 		return (create_color(0, 0, 0, 255));
-	new_direction = ft_sub_vec3(ray_incident.direction, ft_mul_vec3(ray_incident.normal, 2 * ft_dot_vec3(ray_incident.direction, ray_incident.normal)));
-	new_ray = create_ray(ft_add_vec3(ray_incident.pt_intersection, ft_mul_vec3(ray_incident.normal, 0.01)), new_direction);
+	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
+	new_ray = create_ray(add_vec3(ray_incident.pt_intersection, mul_vec3(ray_incident.normal, 0.01)), new_direction);
 	first_obj = find_first_intersection(&new_ray, g_app->scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
@@ -58,9 +58,9 @@ static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int textur
 	color = calculate_shadow(obj_color, ray_origin, light);
 
 	// intensité de la lumière :
-	light_vec = ft_sub_vec3(light->pos, ray_origin->pt_intersection);
+	light_vec = sub_vec3(light->pos, ray_origin->pt_intersection);
 
-	double light_scalaire = ft_dot_vec3(ft_normalize_vec3(light_vec), ray_origin->normal);
+	double light_scalaire = dot_vec3(normalize_vec3(light_vec), ray_origin->normal);
 
 	if (light_scalaire < 0.)
 		light_scalaire = 0;
@@ -71,7 +71,7 @@ static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int textur
 
 	// CORRECTION GAMMA
 	int light_intensity = 6000 * light->ratio ;
-	intensite_pixel = pow(light_intensity * light_scalaire / ft_norme2_vec3(light_vec),1/2.2);
+	intensite_pixel = pow(light_intensity * light_scalaire / norme2_vec3(light_vec),1/2.2);
 
 	if (intensite_pixel < 0)
 		intensite_pixel = 0;

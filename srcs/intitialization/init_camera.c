@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:55:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:05:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient)
 		minirt_exit_on_error(1);
 	cam->fov = fov;
 	cam->pos = pos;
-	cam->orient = ft_normalize_vec3(orient);
+	cam->orient = normalize_vec3(orient);
 	return (cam);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 15:03:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:25:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ struct	s_triangle
 	t_vec3		pos1;
 	t_vec3		pos2;
 	t_vec3		pos3;
+	t_vec3		vec1;
+	t_vec3		vec2;
+	t_vec3		vec3;
 	t_vec3		normal;
 	t_color		color;
 	int			texture;

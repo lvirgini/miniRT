@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 11:26:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:01:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 
 	light_ambiant = g_app->scene->light_ambiant->ratio; ///
 
-	obj_to_light = ft_sub_vec3(light->pos, ray_origin->pt_intersection);
-	ray_light = create_ray(ft_add_vec3(ray_origin->pt_intersection, ft_mul_vec3(ray_origin->normal, RAY_T_MIN)), ft_normalize_vec3((obj_to_light)));
+	obj_to_light = sub_vec3(light->pos, ray_origin->pt_intersection);
+	ray_light = create_ray(add_vec3(ray_origin->pt_intersection, mul_vec3(ray_origin->normal, RAY_T_MIN)), normalize_vec3((obj_to_light)));
 
 	if (find_first_intersection(&ray_light, g_app->scene->objs) != NULL)
 	{	
-		distance_light2 = ft_norme2_vec3(obj_to_light);
+		distance_light2 = norme2_vec3(obj_to_light);
 		if (ray_light.t * ray_light.t < distance_light2) // SI CEST DANS L'OMBRE
 		{
 			/*color.r = color.r * ray_light.t / distance_light2 *256;

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 11:06:12 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:08:12 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 		t_vec3 		light_orient;
 
 		color = calculate_shadow(sphere->color, ray_origin, g_app->scene->light);
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
-		intensite_pixel = pow(0.9 * ft_dot_vec3(light_orient, ray_origin->normal), 1/2.2);
+		light_orient = normalize_vec3(sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+		intensite_pixel = pow(0.9 * dot_vec3(light_orient, ray_origin->normal), 1/2.2);
 		if (intensite_pixel > 1)
 			return (color);
 		if (intensite_pixel < 0)

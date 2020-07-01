@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 14:59:42 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:03:43 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 	//ray->direction = ft_normalize_vec3(ray->direction);
 
 	a = 1.0;
-	b = 2 * ft_dot_vec3(ray->direction, ft_sub_vec3(ray->origin, sphere->pos));
-	c = (ft_norme2_vec3(ft_sub_vec3(ray->origin, sphere->pos)) - (sphere->radius * sphere->radius));
+	b = 2 * dot_vec3(ray->direction, sub_vec3(ray->origin, sphere->pos));
+	c = (norme2_vec3(sub_vec3(ray->origin, sphere->pos)) - (sphere->radius * sphere->radius));
 	delta = (b * b) - (4 * a * c);
 	if (delta < 0) /// SI dans la sphere
 		return (0);
@@ -65,8 +65,8 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere, t_vec3 *pt_intersection, 
 
 	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
 	{
-		*pt_intersection = ft_add_vec3(ray->origin, ft_mul_vec3(ray->direction, t[0]));
-		*normal = ft_normalize_vec3(ft_sub_vec3(*pt_intersection, sphere->pos));
+		*pt_intersection = add_vec3(ray->origin, mul_vec3(ray->direction, t[0]));
+		*normal = normalize_vec3(sub_vec3(*pt_intersection, sphere->pos));
 		return (t[0]); // si normal negative dans la sphere
 	}
 		/// DANS LA SPHERE ///

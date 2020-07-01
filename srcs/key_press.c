@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:13:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:08:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 	t_obj		*first_obj;
 
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-	ray->direction = ft_normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
+	ray->direction = normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
 	first_obj = find_first_intersection(ray, g_app->scene->objs);
 
 	if (first_obj)
