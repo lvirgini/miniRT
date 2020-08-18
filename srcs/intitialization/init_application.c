@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:55:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:28:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ t_app	create_application(int x, int y, char *title)
 ** Creation avec malloc d'une t_app
 */
 
-t_app	*malloc_application(int x, int y, char *title)
+t_app	*malloc_application()
 {
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
 		minirt_exit_on_error(1);
-	*app = create_application(x, y, title);
+	//app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ....
+	//app->mlx_ptr = mlx_init();
+	app->scene = NULL;
+	ft_bzero(app, sizeof(app));
+
 	return (app);
 }
 

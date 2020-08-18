@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 15:19:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:29:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ struct		s_app
 */
 
 t_app		create_application(int x, int y, char *title);
-t_app		*malloc_application(int x, int y, char *title);
+t_app		*malloc_application();
 void		destroy_application(t_app to_destroy);
 void		free_application(t_app *to_free);
 void		application_create_content(void); //

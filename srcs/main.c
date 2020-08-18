@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 15:47:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:29:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	generate_scene_2(void)
 		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
 		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
+		//t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
 		//t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
 
 		
@@ -119,18 +119,24 @@ void	generate_scene(void)
 */
 int		main(int ac, char **av)
 {
-	int		x = 1024;
-	int		y = 1024;
-	char	*title = "Minirt";
-	void 	*param[5]; ///
-	if (!(g_app = malloc_application(x, y, title)))
+	//int		x = 1024;
+	//int		y = 1024;
+	//char	*title = "Minirt";
+	//void 	*param[5]; ///
+
+
+
+	/*if (!(g_app = malloc_application(x, y, title)))
 		minirt_exit_on_error(1);
 	if (!(g_app->img = malloc_image(x, y)))
-		minirt_exit_on_error(1);
-	/*if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(?);*/
+		minirt_exit_on_error(1);*/
 
-	generate_scene();
+	g_app = malloc_application();
+	g_app->scene = malloc_scene();
+	if (file_checking(ac, av) == -1)
+		minirt_exit_on_error(1);
+
+	/*generate_scene();
 	raytracing_test(param);
 	make_croix_milieu(); ///
 
@@ -144,10 +150,11 @@ int		main(int ac, char **av)
 //	mlx_loop_hook(g_app->mlx_ptr, raytracing_test, param);
 //	premiers_test(param);
 
-	return (run_application());
+	return (run_application());*/
 
 	if(ac == 0 && av[0] == 0) // pour -Werror
-		return(0); //
+		return(0); //*/
+	return (0);
 }
 
 /*
@@ -253,3 +260,4 @@ dot_wv_wu[1]) / object->calcul_d;
 	triangle->calcul_d =
 triangle->dot_uv * triangle->dot_uv - triangle->dot_uu * triangle->dot_vv;
 */
+

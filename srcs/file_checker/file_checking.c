@@ -6,54 +6,34 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/29 15:51:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 10:16:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** print error of file
+** verifie s'il ne manque pas un parametre obligatoire pour le scene.
+** Minimum : camera, resolution
 */
 
-int		file_error(char *location, int error)
-{
-	ft_putstr("Error in file :\n");
-	if (location)
-		ft_putstr(location);
-	if (error == 0)
-		;
-	else if (error == 1)
-		ft_putstr("defined twice in file\n");
-	else if (error == 2)
-		ft_putstr("badly defined value\n");
-	else if (error == 3)
-		ft_putstr(" is undefined\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	return (-1);
+static int		check_file_is_complete(void)
+{/*
+	if (g_app->x == 0 && g_app->y == 0)
+		return(file_error("RESOLUTION", 3));
+	if (g_app->scene->ambiant == NULL)
+		return(file_error("AMBIANT LIGHT", 3));
+	if (g_app->scene->cam == NULL)
+		return(file_error("CAMERA", 3));*/
+	return (0);
 }
-
 /*
 ** Checking if file is .rt;
 */
 
 static int		file_type(char *str)
 {
-	int		len;
-
-	len = ft_strlen(str);
-	if (ft_strcmp(str + len - 3, ".rt"))
+	if (ft_strcmp(str + ft_strlen(str) - 3, ".rt"))
 		return (-1);
 	return (0);
 }
@@ -63,13 +43,15 @@ static int		file_type(char *str)
 ** minimum required is file.rt
 */
 
-int		file_checking(int ac, char **av)
+int				file_checking(int ac, char **av)
 {
-	if (ac == 3 && ft_strcmp(av[2], "--save"))
-		return(0);	////
+	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
+		return(0);	//// SAUVEGARDE EN IMAGE A FAIRE
 	if (ac < 2)
-		return (file_error("no file in first argument", 0));
+		file_error("no file in first argument", 0);
 	if (file_type(av[1]) == -1)
-		return (file_error("file is not .rt", 0));
-	return (read_file(av[1]));
+		file_error("file is not .rt", 0);
+	read_file(av[1]);
+	check_file_is_complete();
+	return(0);
 }

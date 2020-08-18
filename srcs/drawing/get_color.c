@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 11:02:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:04:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_color		find_mirroir_color(t_ray ray_incident, t_color obj_color)
 	else 
 		color = create_color(0, 0, 0, 255);
 	max_rebound = MAX_REBOUND;
+	(void)obj_color; ///
 	return (color);
 }
 

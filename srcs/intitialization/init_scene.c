@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 21:49:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:29:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Gestion des t_scene : creation, malloc, destroy et free.
 */
 
-t_scene		*malloc_scene(t_camera *cam, t_obj *objs, t_light *light, t_light *ambiant)
+t_scene		*create_scene(t_camera *cam, t_obj *objs, t_light *light, t_light *ambiant)
 {
 	t_scene		*scene;
 
@@ -26,6 +26,17 @@ t_scene		*malloc_scene(t_camera *cam, t_obj *objs, t_light *light, t_light *ambi
 	scene->objs = objs;
 	scene->light = light;
 	scene->light_ambiant = ambiant;
+	return (scene);
+}
+
+
+t_scene		*malloc_scene()
+{
+	t_scene		*scene;
+
+	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
+		minirt_exit_on_error(1);
+	ft_bzero(scene, sizeof(scene));
 	return (scene);
 }
 

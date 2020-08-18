@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 11:08:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:37:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define PI  		3.14159265359
 # define SUCCESS 	0 // a voir pour utilisation
 # define FAILURE 	1
-# define RES_X_MAX 	1500 //
-# define RES_Y_MAX 	1500 //
+# define RES_X_MAX 	2000 //
+# define RES_Y_MAX 	2000 //
 # define uchar	unsigned char
 
 /*

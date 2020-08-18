@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/30 16:25:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 10:30:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define TEXTURE_MIRROIR	1
 # define TEXTURE_REFLE
 
-typedef	int					(*t_func)(char *);
+typedef	int					(*t_func)(char **);
 
 typedef struct s_obj		t_obj;
 
@@ -37,8 +37,8 @@ typedef struct s_square		t_square;
 typedef struct s_cyl		t_cyl;
 typedef struct s_triangle	t_triangle;
 
-/*
-** Defini le nom t_point pour diférencier un point d'un vecteur. a voir si ca
+/* ////
+** Defini le nom t_point pour diferencier un point d'un vecteur. a voir si ca
 ** pose probleme par la suite.
 */
 

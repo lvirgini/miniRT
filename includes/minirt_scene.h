@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/26 21:44:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/18 11:29:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ struct	s_scene
 ** Fonctions qui gerent la variable t_scene
 */
 
-t_scene		*malloc_scene(t_camera *cam, t_obj *objs, t_light *light, t_light *ambiant);
+t_scene		*malloc_scene();
 void		destroy_scene(t_scene to_destroy);
 void		free_scene(t_scene *to_free);
 
