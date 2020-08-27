@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 11:37:30 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:34:21 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@
 /*
 ** Divers utils
 */
+typedef	unsigned char	t_uchar;
 
 # define PI  		3.14159265359
-# define SUCCESS 	0 // a voir pour utilisation
-# define FAILURE 	1
 # define RES_X_MAX 	2000 //
 # define RES_Y_MAX 	2000 //
-# define uchar	unsigned char
 
 /*
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même
 ** RAY_T_MAX : pour donner une limite de l'infini
-** MAX_REBOUND : rebond maximum de rayon  récursif (find mirroir color)
+** MAX_REBOUND : rebond maximum de rayon récursif (find mirroir color)
 */
 
 # define RAY_T_MIN		0.001f
@@ -35,7 +33,7 @@
 # define MAX_REBOUND	10
 
 /*
-** EVENT MLX 
+** EVENT MLX
 */
 
 # define KEYPRESS 2
@@ -64,36 +62,6 @@
 
 /*
 ** KEYCODE LINUX
-*/
-
-/*
-** keycodes numbers HIGHT
-*/
-
-# define KEY_1				2
-# define KEY_2				3
-# define KEY_3				4
-# define KEY_4				5
-# define KEY_5				6
-# define KEY_6				7
-# define KEY_7				8
-# define KEY_8				9
-# define KEY_9				10
-# define KEY_0				11
-
-/*
-** keycodes numbers pad numbers
-
-# define KEY_1				79
-# define KEY_2				80
-# define KEY_3				81
-# define KEY_4				75
-# define KEY_5				76
-# define KEY_6				77
-# define KEY_7				71
-# define KEY_8				72
-# define KEY_9				73
-# define KEY_0				82
 */
 
 /*
@@ -127,13 +95,38 @@
 # define KEY_Y				21
 # define KEY_Z				17
 
-
 # define KEY_ESC			65307 	//1
 # define KEY_SPACE			32		//57
 # define KEY_ENTER			65293  // 28
 
-//
-/* NOT USED //
+/* NOT USED
+
+** keycodes numbers HIGHT
+
+# define KEY_1				2
+# define KEY_2				3
+# define KEY_3				4
+# define KEY_4				5
+# define KEY_5				6
+# define KEY_6				7
+# define KEY_7				8
+# define KEY_8				9
+# define KEY_9				10
+# define KEY_0				11
+
+** keycodes numbers pad numbers
+
+# define KEY_1				79
+# define KEY_2				80
+# define KEY_3				81
+# define KEY_4				75
+# define KEY_5				76
+# define KEY_6				77
+# define KEY_7				71
+# define KEY_8				72
+# define KEY_9				73
+# define KEY_0				82
+
 #define KEY_RESERVED		0
 #define KEY_MINUS			12
 #define KEY_EQUAL			13
@@ -214,9 +207,8 @@
 #define KEY_MUTE			113
 #define KEY_VOLUMEDOWN		114
 #define KEY_VOLUMEUP		115
-#define KEY_POWER			116	*//* SC System Power Down */
+#define KEY_POWER			116	// SC System Power Down
 
-/*
 #define KEY_F13				183
 #define KEY_F14				184
 #define KEY_F15				185

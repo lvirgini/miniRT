@@ -6,19 +6,19 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:44:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 15:47:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:14:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-//float D = dotProduct(N, v0); 
-//float t = - (dot(N, orig) + D) / dot(N, dir); 
+//float D = dotProduct(N, v0);
+//float t = - (dot(N, orig) + D) / dot(N, dir);
 /*
 ** Triangle pt A, B, C, normale N,  et rayon O(origine) R(direction).
-** Verifier si le rayon et le plan du triangle se touchent : 
+** Verifier si le rayon et le plan du triangle se touchent :
 **		N.R > 0.
-** Calculer l'intersection : 
+** Calculer l'intersection :
 **		t = - (O.N - N.A) / (N.R)
 */
 
@@ -72,14 +72,12 @@
 	c = cross_vec3(edge, vp);
 	if (dot_vec3(triangle->normal, c) < 0)
 		return (0);
-	
 
 	edge = sub_vec3(triangle->pos3, triangle->pos2);
 	vp = sub_vec3(*pt_intersection, triangle->pos2);
 	c = cross_vec3(edge, vp);
 	if (dot_vec3(triangle->normal, c) < 0)
 		return (0);
-
 
 	edge = sub_vec3(triangle->pos1, triangle->pos3);
 	vp = sub_vec3(*pt_intersection, triangle->pos3);

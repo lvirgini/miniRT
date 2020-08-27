@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 11:29:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:47:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ int		run_application(void)
 	mlx_loop(g_app->mlx_ptr);
 	free_application(g_app);
 	return (0);
-}
-
-void	print_vec3(t_vec3 vec)
-{
-	printf("x = %f	y = %f	z = %f\n", vec.x, vec.y, vec.z);
 }
 
 /// A VIRER : 
@@ -133,6 +128,8 @@ int		main(int ac, char **av)
 
 	g_app = malloc_application();
 	g_app->scene = malloc_scene();
+	
+	print_all_scene(g_app->scene);
 	if (file_checking(ac, av) == -1)
 		minirt_exit_on_error(1);
 

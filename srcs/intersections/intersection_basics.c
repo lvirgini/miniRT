@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 15:48:08 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:23:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@
 ** Renvoie a la fonction d'intersection suivant le type d'objet.
 */
 
-static double	intersect_objects(t_ray *ray, t_obj *objs, t_vec3 *pt_intersection, t_vec3 *normal)
+static double	intersect_objects(t_ray *ray, t_obj *obj, t_vec3 *pt_inter,
+	t_vec3 *normal)
 {
-	if (objs->type == SPHERE)
-		return(intersect_sphere(ray, (t_sphere *)objs->shape, pt_intersection, normal));
-	else if (objs->type == PLANE)
-		return(intersect_plane(ray, (t_plane *)objs->shape, pt_intersection, normal));
-	//else if (objs->type == TRIANGLE)
-	//	return(intersect_triangle(ray, (t_triangle *)objs->shape, pt_intersection, normal));
-	/*else if (objs->type == SQUARE)
-		intersect_square(ray, *objs);
-	else if (objs->type == CYLINDRE)
-		intersect_cylindre(ray, *objs);*/
+	if (obj->type == SPHERE)
+		return (intersect_sphere(ray, (t_sphere *)obj->shape, pt_inter, normal));
+	else if (obj->type == PLANE)
+		return (intersect_plane(ray, (t_plane *)obj->shape, pt_inter, normal));
+	//else if (obj->type == TRIANGLE)
+	//	return(intersect_triangle(ray, (t_triangle *)obj->shape, pt_inter, normal));
+	/*else if (obj->type == SQUARE)
+		intersect_square(ray, *obj);
+	else if (obj->type == CYLINDRE)
+		intersect_cylindre(ray, *obj);*/
 	return (0);
 }
 
@@ -49,7 +50,7 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 	double	t2;
 	t_vec3	pt_intersection;
 	t_vec3	normal;
-	
+
 	if (!objs)
 		return (NULL);
 	first_obj = NULL;
@@ -82,40 +83,40 @@ t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
 }
 
 /*
-** Pour chaque pixel de l'image, recherche une intersection avec un obj en fonction du rayon de la camera (cam) envoyé en parametre.
+** Pour chaque pixel de l'image, recherche une intersection avec un obj 
+** en fonction du rayon de la camera (cam) envoyé en parametre.
 */
 
-int			browse_image_for_intersection(t_camera *cam, int W, int H)
+int				browse_image_for_intersection(t_camera *cam, int w, int h)
 {
 	int		i;
 	int		j;
 	t_obj	*first_obj;
-	t_ray 	*ray;
-	
+	t_ray	*ray;
+
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 1));
 	i = 0;
-	while (i < H)
+	while (i < h)
 	{
 		j = 0;
-		while (j < W)
+		while (j < w)
 		{
 			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
-			ray->direction = normalize_vec3(create_vec3(j - (W / 2) + 0.5, i - (H / 2) + 0.5, - W / (2 * tan(cam->fov /2))));
+			ray->direction = normalize_vec3(create_vec3(j - (w / 2) + 0.5, i - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
 
 			// recherche le premier objet intersepté sur le lancer de rayon
 			first_obj = find_first_intersection(ray, g_app->scene->objs);
 
-			// s'il y a intersection / s'il y a un obj sur le rayon : 
+			// s'il y a intersection / s'il y a un obj sur le rayon :
 			//		color le pixel de la couleur retourné par find pixel color.
 			if (first_obj != NULL)
 			{
 				if (first_obj->type == TRIANGLE)
-					put_pixel(g_app->img, j, H - i - 1, create_color(255,255,255,255));
+					put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
 				else
-					put_pixel(g_app->img, j, H - i - 1, find_pixel_color(first_obj, ray));
+					put_pixel(g_app->img, j, h - i - 1, find_pixel_color(first_obj, ray));
 			}
-			
-			// remet a zero le point d'intersection et la normal modifié dans 
+			// remet a zero le point d'intersection et la normal modifié dans
 			// find intersection.
 			ray->pt_intersection = create_vec3(0, 0, 0);
 			ray->normal = create_vec3(0, 0, 0);

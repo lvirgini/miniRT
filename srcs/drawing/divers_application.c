@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:02:24 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/30 14:28:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:06:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Remplis entierement la fenetre de la couleur donnee en parametre.
 */
 
-void clear_application(t_color color)
+void	clear_application(t_color color)
 {
 	size_t i;
 	size_t j;

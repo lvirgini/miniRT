@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_scene.h                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 10:55:05 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/08/27 11:59:27 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/08/27 12:25:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_SCENE_H
-# define MINIRT_SCENE_H
+#include "minirt.h"
 
-# include "minirt.h"
-
-typedef struct s_scene	t_scene;
-
-struct		s_scene
+t_obj	*find_last_obj(t_obj *obj)
 {
-	t_camera	*cam;
-	t_light		*light_ambiant;
-	t_light		*light;
-	t_obj		*objs;
-};
-
-/*
-** Fonctions qui gerent la variable t_scene
-*/
-
-t_scene		*malloc_scene();
-void		destroy_scene(t_scene to_destroy);
-void		free_scene(t_scene *to_free);
-
-#endif
+	if (!obj)
+		return (NULL);
+	while (obj->next)
+		obj = obj->next;
+	return (obj);
+}

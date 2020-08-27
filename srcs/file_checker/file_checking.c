@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 10:16:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:25:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int		check_file_is_complete(void)
 		return(file_error("CAMERA", 3));*/
 	return (0);
 }
+
 /*
 ** Checking if file is .rt;
 */
@@ -46,12 +47,12 @@ static int		file_type(char *str)
 int				file_checking(int ac, char **av)
 {
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
-		return(0);	//// SAUVEGARDE EN IMAGE A FAIRE
+		return (0);	//// SAUVEGARDE EN IMAGE A FAIRE
 	if (ac < 2)
 		file_error("no file in first argument", 0);
 	if (file_type(av[1]) == -1)
 		file_error("file is not .rt", 0);
 	read_file(av[1]);
 	check_file_is_complete();
-	return(0);
+	return (0);
 }

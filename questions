@@ -1,0 +1,60 @@
+1/
+
+{
+	int a = fonction1();
+	int b = fonction2();
+	int c = fonction3();
+	int d = fonction4();
+
+	if (a || b || c || d)
+		return(Fail)
+	return(fonction 5(a, b, c, d))
+}
+
+
+
+2/
+{
+	return(fonction5(fonction1, fonction2, fonction3, fonction4))
+}
+
+dans ma fonction 5 :
+{
+	if (a || b || c || d)
+		return(Fail)
+}
+
+
+*----------------------------------------------------------------------------*
+ fonction d'erreur : 
+
+
+1/
+fonction_truc()
+{
+	if (truc)
+		return (fonction_erreur())
+}
+
+fonction_erreur()
+{
+	print(erreur);
+	return()
+}
+
+
+
+2/
+fonction_truc()
+{
+	if (truc)
+		fonction_erreur()
+}
+
+fonction_erreur()
+{
+	print(erreur)
+	exit();
+}
+
+*----------------------------------------------------------------------------*

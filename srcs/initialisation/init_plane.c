@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 18:32:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 11:06:03 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:58:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_plane		*malloc_plane(t_vec3 pos, t_vec3 orient, t_color color, int texture)
 {
 	t_plane		*plane;
 
-	if(!(plane = malloc(sizeof(t_plane))))
+	if (!(plane = malloc(sizeof(t_plane))))
 		minirt_exit_on_error(1);
 	plane->pos = pos;
 	plane->normal = normalize_vec3(add_vec3(pos, orient));

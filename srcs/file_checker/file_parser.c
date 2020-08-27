@@ -6,27 +6,15 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 16:25:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:32:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_tab(char **tab)
+size_t			tab_len(char **tab)
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("tab %d : |%s|\n", i, tab[i]);
-		i++;
-	}
-}
-
-size_t		tab_len(char **tab)
-{
-	size_t 	i;
+	size_t	i;
 
 	i = 0;
 	while (tab[i])
@@ -34,7 +22,7 @@ size_t		tab_len(char **tab)
 	return (i);
 }
 
-void	free_tab(char **tab)
+void			free_tab(char **tab)
 {
 	size_t	i;
 
@@ -55,7 +43,7 @@ void	free_tab(char **tab)
 ** 		R	A	l	c	pl	tr	cy	sp	sq
 */
 
-static size_t		index_set(char *s)
+static size_t	index_set(char *s)
 {
 	static char	*set[9] = {"R", "A", "l", "c", "pl", "tr", "cy", "sp", "sq"};
 	static char r_done = 0;
@@ -66,9 +54,9 @@ static size_t		index_set(char *s)
 	while (i < 9 && ft_strcmp(set[i], s) != 0)
 		i++;
 	if (i == 0 && r_done++ == 1)
-			file_error("RESOLUTION", 1);
+		file_error("RESOLUTION", 1);
 	else if (i == 1 && a_done++ == 1)
-			file_error("AMBIANT LIGHT", 1);
+		file_error("AMBIANT LIGHT", 1);
 	else if (i == 9)
 		file_error(s, 4);
 	return (i);
@@ -97,40 +85,30 @@ static void		set_functions_get(t_func *f)
 ** Get next line du fichier.rt et recuperation de chaque parametre de la scene.
 */
 
-
 // ATTENTION REFAIRE GNL car ne lit pas la derniere ligne, pb lors du compressage pour la maj libft
-int		read_file(char *str)
+int				read_file(char *str)
 {
 	int		fd_file;
 	int		index_ft;
 	char	*line;
 	t_func	f[9];
 	char	**tab;
-	char **tab2;
 
 	if ((fd_file = open(str, O_RDONLY)) == -1)
 		file_error("file cannot be read by the (read) function", 0);
-	set_functions_get(f);	
+	set_functions_get(f);
 	while (get_next_line(fd_file, &line) > 0)
 	{
 		printf("line = %s\n", line);
 		if (line && line[0] != '\0')
-		{ 
+		{
 			tab = ft_split_set(line, " \r\t\v\f");
 			index_ft = index_set(tab[0]);
 			printf("index = %d\n", index_ft);
 			print_tab(tab);
-			/*int i = 0;
-			while (tab[i])
-			{
-				tab2 = ft_split_set(tab[i], ",");
-				print_tab(tab2);
-				free_tab(tab2);
-				i++;
-			}*/
 			f[index_ft](tab);
 			free_tab(tab);
-
+			print_all_scene(g_app->scene);
 		}
 		printf("free line = %s\n", line);
 		free(line);

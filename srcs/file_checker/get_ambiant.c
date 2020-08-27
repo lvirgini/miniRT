@@ -6,12 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 17:34:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:37:39 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 /*
 ** Recuperation de la resolution a partir de la ligne R du fichier.rt
@@ -25,12 +24,14 @@ int		get_resolution(char **tab)
 	static int	get_resolution = 0;
 
 	if (get_resolution == 1)
+		file_error("RESOLUTION", 1);
 	if (tab_len(tab) < 3)
 		file_error("RESOLUTION", 2);
 	g_app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if (g_app->size.x <= 0 || g_app->size.x > RES_X_MAX
 		|| g_app->size.y <= 0 || g_app->size.y > RES_Y_MAX)
 		file_error("RESOLUTION", 2);
+	get_resolution = 1;
 	return (0);
 }
 
@@ -44,14 +45,13 @@ int		get_resolution(char **tab)
 int		get_ambiant_ligth(char **tab)
 {
 	t_color		ambiant_color;
-	double 		ratio;
+	double		ratio;
 
 	if (tab_len(tab) != 3 || (ratio = ft_atof(tab[1])) > 1 || ratio < 0
 		|| get_color_from_line(&ambiant_color, tab[2]))
 		file_error("AMBIANT LIGHT", 2);
-	g_app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0), 
-								ratio,
-								ambiant_color);
+	g_app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
+								ratio, ambiant_color);
 	return (0);
 }
 
@@ -63,17 +63,18 @@ int		get_ambiant_ligth(char **tab)
 */
 
 int		get_light(char **tab)
-{	
+{
 	t_color		light_color;
-	double 		ratio;
+	double		ratio;
 	t_vec3		pos;
 
-	if (tab_len(tab) < 4 
+	if (tab_len(tab) < 4
 		|| (ratio = ft_atof(tab[2])) > 1 || ratio < 0
 		|| get_color_from_line(&light_color, tab[3])
 		|| get_coord_from_line(&pos, tab[1]))
 		file_error("LIGHT", 2);
-	g_app->scene->light = malloc_light(pos, ratio, light_color); /// voir pour plusieurs lights 
+	g_app->scene->light = malloc_light(pos, ratio, light_color);
+	/// voir pour plusieurs lights
 	return (0);
 }
 

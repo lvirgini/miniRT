@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:26:30 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 11:07:03 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:05:37 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_triangle	*malloc_triangle(t_vec3 pos[3], t_color color, int texture)
 	triangle->vec2 = sub_vec3(triangle->pos3, triangle->pos1);
 	triangle->vec3 = sub_vec3(triangle->pos3, triangle->pos2);
 	triangle->normal = normalize_vec3(cross_vec3(triangle->vec1, triangle->vec2));
-	print_vec3(triangle->vec1);
-	print_vec3(triangle->vec2);
-	print_vec3(triangle->vec3);
-	return(triangle);
+	print_vec3(triangle->vec1, "triangle vec 1");
+	print_vec3(triangle->vec2, "triangle vec 2");
+	print_vec3(triangle->vec3, "triangle vec 3");
+	return (triangle);
 }
 
 void		free_triangle(t_triangle *triangle)

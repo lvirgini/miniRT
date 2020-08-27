@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 16:04:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:15:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 ** max_rebound pour stopper la reflexion infinie.
 */
 
-t_color		find_mirroir_color(t_ray ray_incident, t_color obj_color)
-{	
-	t_ray	new_ray;
-	t_vec3	new_direction;
-	t_obj	*first_obj;
-	t_color color;
-	static int max_rebound = MAX_REBOUND;
+t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
+{
+	t_ray		new_ray;
+	t_vec3		new_direction;
+	t_obj		*first_obj;
+	t_color		color;
+	static int	max_rebound = MAX_REBOUND;
 
 	max_rebound--;
 	if (max_rebound == 0)
@@ -33,27 +33,27 @@ t_color		find_mirroir_color(t_ray ray_incident, t_color obj_color)
 	first_obj = find_first_intersection(&new_ray, g_app->scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
-	else 
+	else
 		color = create_color(0, 0, 0, 255);
 	max_rebound = MAX_REBOUND;
 	(void)obj_color; ///
 	return (color);
 }
 
-
 /*
 ** Recherche et retourne la bonne couleur du pixel.
 */
 
-static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int texture, t_light *light)
+static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture, t_light *light)
 {
-	double 		intensite_pixel;
+	double		intensite_pixel;
 	t_color		color;
-	t_vec3 		light_vec;
+	t_vec3		light_vec;
+	int			r;
 
-	// si MIRROIR : 
+	// si MIRROIR :
 	if (texture == TEXTURE_MIRROIR)
-		return(find_mirroir_color(*ray_origin, obj_color));
+		return (find_mirroir_color(*ray_origin, obj_color));
 
 	// SI dans l'ombre la couleur devient noir.
 	color = calculate_shadow(obj_color, ray_origin, light);
@@ -65,25 +65,25 @@ static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int textur
 
 	if (light_scalaire < 0.)
 		light_scalaire = 0;
-	
+
 	// PAS DE CORRECTION
 	//int light_intensity = 6000 * light->ratio ; /////
 	//intensite_pixel = light_intensity * light_scalaire / ft_norme2_vec3(light_vec);
 
 	// CORRECTION GAMMA
-	int light_intensity = 6000 * light->ratio ;
-	intensite_pixel = pow(light_intensity * light_scalaire / norme2_vec3(light_vec),1/2.2);
+	int	light_intensity = 6000 * light->ratio ;
+	intensite_pixel = pow(light_intensity * light_scalaire / norme2_vec3(light_vec), 1 / 2.2);
 
 	if (intensite_pixel < 0)
 		intensite_pixel = 0;
 
-	int r =  color.r * intensite_pixel;
+	r = color.r * intensite_pixel;
 	color.r = r > 255 ? 255 : r;
-	r =  color.g * intensite_pixel;
+	r = color.g * intensite_pixel;
 	color.g = r > 255 ? 255 : r;
-	r =  color.b * intensite_pixel;
+	r = color.b * intensite_pixel;
 	color.b = r > 255 ? 255 : r;
-	r =  color.a * intensite_pixel;
+	r = color.a * intensite_pixel;
 	color.a = r > 255 ? 255 : r;
 	return (color);
 }
@@ -92,21 +92,21 @@ static t_color		find_good_color(t_ray *ray_origin, t_color obj_color, int textur
 ** en fonction du rayon, et de l'objet intersepté par ce rayon, retourne la couleur obtenue.
 */
 
-t_color		find_pixel_color(t_obj *obj, t_ray *ray_origin)
+t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 {
 	if (obj->type == SPHERE)
-		return(find_good_color( ray_origin, ((t_sphere *)obj->shape)->color, ((t_sphere *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_sphere *)obj->shape)->color, ((t_sphere *)obj->shape)->texture, g_app->scene->light));
 	else if (obj->type == PLANE)
-		return(find_good_color( ray_origin, ((t_plane *)obj->shape)->color, ((t_plane *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_plane *)obj->shape)->color, ((t_plane *)obj->shape)->texture, g_app->scene->light));
 	else if (obj->type == TRIANGLE)
-		return(find_good_color( ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_app->scene->light));
 	/*else if (obj->type == SQUARE)
 		return(color_square((t_square *)obj->shape));
 	else if (obj->type == TRIANGLE)
 		return(color_triangle((t_triangle *)obj->shape));
 	else if (obj->type == CYLINDRE)
 		return(color_triangle((t_sphere *)obj->shape));*/
-	return(create_color(255,255,255,255)); ///// NOPE
+	return (create_color(255, 255, 255, 255)); ///// NOPE
 }
 
 /*
@@ -177,13 +177,13 @@ t_color		find_pixel_color(t_obj *obj, t_ray *ray_origin)
 	double G = color.g;
 	double B = color.b;
 
-	R = kd * Ia * (ambiant_color.r + color.r)/2; 
+	R = kd * Ia * (ambiant_color.r + color.r)/2;
 	G = kd * Ia * (ambiant_color.g + color.g)/2;
 	B = kd * Ia * (ambiant_color.b + color.b)/2;
 
 
 // creation couleur et lumiere directe
-	
+
 	t_vec3	light_vector= ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
 
 	double N_L = ft_dot_vec3(ray_origin->normal, light_vector);
@@ -198,7 +198,7 @@ t_color		find_pixel_color(t_obj *obj, t_ray *ray_origin)
 	G += kd * N_L * Il * copy_color.g;
 	B += kd * N_L * Il * copy_color.b;
 
-	
+
 	color.r = R > 255 ? 255 : R;
 	color.r = R < 0 ? 0 : R;
 
@@ -209,9 +209,9 @@ t_color		find_pixel_color(t_obj *obj, t_ray *ray_origin)
 	color.b = B < 0 ? 0 : B;
 
 	color.a = 255;
-	
 
-	return (color);	
+
+	return (color);
 
 
 
@@ -227,18 +227,16 @@ t_color		find_pixel_color(t_obj *obj, t_ray *ray_origin)
 		r =  color.a * intensite_pixel;// / light_distance * light_distance;
 		color.a = r > 255 ? 255 : r;
 
-
 *//*
-
 
 		color.g =  color.g * intensite_pixel;// / light_distance * light_distance;
 		color.b =  color.b * intensite_pixel;// / light_distance * light_distance;
-		color.a =  color.a * intensite_pixel ;/// light_distance * light_distance;*/
-	/*	return (color);
+		color.a =  color.a * intensite_pixel ;/// light_distance * light_distance;
+		return (color);
 }*/
 
 /*
-** Retourne la couleur a afficher : 
+** Retourne la couleur a afficher :
 ** intensité = ratio lumiere * produit scalaire (normalisé( L.pos - S.pt_inter), Normal)
 */
 /*
@@ -260,5 +258,4 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 		color.b =  color.b * intensite_pixel;
 		color.a =  color.a * intensite_pixel;
 		return (color);
-}
-*/
+}*/

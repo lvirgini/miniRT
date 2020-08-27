@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 11:08:12 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:23:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Inscrit sur l'image la couleur donnée sur le pixel de coordonnees x, y.
 */
 
-void	put_pixel(t_image *image, int x, int y, t_color color)
+void		put_pixel(t_image *image, int x, int y, t_color color)
 {
 	int		pixel_index;
 
@@ -29,29 +29,26 @@ void	put_pixel(t_image *image, int x, int y, t_color color)
 	image->pixels[pixel_index + ALPHA_PIXEL] = color.a;
 }
 
-
-
 /// OLD
 t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 {
-		double 		intensite_pixel;
-		t_color		color;
-		t_vec3 		light_orient;
+	double		intensite_pixel;
+	t_color		color;
+	t_vec3		light_orient;
 
-		color = calculate_shadow(sphere->color, ray_origin, g_app->scene->light);
-		light_orient = normalize_vec3(sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
-		intensite_pixel = pow(0.9 * dot_vec3(light_orient, ray_origin->normal), 1/2.2);
-		if (intensite_pixel > 1)
-			return (color);
-		if (intensite_pixel < 0)
-			intensite_pixel = 0;
-		color.r =  color.r * intensite_pixel;
-		color.g =  color.g * intensite_pixel;
-		color.b =  color.b * intensite_pixel;
-		color.a =  color.a * intensite_pixel;
+	color = calculate_shadow(sphere->color, ray_origin, g_app->scene->light);
+	light_orient = normalize_vec3(sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+	intensite_pixel = pow(0.9 * dot_vec3(light_orient, ray_origin->normal), 1 / 2.2);
+	if (intensite_pixel > 1)
 		return (color);
+	if (intensite_pixel < 0)
+		intensite_pixel = 0;
+	color.r = color.r * intensite_pixel;
+	color.g = color.g * intensite_pixel;
+	color.b = color.b * intensite_pixel;
+	color.a = color.a * intensite_pixel;
+	return (color);
 }
-
 
 /*
 **	Colore chaque pixel de l'image
@@ -85,29 +82,28 @@ t_vec3		ft_mul2_vec3(t_vec3 a, t_vec3 b)
 	return (create_vec3(a.x * b.x, a.y * b.y, a.z * b.z));
 }
 
-
-
 /*		intensite_pixel = g_app->scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection)), ray_origin->normal) / ft_norme2_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
 */
 
-		//light_orient = create_vec3(0, 0, 0);
-		 /*NON
-		color.r =  pow(sphere->color.r *intensite_pixel, 1/2.2) * 256;  
-		color.g =  pow(sphere->color.g *intensite_pixel, 1/2.2) * 256;
-		color.b =  pow(sphere->color.b *intensite_pixel, 1/2.2) * 256;
-		color.a =  pow(sphere->color.a *intensite_pixel, 1/2.2) * 256;//255; //// Suivant la transparence*/
-		// 1/2.2 Correction GAMMA*/
+	//light_orient = create_vec3(0, 0, 0);
+	/*NON
+	color.r =  pow(sphere->color.r *intensite_pixel, 1/2.2) * 256;
+	color.g =  pow(sphere->color.g *intensite_pixel, 1/2.2) * 256;
+	color.b =  pow(sphere->color.b *intensite_pixel, 1/2.2) * 256;
+	color.a =  pow(sphere->color.a *intensite_pixel, 1/2.2) * 256;//255; //// Suivant la transparence*/
+	// 1/2.2 Correction GAMMA*/
 
-		/*color.r =  sphere->color.r * intensite_pixel;
-		color.g =  sphere->color.g * intensite_pixel;
-		color.b =  sphere->color.b * intensite_pixel;
-		color.a =  sphere->color.a * intensite_pixel;//255 ?*/
-		
-		/*color.r =  pow(sphere->color.r *intensite_pixel, 1/2.2);  
-		color.g =  pow(sphere->color.g *intensite_pixel, 1/2.2);
-		color.b =  pow(sphere->color.b *intensite_pixel, 1/2.2);
-		color.a =  255;//255; //// Suivant la transparence*/
-		/*color.r = 1 * intensite_pixel;
-		color.g = 0 * intensite_pixel;
-		color.b = 0 * intensite_pixel;
-		color.a = intensite_pixel;*/
+	/*color.r =  sphere->color.r * intensite_pixel;
+	color.g =  sphere->color.g * intensite_pixel;
+	color.b =  sphere->color.b * intensite_pixel;
+	color.a =  sphere->color.a * intensite_pixel;//255 ?*/
+
+	/*color.r =  pow(sphere->color.r *intensite_pixel, 1/2.2);
+	color.g =  pow(sphere->color.g *intensite_pixel, 1/2.2);
+	color.b =  pow(sphere->color.b *intensite_pixel, 1/2.2);
+	color.a =  255;//255; //// Suivant la transparence*/
+
+	/*color.r = 1 * intensite_pixel;
+	color.g = 0 * intensite_pixel;
+	color.b = 0 * intensite_pixel;
+	color.a = intensite_pixel;*/

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 11:28:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 11:56:00 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Gestion des t_app : creation, malloc, destroy et free.
-** avec la mlx : 
+** avec la mlx :
 ** 		mlx_ptr recupere le retour de mlx_init
 ** 		win_ptr recupere le retour de mlx_new_window.
 */
@@ -22,9 +22,9 @@
 t_app	create_application(int x, int y, char *title)
 {
 	t_app app;
-				
+
 	app.size = create_vec2(x, y);
-	app.mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ....
+	app.mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
 	app.mlx_ptr = mlx_init();
 	app.win_ptr = mlx_new_window(app.mlx_ptr, x, y, title);
 	app.scene = NULL;
@@ -35,17 +35,15 @@ t_app	create_application(int x, int y, char *title)
 ** Creation avec malloc d'une t_app
 */
 
-t_app	*malloc_application()
+t_app	*malloc_application(void)
 {
 	t_app	*app;
 
 	if (!(app = (t_app *)malloc(sizeof(app))))
 		minirt_exit_on_error(1);
-	//app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ....
+	//app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
 	//app->mlx_ptr = mlx_init();
-	app->scene = NULL;
 	ft_bzero(app, sizeof(app));
-
 	return (app);
 }
 

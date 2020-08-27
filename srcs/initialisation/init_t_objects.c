@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:13:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 12:01:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:04:31 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 t_obj		create_object(int type, void *shape)
 {
 	t_obj	obj;
-	
+
 	obj.type = type;
 	obj.shape = shape;
 	obj.next = NULL;
 	return (obj);
 }
 
-t_obj 		*malloc_object(int type, void *shape)
+t_obj		*malloc_object(int type, void *shape)
 {
 	t_obj	*obj;
 

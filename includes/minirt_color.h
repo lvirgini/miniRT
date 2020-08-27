@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:49:45 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/05/27 09:45:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:35:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ typedef struct s_color		t_color;
 
 struct		s_color
 {
-	uchar	r;
-	uchar	g;
-	uchar	b;
-	uchar	a;
+	t_uchar	r;
+	t_uchar	g;
+	t_uchar	b;
+	t_uchar	a;
 };
 
 /*
 **	Fonctions qui gèrent les couleurs
 */
 
-t_color		create_color(uchar r, uchar g, uchar b, uchar a);
-t_color		*malloc_color(uchar r, uchar g, uchar b, uchar a);
+t_color		create_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a);
+t_color		*malloc_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a);
 void		free_color(t_color *to_free);
 int			fuze_color_int(int actual, int to_add); //
 t_color		fuze_color(t_color actual, t_color to_add);
