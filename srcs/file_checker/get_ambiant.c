@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:37:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 13:18:39 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		get_ambiant_ligth(char **tab)
 	t_color		ambiant_color;
 	double		ratio;
 
-	if (tab_len(tab) != 3 || (ratio = ft_atof(tab[1])) > 1 || ratio < 0
+	if (tab_len(tab) != 3 || (ratio = ft_atof(tab[1])) > 1.0 || ratio < 0.0
 		|| get_color_from_line(&ambiant_color, tab[2]))
 		file_error("AMBIANT LIGHT", 2);
 	g_app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),

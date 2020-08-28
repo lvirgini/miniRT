@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:47:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 10:17:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	generate_scene_2(void)
 		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
 		//obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
 
-		g_app->scene = malloc_scene(cam, obj, light, light_ambiant);
+		//g_app->scene = malloc_scene(cam, obj, light, light_ambiant);
 }
 
 /// TEST DE SCENE 1:

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 12:23:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 10:05:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static double	intersect_objects(t_ray *ray, t_obj *obj, t_vec3 *pt_inter,
 	return (0);
 }
 
-static void		update_ray(t_ray *ray, t_vec3 pt_intersection, t_vec3 normal, int t)
+static void		update_ray(t_ray *ray, t_vec3 pt_inter, t_vec3 normal, int t)
 {
-	ray->pt_intersection = copy_vec3(pt_intersection);
+	ray->pt_intersection = copy_vec3(pt_inter);
 	ray->normal = copy_vec3(normal);
 	ray->t = t;
 }

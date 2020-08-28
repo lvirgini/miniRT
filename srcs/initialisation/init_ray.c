@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:15:40 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:58:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 10:09:16 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_ray		create_ray(t_vec3 origin, t_vec3 direction)
 	result.direction = direction;
 	result.pt_intersection = create_vec3(0, 0, 0);
 	result.normal = create_vec3(0, 0, 0);
-	result.tmax = RAY_T_MAX;
 	result.t = RAY_T_MIN;
 	return (result);
 }

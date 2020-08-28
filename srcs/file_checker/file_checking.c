@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:25:10 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 13:29:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 */
 
 static int		check_file_is_complete(void)
-{/*
-	if (g_app->x == 0 && g_app->y == 0)
-		return(file_error("RESOLUTION", 3));
-	if (g_app->scene->ambiant == NULL)
-		return(file_error("AMBIANT LIGHT", 3));
+{
+	if (g_app->size.x == 0 && g_app->size.y == 0)
+		file_error("RESOLUTION", 3);
+	if (g_app->scene->light_ambiant == NULL)
+		file_error("AMBIANT LIGHT", 3);
 	if (g_app->scene->cam == NULL)
-		return(file_error("CAMERA", 3));*/
+		file_error("CAMERA", 3);
 	return (0);
 }
 

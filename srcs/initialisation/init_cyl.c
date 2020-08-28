@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_light.c                                       :+:      :+:    :+:   */
+/*   init_cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/31 20:45:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 11:24:14 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/08/28 11:33:24 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/08/28 11:45:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-** Gestion des t_light : creation, malloc et free.
-*/
 
-t_light		create_light(t_vec3 pos, double ratio, t_color color)
+t_cyl	*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2], t_color col,
+				int texture)
 {
-	t_light	light;
+	t_cyl	*cyl;
 
-	light.pos = pos;
-	light.ratio = ratio;
-	light.color = color;
-	return (light);
-}
-
-t_light		*malloc_light(t_vec3 pos, double ratio, t_color color)
-{
-	t_light	*light;
-
-	if (!(light = malloc(sizeof(t_light))))
+	if (!(cyl = malloc(sizeof(t_cyl))))
 		minirt_exit_on_error(1);
-	*light = create_light(pos, ratio, color);
-	return (light);
+	cyl->pos = pos_orient[0];
+	cyl->orient = pos_orient[1];
+	cyl->radius = radius_hight[0];
+	cyl->hight = radius_hight[1];
+	cyl->color = col;
+	cyl->texture = texture;
+	return (cyl);
 }
 
-void		free_light(t_light *light)
+void	free_cyl(t_cyl *cyl)
 {
-	free(light);
+	free(cyl);
 }

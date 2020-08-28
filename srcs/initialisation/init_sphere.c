@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 11:29:51 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 12:03:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 11:23:47 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 /*
 ** Gestion d'une t_sphere : creation, malloc et free.
 */
-
-t_sphere	create_sphere(t_vec3 pos, double radius, t_color col, int texture)
-{
-	t_sphere	sphere;
-
-	sphere.pos = pos;
-	sphere.radius = radius;
-	sphere.color = col;
-	sphere.texture = texture;
-	return (sphere);
-}
 
 t_sphere	*malloc_sphere(t_vec3 pos, double radius, t_color col, int texture)
 {
@@ -37,7 +26,6 @@ t_sphere	*malloc_sphere(t_vec3 pos, double radius, t_color col, int texture)
 	sphere->radius = radius;
 	sphere->color = col;
 	sphere->texture = texture;
-	//	*sphere = create_sphere(pos, radius, color, texture);
 	return (sphere);
 }
 

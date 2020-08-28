@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_light.c                                       :+:      :+:    :+:   */
+/*   init_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/31 20:45:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 11:24:14 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/08/28 11:13:14 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/08/28 11:50:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Gestion des t_light : creation, malloc et free.
+** Creation par malloc d'un square
 */
 
-t_light		create_light(t_vec3 pos, double ratio, t_color color)
+t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
+					int texture)
 {
-	t_light	light;
+	t_square	*square;
 
-	light.pos = pos;
-	light.ratio = ratio;
-	light.color = color;
-	return (light);
-}
-
-t_light		*malloc_light(t_vec3 pos, double ratio, t_color color)
-{
-	t_light	*light;
-
-	if (!(light = malloc(sizeof(t_light))))
+	if (!(square = malloc(sizeof(t_square))))
 		minirt_exit_on_error(1);
-	*light = create_light(pos, ratio, color);
-	return (light);
+	square->pos = pos_orient[0];
+	square->orient = pos_orient[1];
+	square->hight = h;
+	square->color = col;
+	square->texture = texture;
+	return (square);
 }
 
-void		free_light(t_light *light)
+void		free_square(t_square *square)
 {
-	free(light);
+	free(square);
 }

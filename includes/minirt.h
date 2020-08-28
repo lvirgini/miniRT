@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 10:58:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 10:08:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@
 # include "minirt_objet.h"
 # include "minirt_scene.h"
 # include "minirt_application.h"
-
+# include "minirt_intersection.h"
 # include "minirt_drawing.h"
 # include "minirt_parsing.h"
-# include "minirt_intersection.h"
+
 
 /*
 ** Fonctions a ranger

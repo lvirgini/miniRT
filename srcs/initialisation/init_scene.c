@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:59:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/08/28 10:17:09 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_scene		*malloc_scene(void)
 	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		minirt_exit_on_error(1);
 	ft_bzero(scene, sizeof(scene));
-	scene->objs = NULL;
+	scene->nb_obj = 0;
 	return (scene);
 }
 
