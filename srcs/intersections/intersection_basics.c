@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 10:05:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/21 11:35:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 	t_obj	*first_obj;
 	t_ray	*ray;
 
+	printf("browse_image OK\n");
 	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 1));
 	i = 0;
 	while (i < h)
@@ -101,6 +102,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 		j = 0;
 		while (j < w)
 		{
+				//printf("browse_image	i = %d		j = %d\n", i, j);
 			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
 			ray->direction = normalize_vec3(create_vec3(j - (w / 2) + 0.5, i - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
 
@@ -111,9 +113,9 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 			//		color le pixel de la couleur retourné par find pixel color.
 			if (first_obj != NULL)
 			{
-				if (first_obj->type == TRIANGLE)
-					put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
-				else
+				//if (first_obj->type == TRIANGLE)
+				//	put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
+				//else
 					put_pixel(g_app->img, j, h - i - 1, find_pixel_color(first_obj, ray));
 			}
 			// remet a zero le point d'intersection et la normal modifié dans

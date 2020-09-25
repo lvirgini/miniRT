@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:32:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/09 17:15:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void			free_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("free tab %ld : |%s|\n", i, tab[i]);
+		//printf("free tab %ld : |%s|\n", i, tab[i]);
 		free(tab[i++]);
 	}
 	free(tab);
@@ -99,21 +99,21 @@ int				read_file(char *str)
 	set_functions_get(f);
 	while (get_next_line(fd_file, &line) > 0)
 	{
-		printf("line = %s\n", line);
+		//printf("line = %s\n", line);
 		if (line && line[0] != '\0')
 		{
 			tab = ft_split_set(line, " \r\t\v\f");
 			index_ft = index_set(tab[0]);
-			printf("index = %d\n", index_ft);
-			print_tab(tab);
+			//printf("index = %d\n", index_ft);
+			//print_tab(tab);
 			f[index_ft](tab);
 			free_tab(tab);
-			print_all_scene(g_app->scene);
+			//print_all_scene(g_app->scene);
 		}
-		printf("free line = %s\n", line);
+		//printf("free line = %s\n", line);
 		free(line);
 	}
+	print_all_scene(g_app->scene);
 	close(fd_file);
-	exit_program();
 	return (0);
 }

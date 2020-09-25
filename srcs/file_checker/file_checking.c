@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 13:29:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/25 17:49:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ static int		file_type(char *str)
 
 int				file_checking(int ac, char **av)
 {
+
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
 		return (0);	//// SAUVEGARDE EN IMAGE A FAIRE
 	if (ac < 2)
 		file_error("no file in first argument", 0);
 	if (file_type(av[1]) == -1)
 		file_error("file is not .rt", 0);
+	//*g_app = create_application(1024, 1024, "test1");
 	read_file(av[1]);
 	check_file_is_complete();
-	return (0);
+	return (0); 
 }

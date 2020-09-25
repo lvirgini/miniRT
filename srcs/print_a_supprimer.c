@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/25 11:10:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/09 17:36:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void	print_tab(char **tab) ///
 	}
 }
 
+void		print_sphere(t_sphere *sp)
+{
+	printf("SPHERE\n");
+	print_vec3(sp->pos, "pos");
+	printf("radius: %lf\n texture = %d\n color =", sp->radius, sp->texture);
+	print_color(sp->color);
+}
+
+void		print_plane(t_plane *pl)
+{
+	printf("PLANE:\ntexture = %d\n", pl->texture);
+	print_vec3(pl->pos, "pos");
+	print_vec3(pl->normal, "normal");
+	print_color(pl->color);
+}
 void		print_all_obj(t_obj *obj)
 {
 	size_t	i;
@@ -44,6 +59,10 @@ void		print_all_obj(t_obj *obj)
 	{
 		printf("obj %ld : adresse : %p	TYPE : %d\n", i++, obj, obj->type);
 		printf("obj->next = %p\n", obj->next);
+		if (obj->type == SPHERE)
+			print_sphere((t_sphere *)obj->shape);
+		if (obj->type == PLANE)
+			print_plane((t_plane *)obj->shape);
 		obj = obj->next;
 	}
 }
@@ -98,5 +117,5 @@ void		print_all_scene(t_scene *scene)
 		print_all_lights(scene->light, scene->light_ambiant);
 		printf("*------------------------------------------------------------*\n");
 	}
-	printf("*------------------------------------------------------------*\n");
+	printf("*-----------------------END----------------------------------*\n");
 }

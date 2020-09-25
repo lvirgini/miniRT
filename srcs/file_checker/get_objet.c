@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 13:22:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/25 18:03:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		get_plane(char **tab)
 	t_plane		*plane;
 	t_obj		*obj;
 
+	printf("OK plane\n");
 	if ((tab_len(tab) < 4
 		|| get_coord_from_line(&pos, tab[1])
 		|| get_coord_from_line(&orient, tab[2])
@@ -77,9 +78,10 @@ int		get_plane(char **tab)
 	else
 	{
 		obj = find_last_obj(g_app->scene->objs);
-		if (!(obj->next = malloc_object(SPHERE, plane)))
+		if (!(obj->next = malloc_object(PLANE, plane)))
 			minirt_exit_on_error(1);
 	}
+	printf("OK plane\n");
 	return (0);
 }
 

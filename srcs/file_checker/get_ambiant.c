@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 13:18:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/25 17:57:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int		get_camera(char **tab)
 		|| get_coord_from_line(&orient, tab[2])
 		|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
 		file_error("CAMERA", 2);
-	g_app->scene->cam = malloc_camera(fov, pos, orient);
+	g_app->scene->cam =  malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
+///////////////////////////
+	//g_app->scene->cam = malloc_camera(fov, pos, orient);
 	return (0);
 }

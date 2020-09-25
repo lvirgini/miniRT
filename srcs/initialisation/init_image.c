@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/06/16 11:56:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/09 17:46:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 t_image		create_image(int x, int y)
 {
 	t_image	img;
-
+	
 	img.size = create_vec2(x, y);
 	img.img_ptr = mlx_new_image(g_app->mlx_ptr, img.size.x, img.size.y);
 	img.pixels = mlx_get_data_addr(img.img_ptr,
