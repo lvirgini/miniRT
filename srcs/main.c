@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 18:04:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:24:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,17 @@ void	generate_scene(void)
 		print_all_scene(g_app->scene);
 }
 
+void	generate_content(void)
+{
+	g_app->mlx_ptr = mlx_init();
+	g_app->mlx_ptr = mlx_init();
+	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size.x, g_app->size.y, "title");
+	if (!(g_app->img = malloc_image((int)g_app->size.x, (int)g_app->size.y)))
+		minirt_exit_on_error(1);
+}
 
 int		main(int ac, char **av)
 {
-	//int		x = 1024;
-	//int		y = 1024;
-	//char	*title = "Minirt";
 	void 	*param[5];
 
 	if (!(g_app = malloc_application()))
@@ -111,24 +116,15 @@ int		main(int ac, char **av)
 	if (file_checking(ac, av) == -1)
 		minirt_exit_on_error(1);
 	
-	g_app->mlx_ptr = mlx_init();
-	g_app->mlx_ptr = mlx_init();
-	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size.x, g_app->size.y, "title");
-
-
-
-	if (!(g_app->img = malloc_image((int)g_app->size.x, (int)g_app->size.y)))
-		minirt_exit_on_error(1);
+	generate_content();
 	raytracing_test(param);
-	//printf("OK\n");
-	//return (0);
-	
 
-	//clear_application(create_color(25, 25, 25, 255));
-	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
- 	mlx_key_hook(g_app->win_ptr,handle_key, param);
-	mlx_mouse_hook (g_app->win_ptr,handle_mouse, g_app->scene->objs);
-	mlx_hook(g_app->win_ptr, 17, (1L << 17), exit_program, 0);
+	return (run_application());
+	return (0);
+	if (file_checking(ac, av) == -1)/////
+		minirt_exit_on_error(1);
+}
+
 
 /*
 	g_app = malloc_application();
@@ -167,12 +163,11 @@ int		main(int ac, char **av)
 //	mlx_loop_hook(g_app->mlx_ptr, raytracing_test, param);
 //	premiers_test(param);
 
-	return (run_application());
 
-	return (0);
-	if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(1);
-}
+
+
+
+
 
 /*
  const Vec3f &orig, const Vec3f &dir, 

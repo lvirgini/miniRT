@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/21 11:35:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:24:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,10 @@ int		raytracing_test(void *param) // param a determier
 	printf("OK\n");
 	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr, 0, 0);
 	printf("OK\n");
+
+	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
+ 	mlx_key_hook(g_app->win_ptr,handle_key, param);
+	mlx_mouse_hook (g_app->win_ptr,handle_mouse, g_app->scene->objs);
+	mlx_hook(g_app->win_ptr, 17, (1L << 17), exit_program, 0);
 	return (0);
 }

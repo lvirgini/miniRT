@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 17:04:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/26 15:47:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@
 ** 		win_ptr recupere le retour de mlx_new_window.
 */
 
-t_app	create_application(int x, int y, char *title)
-{
-	t_app app;
-
-	app.size = create_vec2(x, y);
-	app.mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
-	app.mlx_ptr = mlx_init();
-	app.win_ptr = mlx_new_window(app.mlx_ptr, x, y, title);
-	//app.scene = NULL;
-	return (app);
-}
-
-/*
-** Creation avec malloc d'une t_app
-*/
-
 t_app	*malloc_application(void)
 {
 	t_app	*app;
@@ -42,12 +26,6 @@ t_app	*malloc_application(void)
 	if (!(app = (t_app *)malloc(sizeof(app))))
 		minirt_exit_on_error(1);
 	ft_bzero(app, sizeof(app));
-	//printf("mlx init = %p\n", app->mlx_ptr);
-	//app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
-	//printf("mlx init = %p\n", app->mlx_ptr);
-	//app->mlx_ptr = mlx_init();
-	//printf("mlx init = %p\n", app->mlx_ptr);
-	//printf("malloc app OK\n");
 	return (app);
 }
 

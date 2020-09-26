@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/18 11:29:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:24:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ struct		s_app
 ** Fonctions qui gerent la variable t_app
 */
 
-t_app		create_application(int x, int y, char *title);
 t_app		*malloc_application();
 void		destroy_application(t_app to_destroy);
 void		free_application(t_app *to_free);
