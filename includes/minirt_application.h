@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/26 17:24:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:08:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ struct		s_app
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_vec2		size;
+	t_vec2		*size;
 	t_image		*img;
 	t_scene		*scene;
 };

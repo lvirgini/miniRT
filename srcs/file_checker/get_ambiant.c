@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 17:57:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:19:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int		get_resolution(char **tab)
 		file_error("RESOLUTION", 1);
 	if (tab_len(tab) < 3)
 		file_error("RESOLUTION", 2);
-	g_app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
-	if (g_app->size.x <= 0 || g_app->size.x > RES_X_MAX
-		|| g_app->size.y <= 0 || g_app->size.y > RES_Y_MAX)
+	g_app->size = malloc_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
+	if (g_app->size->x <= 0 || g_app->size->x > RES_X_MAX
+		|| g_app->size->y <= 0 || g_app->size->y > RES_Y_MAX)
 		file_error("RESOLUTION", 2);
 	get_resolution = 1;
 	return (0);
@@ -96,8 +96,7 @@ int		get_camera(char **tab)
 		|| get_coord_from_line(&orient, tab[2])
 		|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
 		file_error("CAMERA", 2);
-	g_app->scene->cam =  malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-///////////////////////////
-	//g_app->scene->cam = malloc_camera(fov, pos, orient);
+	g_app->scene->cam = malloc_camera(fov, pos, orient);
+	printf("%p = g_app->size\n  %p = g_app->scene->cam", g_app->size, g_app->scene->cam);
 	return (0);
 }

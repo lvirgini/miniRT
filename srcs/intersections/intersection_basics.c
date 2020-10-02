@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/21 11:35:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/27 13:34:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,11 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 	int		j;
 	t_obj	*first_obj;
 	t_ray	*ray;
-
-	printf("browse_image OK\n");
-	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 1));
+	//cam = malloc_camera(2, create_vec3(0, 0, 0), create_vec3(0, 0, 1));
+	printf("browse_image OK\n\n");
+	print_vec3(cam->pos, "cam->pos");
+	print_vec3(cam->orient, "cam->orient");
+	ray = malloc_ray(cam->pos, add_vec3(cam->pos, cam->orient));
 	i = 0;
 	while (i < h)
 	{

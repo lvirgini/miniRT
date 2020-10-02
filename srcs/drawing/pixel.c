@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:23:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/28 11:45:17 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void		put_pixel(t_image *image, int x, int y, t_color color)
 {
 	int		pixel_index;
 
-	if (x < 0 || y < 0 || x >= image->size.x || y >= image->size.y)
+	if (x < 0 || y < 0 || x >= image->size->x || y >= image->size->y)
 		return ;
-	pixel_index = (y * g_app->size.x + x) * 4;
+	pixel_index = (y * g_app->size->x + x) * 4;
 	image->pixels[pixel_index + RED_PIXEL] = color.r;
 	image->pixels[pixel_index + GREEN_PIXEL] = color.g;
 	image->pixels[pixel_index + BLUE_PIXEL] = color.b;

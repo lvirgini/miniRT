@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/09 17:36:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:57:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_color(t_color color)
 	printf("R: %d\tG: %d\tB: %d\n", color.r, color.g, color.b);
 }
 
-void	print_tab(char **tab) ///
+void	print_tab(char **tab)
 {
 	size_t	i;
 
