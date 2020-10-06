@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 11:11:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:39:03 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	generate_scene(void)
 		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.4, create_color(200,0,200,255));
 
 		
-		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -55), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
+		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -70), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
 		//t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
 		
 	//	t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(210, 180, 220, 200), 0);
@@ -78,7 +78,7 @@ void	generate_scene(void)
 		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
 		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
+		t_vec3 pos[3] = {create_vec3(15,0,-70), create_vec3(0, 15, -70), create_vec3(-15, 0, -70)};
 		t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
 
 		

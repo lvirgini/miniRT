@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 12:59:15 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:29:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static double	intersect_objects(t_ray *ray, t_obj *obj, t_vec3 *pt_inter,
 		return (intersect_sphere(ray, (t_sphere *)obj->shape, pt_inter, normal));
 	else if (obj->type == PLANE)
 		return (intersect_plane(ray, (t_plane *)obj->shape, pt_inter, normal));
-	//else if (obj->type == TRIANGLE)
-	//	return(intersect_triangle(ray, (t_triangle *)obj->shape, pt_inter, normal));
+	else if (obj->type == TRIANGLE)
+		return(intersect_triangle(ray, (t_triangle *)obj->shape, pt_inter, normal));
 	/*else if (obj->type == SQUARE)
 		intersect_square(ray, *obj);
 	else if (obj->type == CYLINDRE)
@@ -117,7 +117,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 			{
 				if (first_obj->type == TRIANGLE)
 					put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
-				//else
+				else
 					put_pixel(g_app->img, j, h - i - 1, find_pixel_color(first_obj, ray));
 			}
 			// remet a zero le point d'intersection et la normal modifié dans
