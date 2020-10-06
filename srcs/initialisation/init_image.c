@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/09 17:46:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/28 11:45:00 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,21 @@
 ** Gestion des t_image : creation malloc et free.
 */
 
-t_image		create_image(int x, int y)
-{
-	t_image	img;
-	
-	img.size = create_vec2(x, y);
-	img.img_ptr = mlx_new_image(g_app->mlx_ptr, img.size.x, img.size.y);
-	img.pixels = mlx_get_data_addr(img.img_ptr,
-								&(img.bits_per_pixel),
-								&(img.size_line),
-								&(img.endian));
-	return (img);
-}
-
 t_image		*malloc_image(int x, int y)
 {
 	t_image	*img;
-
+	
 	if (!(img = malloc(sizeof(t_image))))
 		minirt_exit_on_error(1);
-	*img = create_image(x, y);
+	img->size = malloc_vec2(x, y);
+	img->img_ptr = mlx_new_image(g_app->mlx_ptr, img->size->x, img->size->y);
+	img->pixels = mlx_get_data_addr(img->img_ptr,
+								&(img->bits_per_pixel),
+								&(img->size_line),
+								&(img->endian));
+	printf("END MALLOC IMAGE : \n");
+	print_all_cam(g_app->scene->cam);
+
 	return (img);
 }
 

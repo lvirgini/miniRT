@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/09 17:15:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:31:03 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int				read_file(char *str)
 		//printf("free line = %s\n", line);
 		free(line);
 	}
+	
 	print_all_scene(g_app->scene);
 	close(fd_file);
 	return (0);

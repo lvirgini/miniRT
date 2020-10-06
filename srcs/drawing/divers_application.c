@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:02:24 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:06:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/09/28 11:43:33 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	clear_application(t_color color)
 	size_t j;
 
 	i = 0;
-	while (i < g_app->size.x)
+	while (i < g_app->size->x)
 	{
 		j = 0;
-		while (j < g_app->size.y)
+		while (j < g_app->size->y)
 		{
 			put_pixel(g_app->img, i, j, color);
 			j++;

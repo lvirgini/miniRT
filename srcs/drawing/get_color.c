@@ -6,14 +6,15 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:15:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:56:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Si l'objet est mirroir calcul du nouveau rayon pour trouver la couleur réfléchie par la surface mirroir.
+** Si l'objet est mirroir calcul du nouveau rayon pour trouver la couleur 
+** réfléchie par la surface mirroir.
 ** max_rebound pour stopper la reflexion infinie.
 */
 

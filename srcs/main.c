@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/26 17:24:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:01:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	make_croix_milieu(void)
 	int x = 0;
 	int y = 0;
 
-	while (x < g_app->size.x)
+	while (x < g_app->size->x)
 	{
-		while (y < g_app->size.y)
+		while (y < g_app->size->y)
 		{
-			if (((g_app->size.x / 2)) == x)
+			if (((g_app->size->x / 2)) == x)
 				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
-			if (((g_app->size.y / 2)) == y)
+			if (((g_app->size->y / 2)) == y)
 				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
 			y++;
 		}
@@ -93,9 +93,13 @@ void	generate_content(void)
 {
 	g_app->mlx_ptr = mlx_init();
 	g_app->mlx_ptr = mlx_init();
-	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size.x, g_app->size.y, "title");
-	if (!(g_app->img = malloc_image((int)g_app->size.x, (int)g_app->size.y)))
+	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size->x, g_app->size->y, "title");
+	if (!(g_app->img = malloc_image(g_app->size->x, g_app->size->y)))
 		minirt_exit_on_error(1);
+	printf("AFTER MALLOC IMAGE : \n");
+	print_all_cam(g_app->scene->cam);
+	printf("%p = cam fov\n%p = img size x\n%p = g_app->size", g_app->scene->cam, g_app->img->size, g_app->size);
+
 }
 
 int		main(int ac, char **av)
@@ -108,13 +112,14 @@ int		main(int ac, char **av)
 		minirt_exit_on_error(1);
 
 	// 1ere scene sans le fichier :
-	//generate_scene();	
-	//g_app->size = create_vec2(1024,1024);
+	generate_scene();
+	print_all_scene(g_app->scene);
+	g_app->size = malloc_vec2(1024,1024);
 
 	
 	//1ere sene avec fichier :
-	if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(1);
+	/*if (file_checking(ac, av) == -1)
+		minirt_exit_on_error(1);*/
 	
 	generate_content();
 	raytracing_test(param);
