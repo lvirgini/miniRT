@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 15:39:03 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:16:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	generate_scene(void)
 		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
 		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		t_vec3 pos[3] = {create_vec3(15,0,-70), create_vec3(0, 15, -70), create_vec3(-15, 0, -70)};
+		t_vec3 pos[3] = {create_vec3(15,0,-50), create_vec3(0, 15, -50), create_vec3(-15, 0, -50)};
 		t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
 
 		

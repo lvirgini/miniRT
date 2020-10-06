@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:26:30 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 15:56:03 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:05:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_triangle	*malloc_triangle(t_vec3 pos[3], t_color color, int texture)
 	triangle->norme2_ac = norme2_vec3(triangle->ac);
 	triangle->dot_ab_ac = dot_vec3(triangle->ab, triangle->ac);
 	triangle->determinant =  (triangle->norme2_ab * triangle->norme2_ac) - (triangle->dot_ab_ac * triangle->dot_ab_ac);
+	triangle->plane = malloc_plane(triangle->a, triangle->ab, triangle->color, 0);
 	print_vec3(triangle->ab, "triangle vec 1");
 	print_vec3(triangle->ac, "triangle vec 2");
 	print_vec3(triangle->bc, "triangle vec 3");

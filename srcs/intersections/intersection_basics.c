@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 15:29:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:14:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h)
 			//		color le pixel de la couleur retourné par find pixel color.
 			if (first_obj != NULL)
 			{
-				if (first_obj->type == TRIANGLE)
+				/*if (first_obj->type == TRIANGLE)
 					put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
-				else
+				else*/
 					put_pixel(g_app->img, j, h - i - 1, find_pixel_color(first_obj, ray));
 			}
 			// remet a zero le point d'intersection et la normal modifié dans
