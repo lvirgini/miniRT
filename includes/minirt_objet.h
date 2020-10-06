@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/27 14:31:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:19:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,16 @@ struct		s_cyl
 
 struct		s_triangle
 {
-	t_vec3		pos1;
-	t_vec3		pos2;
-	t_vec3		pos3;
-	t_vec3		vec1;
-	t_vec3		vec2;
-	t_vec3		vec3;
+	t_vec3		a;
+	t_vec3		b;
+	t_vec3		c;
+	t_vec3		ab;
+	t_vec3		ac;
+	t_vec3		bc;
+	double		norme2_ab;
+	double		norme2_ac;
+	double		dot_ab_ac;
+	double		determinant;
 	t_vec3		normal;
 	t_color		color;
 	int			texture;

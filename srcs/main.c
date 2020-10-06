@@ -6,11 +6,20 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 12:01:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:11:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+// faire une image avec --save
+// intersection cylindre
+// intersection triangle
+// intersection carré
+// intersection a l'interieur d'une sphere
+// pb gnl
+// pb avec t_app
+// integration de "bonus".
 
 t_app		*g_app;
 
@@ -69,8 +78,8 @@ void	generate_scene(void)
 		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
 		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		//t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
-		//t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
+		t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
+		t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
 
 		
 		t_obj	*obj;
@@ -81,7 +90,7 @@ void	generate_scene(void)
 		obj->next->next->next = malloc_object(PLANE, plan3);
 		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
 		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
-		//obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
+		obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
 
 
 		g_app->scene = create_scene(cam, obj, light, light_ambiant);

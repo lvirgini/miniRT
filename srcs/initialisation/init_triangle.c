@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:26:30 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 12:05:37 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:22:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,22 @@ t_triangle	*malloc_triangle(t_vec3 pos[3], t_color color, int texture)
 
 	if (!(triangle = malloc(sizeof(t_triangle))))
 		minirt_exit_on_error(1);
-	triangle->pos1 = pos[0];
-	triangle->pos2 = pos[1];
-	triangle->pos3 = pos[2];
+	triangle->a = pos[0];
+	triangle->b = pos[1];
+	triangle->c = pos[2];
 	triangle->color = color;
 	triangle->texture = texture;
-	triangle->vec1 = sub_vec3(triangle->pos2, triangle->pos1);
-	triangle->vec2 = sub_vec3(triangle->pos3, triangle->pos1);
-	triangle->vec3 = sub_vec3(triangle->pos3, triangle->pos2);
-	triangle->normal = normalize_vec3(cross_vec3(triangle->vec1, triangle->vec2));
-	print_vec3(triangle->vec1, "triangle vec 1");
-	print_vec3(triangle->vec2, "triangle vec 2");
-	print_vec3(triangle->vec3, "triangle vec 3");
+	triangle->ab = sub_vec3(triangle->b, triangle->a);
+	triangle->ac = sub_vec3(triangle->c, triangle->a);
+	triangle->bc = sub_vec3(triangle->c, triangle->b);
+	triangle->normal = normalize_vec3(cross_vec3(triangle->ab, triangle->ac));
+	triangle->norme2_ab = norme2_vec3(triangle->ab);
+	triangle->norme2_ac = norme2_vec3(triangle->ac);
+	triangle->dot_ab_ac = dot_vec3(triangle->ab, triangle->ac);
+	triangle->determinant =  (triangle->norme2_ab * triangle->norme2_ac) - (triangle->dot_ab_ac * triangle->dot_ab_ac);
+	print_vec3(triangle->ab, "triangle vec 1");
+	print_vec3(triangle->ac, "triangle vec 2");
+	print_vec3(triangle->bc, "triangle vec 3");
 	return (triangle);
 }
 

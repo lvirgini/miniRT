@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 18:03:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:00:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,9 @@ int		get_cyl(char **tab)
 	t_obj		*obj;
 
 	if ((tab_len(tab) < 6 || (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
-		|| (radius_hight[1] = ft_atof(tab[4])) < 0.0 || get_coord_from_line(
-		pos_orient, tab[1]) || get_coord_from_line(pos_orient + 1, tab[2])
+		|| (radius_hight[1] = ft_atof(tab[4])) < 0.0
+		|| get_coord_from_line(pos_orient, tab[1])
+		|| get_coord_from_line(pos_orient + 1, tab[2])
 		|| get_color_from_line(&color, tab[5])))
 		file_error("CYLINDRE", 2);
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
