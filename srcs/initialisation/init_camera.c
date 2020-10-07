@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/27 14:31:42 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 22:23:21 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient)
 {
 	t_camera	*cam;
 
-	if (!(cam = malloc(sizeof(t_camera))))
-		minirt_exit_on_error(1);
+	if (!(cam = (t_camera *)malloc(sizeof(t_camera))))
+		return (NULL);
 	cam->fov = fov;
 	cam->pos = pos;
 	cam->orient = orient;
@@ -30,5 +30,6 @@ t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient)
 
 void		free_camera(t_camera *cam)
 {
-	free(cam);
+	if (cam)
+		free(cam);
 }

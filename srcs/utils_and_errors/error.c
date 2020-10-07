@@ -6,58 +6,46 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 13:18:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:05:31 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		exit_program(void)
+void	exit_free_minirt(t_app *app, int if_error) 
 {
-	exit(0);
-	return (0);
-}
-
-/*
-** print errors of everything else than file.
-*/
-
-void	minirt_exit_on_error(int error)
-{
-	if (error == 1)
-		ft_putstr("Error : Malloc return NULL : allocation problem\n");
-	exit_program();
+	if (g_scene)
+		destroy_scene(*g_scene);
+	if (app)
+		destroy_application(app);
+	exit(if_error);
 }
 
 /*
 ** print error of file
 */
 
-void	file_error(char *location, int error)
+int		file_error(char *location, int error)
 {
 	ft_putstr("Error in file :\t");
-	if (location)
-		ft_putstr(location);
-	if (error == 0)
-		;
-	else if (error == 1)
-		ft_putstr(" : defined twice in file");
+	ft_putstr(location);
+	if (error == 1)
+		ft_putstr(" : defined twice in file\n");
 	else if (error == 2)
-		ft_putstr(" : badly defined value");
+		ft_putstr(" : badly defined value\n");
 	else if (error == 3)
-		ft_putstr(" : is undefined");
+		ft_putstr(" : is undefined\n");
 	else if (error == 4)
-		ft_putstr(" : is not a type of element for this minirt");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	else if (error == 1)
-		ft_putstr("\n");
-	ft_putstr("\n");
-	exit_program();
+		ft_putstr(" : is not a type of element for this minirt\n");
+	return (-1);
+}
+
+/*
+** print error of malloc
+*/
+
+int		malloc_error(void)
+{
+	ft_putstr("Error : Malloc return NULL : allocation problem\n");
+	return (-1);
 }

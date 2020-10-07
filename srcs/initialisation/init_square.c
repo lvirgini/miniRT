@@ -6,14 +6,14 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 11:13:14 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 11:50:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:06:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-** Creation par malloc d'un square
+** Gestion d'un t_square : malloc et free
 */
 
 t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
@@ -21,8 +21,8 @@ t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
 {
 	t_square	*square;
 
-	if (!(square = malloc(sizeof(t_square))))
-		minirt_exit_on_error(1);
+	if (!(square = (t_square *)malloc(sizeof(t_square))))
+		return (NULL);
 	square->pos = pos_orient[0];
 	square->orient = pos_orient[1];
 	square->hight = h;
@@ -33,5 +33,6 @@ t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
 
 void		free_square(t_square *square)
 {
-	free(square);
+	if (square)
+		free(square);
 }

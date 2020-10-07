@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 12:56:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:55:01 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
 		return (create_color(0, 0, 0, 255));
 	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
 	new_ray = create_ray(add_vec3(ray_incident.pt_intersection, mul_vec3(ray_incident.normal, 0.01)), new_direction);
-	first_obj = find_first_intersection(&new_ray, g_app->scene->objs);
+	first_obj = find_first_intersection(&new_ray, g_scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
 	else
@@ -96,11 +96,11 @@ static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture
 t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 {
 	if (obj->type == SPHERE)
-		return (find_good_color(ray_origin, ((t_sphere *)obj->shape)->color, ((t_sphere *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_sphere *)obj->shape)->color, ((t_sphere *)obj->shape)->texture, g_scene->light));
 	else if (obj->type == PLANE)
-		return (find_good_color(ray_origin, ((t_plane *)obj->shape)->color, ((t_plane *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_plane *)obj->shape)->color, ((t_plane *)obj->shape)->texture, g_scene->light));
 	else if (obj->type == TRIANGLE)
-		return (find_good_color(ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_app->scene->light));
+		return (find_good_color(ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_scene->light));
 	/*else if (obj->type == SQUARE)
 		return(color_square((t_square *)obj->shape));
 	else if (obj->type == TRIANGLE)
@@ -123,11 +123,11 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 
 		if (texture == TEXTURE_MIRROIR)
 			return(find_mirroir_color(*ray_origin, obj_color));
-		color = calculate_shadow(obj_color, ray_origin, g_app->scene->light);
+		color = calculate_shadow(obj_color, ray_origin, g_scene->light);
 
 		// faire une fonction pour plusieurs lumiere /////////////////////
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
-		light_distance = ft_norme_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+		light_distance = ft_norme_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
 
 		// calcul l'intensité du pixel (nouveau ratio) suivant le ratio de la lumiere, la normal au pt d'intersection.
 		// avec correction gamma = puissance 1/2.2
@@ -171,7 +171,7 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 	t_color ambiant_color = create_color(125, 0, 0, 255);
 	double Ia = 0.2; // coeff intensité de la lumiere ambiante
 
-	t_color copy_color = calculate_shadow(obj_color, ray_origin, g_app->scene->light);
+	t_color copy_color = calculate_shadow(obj_color, ray_origin, g_scene->light);
 // creation couleur ambiante
 
 	double R = color.r;
@@ -185,10 +185,10 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 
 // creation couleur et lumiere directe
 
-	t_vec3	light_vector= ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+	t_vec3	light_vector= ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
 
 	double N_L = ft_dot_vec3(ray_origin->normal, light_vector);
-	double Il = g_app->scene->light->ratio;
+	double Il = g_scene->light->ratio;
 
 	t_color color_light = create_color(255,255,255,255);
 	color_light.r *= (1. / (light_distance * light_distance));
@@ -247,8 +247,8 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 		t_color		color;
 		t_vec3 		light_orient;
 
-		color = calculate_shadow(sphere->color, ray_origin, g_app->scene->light);
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+		color = calculate_shadow(sphere->color, ray_origin, g_scene->light);
+		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
 		intensite_pixel = pow(0.5 * ft_dot_vec3(light_orient, ray_origin->normal), 1/2.2);
 		if (intensite_pixel > 1)
 			return (color);

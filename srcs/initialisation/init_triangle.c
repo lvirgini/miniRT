@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:26:30 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 16:05:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:07:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_triangle	*malloc_triangle(t_vec3 pos[3], t_color color, int texture)
 {
 	t_triangle	*triangle;
 
-	if (!(triangle = malloc(sizeof(t_triangle))))
-		minirt_exit_on_error(1);
+	if (!(triangle = (t_triangle *)malloc(sizeof(t_triangle))))
+		return (NULL);
 	triangle->a = pos[0];
 	triangle->b = pos[1];
 	triangle->c = pos[2];
@@ -35,14 +35,13 @@ t_triangle	*malloc_triangle(t_vec3 pos[3], t_color color, int texture)
 	triangle->norme2_ac = norme2_vec3(triangle->ac);
 	triangle->dot_ab_ac = dot_vec3(triangle->ab, triangle->ac);
 	triangle->determinant =  (triangle->norme2_ab * triangle->norme2_ac) - (triangle->dot_ab_ac * triangle->dot_ab_ac);
-	triangle->plane = malloc_plane(triangle->a, triangle->ab, triangle->color, 0);
-	print_vec3(triangle->ab, "triangle vec 1");
-	print_vec3(triangle->ac, "triangle vec 2");
-	print_vec3(triangle->bc, "triangle vec 3");
+	if(!(triangle->plane = malloc_plane(triangle->a, triangle->ab, triangle->color, 0)))
+		return (NULL);
 	return (triangle);
 }
 
 void		free_triangle(t_triangle *triangle)
 {
+	free_plane(triangle->plane);
 	free(triangle);
 }

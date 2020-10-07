@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:46:57 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 11:06:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 22:53:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_image		t_image;
 
 struct		s_image
 {
-	t_vec2		*size;
+	t_vec2		size;
 	void		*img_ptr;
 	char		*pixels;
 	int			bits_per_pixel;
@@ -42,8 +42,7 @@ struct		s_image
 ** Fonctions qui gerent la variable t_image
 */
 
-t_image		*malloc_image(int x, int y);
-void		destroy_image(t_image to_destroy);
-void		free_image(t_image *to_free);
+t_image		*malloc_image(int x, int y, void *mlx_ptr);
+void		free_image(t_image *to_free, void *mlx_ptr);
 
 #endif

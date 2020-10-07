@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:15:40 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 10:09:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:06:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_ray		*malloc_ray(t_vec3 origin, t_vec3 direction)
 {
 	t_ray	*ray;
 
-	if (!(ray = malloc(sizeof(t_ray))))
-		minirt_exit_on_error(1);
+	if (!(ray = (t_ray *)malloc(sizeof(t_ray))))
+		return (NULL);
 	*ray = create_ray(origin, direction);
 	return (ray);
 }

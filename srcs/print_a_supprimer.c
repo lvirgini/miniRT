@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 11:57:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:04:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void		print_all_cam(t_camera *cam)
 
 	i = 0;
 	if (cam)
-	{
+	{	
+		printf("%p : adresse de la scene->cam", cam);
 		printf("Camera %ld :\nfov = %lf\n",i++, cam->fov);
 		print_vec3(cam->pos, "cam->pos");
 		print_vec3(cam->orient, "cam->orient");
