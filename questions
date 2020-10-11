@@ -8,14 +8,17 @@
 
 	if (a || b || c || d)
 		return(Fail)
-	return(fonction 5(a, b, c, d))
+	fonction 5(a, b, c, d))
 }
 
 
 
 2/
 {
-	return(fonction5(fonction1, fonction2, fonction3, fonction4))
+	fonction5(fonction1, \
+				fonction2, \
+				fonction3, \
+				fonction4))
 }
 
 dans ma fonction 5 :
@@ -26,17 +29,17 @@ dans ma fonction 5 :
 
 
 *----------------------------------------------------------------------------*
- fonction d'erreur : 
+ fonction d'erreur :  si le programme doit s'arreter
 
 
 1/
-fonction_truc()
+int	fonction_truc()
 {
 	if (truc)
 		return (fonction_erreur())
 }
 
-fonction_erreur()
+int	fonction_erreur()
 {
 	print(erreur);
 	return()
@@ -45,16 +48,89 @@ fonction_erreur()
 
 
 2/
-fonction_truc()
+void	fonction_truc()
 {
 	if (truc)
 		fonction_erreur()
 }
 
-fonction_erreur()
+void	fonction_erreur()
 {
 	print(erreur)
 	exit();
 }
 
+
+3/
+int	fonction_truc()
+{
+	if (truc)
+		fonction_erreur()
+	return (0);
+}
+
+void	fonction_erreur()
+{
+	print(erreur)
+	exit();
+}
+
+
 *----------------------------------------------------------------------------*
+
+
+
+pour la norme de 80 colonne : 
+
+quel est la meilleur indentation pour un prototype : 
+
+
+joli mais si le nom est long c'est vite compliqué:
+
+double		intersect_triangle_bababaaaabababa(t_ray *ray, 
+												t_triangle *triangle,
+												t_vec3 *pt_intersection, 
+												t_vec3 *normal)
+{
+	blabla
+}
+
+
+
+double		intersect_triangle(t_ray *ray, t_triangle *triangle,
+				t_vec3 *pt_intersection, t_vec3 *normal)
+{
+	blabla
+}
+
+
+double		intersect_triangle(t_ray *ray, t_triangle *triangle,
+			t_vec3 *pt_intersection, t_vec3 *normal)
+{
+	blabla
+}
+
+------------------------------------------------
+
+
+et pour une ligne avec deja une indentation a faire apres : 
+
+if ((tab_len(tab) < 6 
+|| (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
+|| (radius_hight[1] = ft_atof(tab[4])) < 0.0 
+|| get_coord_from_line(pos_orient, tab[1])
+|| get_coord_from_line(pos_orient + 1, tab[2])
+|| get_color_from_line(&color, tab[5])))
+	file_error("CYLINDRE", 2);
+
+if ((tab_len(tab) < 6 || (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
+		|| (radius_hight[1] = ft_atof(tab[4])) < 0.0 
+		|| get_coord_from_line(pos_orient, tab[1])
+		|| get_coord_from_line(pos_orient + 1, tab[2])
+		|| get_color_from_line(&color, tab[5])))
+	file_error("CYLINDRE", 2);
+
+
+
+---------------------------------------------------------------------------------
+
