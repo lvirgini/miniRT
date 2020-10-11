@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 12:55:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:36:01 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,37 @@ int handle_key(int key, void **param)
 	else if (key == 104)   // h for help
 		print_help_key();
 	else if (key == 65361) // fleche gauche
-		g_app->scene->light->pos.x -= 10;
+		g_scene->light->pos.x -= 10;
 	else if (key == 65363) // fleche droite
-		g_app->scene->light->pos.x += 10;
+		g_scene->light->pos.x += 10;
 	else if (key == 65362) // fleche haut
-		g_app->scene->light->pos.y += 10;
+		g_scene->light->pos.y += 10;
 	else if (key == 65364) // fleche bas
-		g_app->scene->light->pos.y -= 10;
+		g_scene->light->pos.y -= 10;
 	else if (key == 65451) // +
-		g_app->scene->light->pos.z -= 10;
+		g_scene->light->pos.z -= 10;
 	else if (key == 65453) // -
-		g_app->scene->light->pos.z += 10;
+		g_scene->light->pos.z += 10;
 
 	else if (key == 122)   // z
-		g_app->scene->cam->pos.z -= 3;
+		g_scene->cam->pos.z -= 3;
 	else if (key == 115)   // s
-		g_app->scene->cam->pos.z += 3;
+		g_scene->cam->pos.z += 3;
 	else if (key == 113)   // q
-		g_app->scene->cam->pos.x -= 3;
+		g_scene->cam->pos.x -= 3;
 	else if (key == 100)   // d
-		g_app->scene->cam->pos.x += 3;
+		g_scene->cam->pos.x += 3;
 	else if (key == 119)   // w
-		g_app->scene->cam->pos.y += 3;
+		g_scene->cam->pos.y += 3;
 	else if (key == 120)   // x
-		g_app->scene->cam->pos.y -= 3;
+		g_scene->cam->pos.y -= 3;
 	else if (key == 97)		// a
-		g_app->scene->cam->orient.x += 100;
+		g_scene->cam->orient.x += 100;
 	else if (key == 101)	// e
-		g_app->scene->cam->orient.x -= 100;	
+		g_scene->cam->orient.x -= 100;	
 	else
 		return (0);
-	raytracing_test(param);
+	generate_raytracing(param);
 	return (0);
 }
 
@@ -93,13 +93,15 @@ int		handle_mouse(int button, int x,int y, void *param)
 	t_sphere 	*sphere;
 	t_obj		*first_obj;
 	t_camera	*cam;
+	t_app		*app;
 
-	cam = g_app->scene->cam;
+	app = (t_app *)param;
+	cam = g_scene->cam;
 	ray = malloc_ray(cam->pos, add_vec3(cam->pos, cam->orient));
-	ray->direction = normalize_vec3(create_vec3(y - (g_app->size->x / 2) + 0.5, x - (g_app->size->y / 2) + 0.5, - g_app->size->x / (2 * tan(cam->fov / 2))));
-	first_obj = find_first_intersection(ray, g_app->scene->objs);
+	ray->direction = normalize_vec3(create_vec3(y - (app->size.x / 2) + 0.5, x - (app->size.y / 2) + 0.5, - app->size.x / (2 * tan(cam->fov / 2))));
+	first_obj = find_first_intersection(ray, g_scene->objs);
 
-	if (first_obj)
+	if (first_obj && first_obj->type == SPHERE)
 	{
 		sphere = first_obj->shape;
 		if (button == 4)
@@ -111,7 +113,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 			t_color color = find_pixel_color(first_obj, ray);
 			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
 		}
-		raytracing_test(param);
+		generate_raytracing(param);
 	}
 	free(ray);
 	return (0);

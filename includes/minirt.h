@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 10:08:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:03:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,17 @@
 # include "minirt_drawing.h"
 # include "minirt_parsing.h"
 
-
 /*
 ** Fonctions a ranger
 */
 
-int			exit_program(void);
-void		minirt_exit_on_error(int error);
+int			malloc_error(void);
+int			file_error(char *location, int error);
+void		exit_free_minirt(t_app *app, int if_error);
 int			handle_mouse(int button, int x, int y, void *param);
+int			generate_raytracing(void *param);
+int			generate_content(t_app *app);
+int			run_application(t_app *app);
 
 //
 // Foncitons a supprimer : fichier print
@@ -69,6 +72,6 @@ void		print_all_cam(t_camera *cam);
 void		print_all_lights(t_light *l, t_light *la);
 void		print_all_scene(t_scene *scene);
 
-extern		t_app	*g_app;
+extern		t_scene	*g_scene;
 
 #endif

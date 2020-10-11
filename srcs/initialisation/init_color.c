@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:46:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:58:06 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:06:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,6 @@ t_color		create_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a)
 	color.b = b;
 	color.a = a;
 	return (color);
-}
-
-t_color		*malloc_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a)
-{
-	t_color *color;
-
-	if (!(color = malloc(sizeof(t_color))))
-		minirt_exit_on_error(1);
-	*color = create_color(r, g, b, a);
-	return (color);
-}
-
-void		free_color(t_color *to_free)
-{
-	free(to_free);
 }
 
 /*

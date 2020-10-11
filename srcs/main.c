@@ -6,49 +6,44 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/02 12:01:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:00:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_app		*g_app;
+// faire une image avec --save
+// intersection a l'interieur d'une sphere
+// intersection triangle
+//	ATTENTION : pas d'ombre si light devant le triangle (derriere oui)
+//			  :	pas de reflex sur le mirroir du triangle entier
+// intersection carré
+// intersection cylindre
+// tableau d'erreur;
 
-/*
-** Derniere chose a faire : demarrer l'application.
-*/
+// pb gnl
+// integration de "bonus".
 
-int		run_application(void)
+t_scene		*g_scene;
+
+int			main(int ac, char **av)
 {
-	mlx_loop(g_app->mlx_ptr);
-	free_application(g_app);
-	return (0);
+	t_app	app;
+	t_scene	scene;
+
+	app = init_application();
+	scene = init_scene();
+	g_scene = &scene;
+	if (file_checking(ac, av, &app) == -1)
+		exit_free_minirt(&app, -1);
+	generate_content(&app);
+	generate_raytracing((void *)&app);
+	return (run_application(&app));
 }
 
-/// A VIRER : 
-void	make_croix_milieu(void)
-{
-	int x = 0;
-	int y = 0;
-
-	while (x < g_app->size->x)
-	{
-		while (y < g_app->size->y)
-		{
-			if (((g_app->size->x / 2)) == x)
-				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
-			if (((g_app->size->y / 2)) == y)
-				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
-}
 
 //// TEST DE SCENE :
-
+/*
 void	generate_scene(void)
 {
 	printf("generate scene enter\n");
@@ -56,21 +51,17 @@ void	generate_scene(void)
 		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.9, create_color(255,255,255,255));/// ratio a voir
 		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.4, create_color(200,0,200,255));
 
-		
-		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -55), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
-		//t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
-		
-	//	t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(210, 180, 220, 200), 0);
-
+	
 		t_plane *plan = malloc_plane(create_vec3(0, -30, 0), create_vec3(0, 1, 0), create_color(102, 51, 153, 255), 0);
-		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(204, 153, 102, 255), 0);
+		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(244, 193, 142, 255), 0);
 		t_plane *plan3 = malloc_plane(create_vec3(70, 0, 0), create_vec3(1, 0, 0), create_color(51, 204, 255, 255), 0);
 
-		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
-		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
+		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -70), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
+		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
+		t_sphere *sphere3 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		//t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
-		//t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
+		t_vec3 pos[3] = {create_vec3(15,0,-50), create_vec3(0, 15, -50), create_vec3(-15, 0, -50)};
+		t_triangle *triangle = malloc_triangle(pos, create_color(255, 200, 200, 255), 0);
 
 		
 		t_obj	*obj;
@@ -79,57 +70,15 @@ void	generate_scene(void)
 		obj->next = malloc_object(PLANE, plan);
 		obj->next->next = malloc_object(PLANE, plan2);
 		obj->next->next->next = malloc_object(PLANE, plan3);
-		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
-		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
-		//obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
+		obj->next->next->next->next = malloc_object(SPHERE, sphere2);
+		obj->next->next->next->next->next = malloc_object(SPHERE, sphere3);
+		obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
 
 
-		g_app->scene = create_scene(cam, obj, light, light_ambiant);
-		printf("generate scene OK\n");
-		print_all_scene(g_app->scene);
+		/////g_scene = generate_scene(cam, obj, light, light_ambiant);
+		print_all_scene(g_scene);
 }
-
-void	generate_content(void)
-{
-	g_app->mlx_ptr = mlx_init();
-	g_app->mlx_ptr = mlx_init();
-	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size->x, g_app->size->y, "title");
-	if (!(g_app->img = malloc_image(g_app->size->x, g_app->size->y)))
-		minirt_exit_on_error(1);
-	printf("AFTER MALLOC IMAGE : \n");
-	print_all_cam(g_app->scene->cam);
-	printf("%p = cam fov\n%p = img size x\n%p = g_app->size", g_app->scene->cam, g_app->img->size, g_app->size);
-
-}
-
-int		main(int ac, char **av)
-{
-	void 	*param[5];
-
-	if (!(g_app = malloc_application()))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene = malloc_scene()))
-		minirt_exit_on_error(1);
-
-	// 1ere scene sans le fichier :
-	generate_scene();
-	print_all_scene(g_app->scene);
-	g_app->size = malloc_vec2(1024,1024);
-
-	
-	//1ere sene avec fichier :
-	/*if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(1);*/
-	
-	generate_content();
-	raytracing_test(param);
-
-	return (run_application());
-	return (0);
-	if (file_checking(ac, av) == -1)/////
-		minirt_exit_on_error(1);
-}
-
+*/
 
 /*
 	g_app = malloc_application();

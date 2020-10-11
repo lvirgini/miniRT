@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 18:03:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 22:24:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,23 @@ int		get_sphere(char **tab)
 	double		radius;
 	t_color		color;
 
-	if (tab_len(tab) < 4 || (radius = ft_atof(tab[2]) / 2) < 0.0
-		|| get_coord_from_line(&pos, tab[1])
-		|| get_color_from_line(&color, tab[3]))
-		file_error("SPHERE", 2);
+	if (tab_len(tab) < 4
+	|| (radius = ft_atof(tab[2]) / 2) < 0
+	|| get_coord_from_line(&pos, tab[1])
+	|| get_color_from_line(&color, tab[3]))
+		return (file_error("SPHERE", 2));
 	if (!(sphere = malloc_sphere(pos, radius, color, 0)))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene->objs))
+		return (malloc_error());
+	if (!(g_scene->objs))
 	{
-		if (!(g_app->scene->objs = malloc_object(SPHERE, sphere)))
-			minirt_exit_on_error(1);
+		if (!(g_scene->objs = malloc_object(SPHERE, sphere)))
+			return (malloc_error());
 	}
 	else
 	{
-		obj = find_last_obj(g_app->scene->objs);
+		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(SPHERE, sphere)))
-			minirt_exit_on_error(1);
+			return (malloc_error());
 	}
 	return (0);
 }
@@ -62,26 +63,24 @@ int		get_plane(char **tab)
 	t_plane		*plane;
 	t_obj		*obj;
 
-	printf("OK plane\n");
 	if ((tab_len(tab) < 4
-		|| get_coord_from_line(&pos, tab[1])
-		|| get_coord_from_line(&orient, tab[2])
-		|| get_color_from_line(&color, tab[3])))
-		file_error("PLAN", 2);
+	|| get_coord_from_line(&pos, tab[1])
+	|| get_coord_from_line(&orient, tab[2])
+	|| get_color_from_line(&color, tab[3])))
+		return (file_error("PLAN", 2));
 	if (!(plane = malloc_plane(pos, orient, color, 0)))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene->objs))
+		return (malloc_error());
+	if (!(g_scene->objs))
 	{
-		if (!(g_app->scene->objs = malloc_object(PLANE, plane)))
-			minirt_exit_on_error(1);
+		if (!(g_scene->objs = malloc_object(PLANE, plane)))
+			return (malloc_error());
 	}
 	else
 	{
-		obj = find_last_obj(g_app->scene->objs);
+		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(PLANE, plane)))
-			minirt_exit_on_error(1);
+			return (malloc_error());
 	}
-	printf("OK plane\n");
 	return (0);
 }
 
@@ -100,23 +99,24 @@ int		get_square(char **tab)
 	t_square	*square;
 	t_obj		*obj;
 
-	if ((tab_len(tab) < 5 || (hight = ft_atof(tab[3])) < 0.0
-		|| get_coord_from_line(pos_orient, tab[1])
-		|| get_coord_from_line(pos_orient + 1, tab[2])
-		|| get_color_from_line(&color, tab[4])))
-		file_error("SQUARE", 2);
+	if ((tab_len(tab) < 5
+	|| (hight = ft_atof(tab[3])) < 0.0
+	|| get_coord_from_line(pos_orient, tab[1])
+	|| get_coord_from_line(pos_orient + 1, tab[2])
+	|| get_color_from_line(&color, tab[4])))
+		return (file_error("SQUARE", 2));
 	if (!(square = malloc_square(pos_orient, hight, color, 0)))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene->objs))
+		return (malloc_error());
+	if (!(g_scene->objs))
 	{
-		if (!(g_app->scene->objs = malloc_object(SQUARE, square)))
-			minirt_exit_on_error(1);
+		if (!(g_scene->objs = malloc_object(SQUARE, square)))
+			return (malloc_error());
 	}
 	else
 	{
-		obj = find_last_obj(g_app->scene->objs);
+		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(SQUARE, square)))
-			minirt_exit_on_error(1);
+			return (malloc_error());
 	}
 	return (0);
 }
@@ -136,23 +136,25 @@ int		get_cyl(char **tab)
 	t_cyl		*cyl;
 	t_obj		*obj;
 
-	if ((tab_len(tab) < 6 || (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
-		|| (radius_hight[1] = ft_atof(tab[4])) < 0.0 || get_coord_from_line(
-		pos_orient, tab[1]) || get_coord_from_line(pos_orient + 1, tab[2])
-		|| get_color_from_line(&color, tab[5])))
-		file_error("CYLINDRE", 2);
+	if ((tab_len(tab) < 6 
+	|| (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
+	|| (radius_hight[1] = ft_atof(tab[4])) < 0.0
+	|| get_coord_from_line(pos_orient, tab[1])
+	|| get_coord_from_line(pos_orient + 1, tab[2])
+	|| get_color_from_line(&color, tab[5])))
+		return (file_error("CYLINDRE", 2));
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene->objs))
+		return (malloc_error());
+	if (!(g_scene->objs))
 	{
-		if (!(g_app->scene->objs = malloc_object(CYLINDRE, cyl)))
-			minirt_exit_on_error(1);
+		if (!(g_scene->objs = malloc_object(CYLINDRE, cyl)))
+			return (malloc_error());
 	}
 	else
 	{
-		obj = find_last_obj(g_app->scene->objs);
+		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(CYLINDRE, cyl)))
-			minirt_exit_on_error(1);
+			return (malloc_error());
 	}
 	return (0);
 }
@@ -172,23 +174,23 @@ int		get_triangle(char **tab)
 	t_obj		*obj;
 
 	if ((tab_len(tab) < 5
-		|| get_coord_from_line(pos, tab[1])
-		|| get_coord_from_line(pos + 1, tab[2])
-		|| get_coord_from_line(pos + 2, tab[3])
-		|| get_color_from_line(&color, tab[4])))
-		file_error("TRIANGLE", 2);
+	|| get_coord_from_line(pos, tab[1])
+	|| get_coord_from_line(pos + 1, tab[2])
+	|| get_coord_from_line(pos + 2, tab[3])
+	|| get_color_from_line(&color, tab[4])))
+		return (file_error("TRIANGLE", 2));
 	if (!(triangle = malloc_triangle(pos, color, 0)))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene->objs))
+		return (malloc_error());
+	if (!(g_scene->objs))
 	{
-		if (!(g_app->scene->objs = malloc_object(TRIANGLE, triangle)))
-			minirt_exit_on_error(1);
+		if (!(g_scene->objs = malloc_object(TRIANGLE, triangle)))
+			return (malloc_error());
 	}
 	else
 	{
-		obj = find_last_obj(g_app->scene->objs);
+		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(TRIANGLE, triangle)))
-			minirt_exit_on_error(1);
+			return (malloc_error());
 	}
 	return (0);
 }
