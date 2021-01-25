@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 22:24:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:33:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 int		get_sphere(char **tab)
 {
-	t_obj		*obj;
 	t_sphere	*sphere;
 	t_vec3		pos;
 	double		radius;
@@ -34,18 +33,7 @@ int		get_sphere(char **tab)
 		return (file_error("SPHERE", 2));
 	if (!(sphere = malloc_sphere(pos, radius, color, 0)))
 		return (malloc_error());
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(SPHERE, sphere)))
-			return (malloc_error());
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(SPHERE, sphere)))
-			return (malloc_error());
-	}
-	return (0);
+	return (save_obj_in_scene(SPHERE, sphere));
 }
 
 /*
@@ -61,7 +49,6 @@ int		get_plane(char **tab)
 	t_vec3		orient;
 	t_color		color;
 	t_plane		*plane;
-	t_obj		*obj;
 
 	if ((tab_len(tab) < 4
 	|| get_coord_from_line(&pos, tab[1])
@@ -70,18 +57,7 @@ int		get_plane(char **tab)
 		return (file_error("PLAN", 2));
 	if (!(plane = malloc_plane(pos, orient, color, 0)))
 		return (malloc_error());
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(PLANE, plane)))
-			return (malloc_error());
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(PLANE, plane)))
-			return (malloc_error());
-	}
-	return (0);
+	return (save_obj_in_scene(PLANE, plane));
 }
 
 /*
@@ -97,7 +73,6 @@ int		get_square(char **tab)
 	double		hight;
 	t_color		color;
 	t_square	*square;
-	t_obj		*obj;
 
 	if ((tab_len(tab) < 5
 	|| (hight = ft_atof(tab[3])) < 0.0
@@ -107,18 +82,7 @@ int		get_square(char **tab)
 		return (file_error("SQUARE", 2));
 	if (!(square = malloc_square(pos_orient, hight, color, 0)))
 		return (malloc_error());
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(SQUARE, square)))
-			return (malloc_error());
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(SQUARE, square)))
-			return (malloc_error());
-	}
-	return (0);
+	return (save_obj_in_scene(SQUARE, square));
 }
 
 /*
@@ -134,9 +98,8 @@ int		get_cyl(char **tab)
 	double		radius_hight[2];
 	t_color		color;
 	t_cyl		*cyl;
-	t_obj		*obj;
 
-	if ((tab_len(tab) < 6 
+	if ((tab_len(tab) < 6
 	|| (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
 	|| (radius_hight[1] = ft_atof(tab[4])) < 0.0
 	|| get_coord_from_line(pos_orient, tab[1])
@@ -145,18 +108,7 @@ int		get_cyl(char **tab)
 		return (file_error("CYLINDRE", 2));
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
 		return (malloc_error());
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(CYLINDRE, cyl)))
-			return (malloc_error());
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(CYLINDRE, cyl)))
-			return (malloc_error());
-	}
-	return (0);
+	return (save_obj_in_scene(CYLINDRE, cyl));
 }
 
 /*
@@ -171,7 +123,6 @@ int		get_triangle(char **tab)
 	t_triangle	*triangle;
 	t_vec3		pos[3];
 	t_color		color;
-	t_obj		*obj;
 
 	if ((tab_len(tab) < 5
 	|| get_coord_from_line(pos, tab[1])
@@ -181,16 +132,5 @@ int		get_triangle(char **tab)
 		return (file_error("TRIANGLE", 2));
 	if (!(triangle = malloc_triangle(pos, color, 0)))
 		return (malloc_error());
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(TRIANGLE, triangle)))
-			return (malloc_error());
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(TRIANGLE, triangle)))
-			return (malloc_error());
-	}
-	return (0);
+	return (save_obj_in_scene(TRIANGLE, triangle));
 }

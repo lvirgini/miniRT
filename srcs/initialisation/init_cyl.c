@@ -6,12 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 11:33:24 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:06:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:40:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 t_cyl	*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2], t_color col,
 				int texture)

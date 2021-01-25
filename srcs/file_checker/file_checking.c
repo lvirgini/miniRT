@@ -6,20 +6,21 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:04:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:33:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
+** check if a parameter is missing
 ** verifie s'il ne manque pas un parametre obligatoire pour le scene.
 ** Minimum : camera, resolution, lumiere ambiante
 */
 
-static int		check_file_is_complete(t_vec2 size)
+static int		check_file_is_complete(const t_vec2 size)
 {
-	if (size.x == 0 && size.y == 0)
+	if (size.x == 0 || size.y == 0)
 		return (file_error("RESOLUTION", 3));
 	if (g_scene->light_ambiant == NULL)
 		return (file_error("AMBIANT LIGHT", 3));
@@ -55,5 +56,5 @@ int				file_checking(int ac, char **av, t_app *app)
 	if (read_file(av[1], app) == -1
 	|| check_file_is_complete(app->size))
 		return (-1);
-	return (0); 
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:46:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:06:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:39:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ t_color		create_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a)
 **	La couleur une fois fusionnee
 **	couleur finale = (X% de la couleur a ajouter) + (100 - X% de la couleur
 **	de base)
+** 1 ) Calcul de X -> new_alpha
+** 2 ) Calcul de 100 - X -> inv_alpha
+** 3 ) Application de la formule
 */
 
 t_color		fuze_color(t_color actual, t_color to_add)
@@ -40,13 +43,8 @@ t_color		fuze_color(t_color actual, t_color to_add)
 	float	new_alpha;
 	float	inv_alpha;
 
-	// 1 ) Calcul de X -> new_alpha
 	new_alpha = to_add.a / 255.0f;
-
-	// 2 ) Calcul de 100 - X -> inv_alpha
 	inv_alpha = 1.0f - new_alpha;
-
-	// 3 ) Application de la formule
 	result = create_color(
 		actual.r * inv_alpha + to_add.r * new_alpha,
 		actual.g * inv_alpha + to_add.g * new_alpha,
