@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/26 17:24:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 22:56:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minirt.h"
 
 typedef struct s_app		t_app;
+typedef	int	(*t_func)(char **);
 
 /*
 ** s_app :
@@ -33,17 +34,13 @@ struct		s_app
 	void		*win_ptr;
 	t_vec2		size;
 	t_image		*img;
-	t_scene		*scene;
 };
 
 /*
 ** Fonctions qui gerent la variable t_app
 */
 
-t_app		*malloc_application();
-void		destroy_application(t_app to_destroy);
-void		free_application(t_app *to_free);
-void		application_create_content(void); //
-void		clear_application_int(int color); //
+t_app		init_application(void);
+void		destroy_application(t_app *app);
 
 #endif

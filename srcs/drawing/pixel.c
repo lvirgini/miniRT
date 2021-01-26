@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 11:23:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:08:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		put_pixel(t_image *image, int x, int y, t_color color)
 
 	if (x < 0 || y < 0 || x >= image->size.x || y >= image->size.y)
 		return ;
-	pixel_index = (y * g_app->size.x + x) * 4;
+	pixel_index = (y * image->size.x + x) * 4;
 	image->pixels[pixel_index + RED_PIXEL] = color.r;
 	image->pixels[pixel_index + GREEN_PIXEL] = color.g;
 	image->pixels[pixel_index + BLUE_PIXEL] = color.b;
@@ -36,8 +36,8 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 	t_color		color;
 	t_vec3		light_orient;
 
-	color = calculate_shadow(sphere->color, ray_origin, g_app->scene->light);
-	light_orient = normalize_vec3(sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+	color = calculate_shadow(sphere->color, ray_origin, g_scene->light);
+	light_orient = normalize_vec3(sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
 	intensite_pixel = pow(0.9 * dot_vec3(light_orient, ray_origin->normal), 1 / 2.2);
 	if (intensite_pixel > 1)
 		return (color);
@@ -82,7 +82,7 @@ t_vec3		ft_mul2_vec3(t_vec3 a, t_vec3 b)
 	return (create_vec3(a.x * b.x, a.y * b.y, a.z * b.z));
 }
 
-/*		intensite_pixel = g_app->scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection)), ray_origin->normal) / ft_norme2_vec3(ft_sub_vec3(g_app->scene->light->pos, ray_origin->pt_intersection));
+/*		intensite_pixel = g_scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection)), ray_origin->normal) / ft_norme2_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
 */
 
 	//light_orient = create_vec3(0, 0, 0);

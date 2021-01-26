@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/21 11:35:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:17:37 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@
 ** Renvoie a la fonction d'intersection suivant le type d'objet.
 */
 
-static double	intersect_objects(t_ray *ray, t_obj *obj, t_vec3 *pt_inter,
+static double	intersect_objects(t_ray *ray, t_obj *obj, t_vec3 *p,
 	t_vec3 *normal)
 {
+	if (!obj)
+		return (0);
 	if (obj->type == SPHERE)
-		return (intersect_sphere(ray, (t_sphere *)obj->shape, pt_inter, normal));
+		return (intersect_sphere(ray, (t_sphere *)obj->shape, p, normal));
 	else if (obj->type == PLANE)
-		return (intersect_plane(ray, (t_plane *)obj->shape, pt_inter, normal));
-	//else if (obj->type == TRIANGLE)
-	//	return(intersect_triangle(ray, (t_triangle *)obj->shape, pt_inter, normal));
+		return (intersect_plane(ray, (t_plane *)obj->shape, p, normal));
+	else if (obj->type == TRIANGLE)
+		return (intersect_triangle(ray, (t_triangle *)obj->shape, p, normal));
 	/*else if (obj->type == SQUARE)
-		intersect_square(ray, *obj);
+		return (intersect_square(ray, (t_square *)obj->shape, p, normal));
 	else if (obj->type == CYLINDRE)
-		intersect_cylindre(ray, *obj);*/
+		return (intersect_cylindre(ray, (t_cyl *)obj->shape, p, normal));*/
 	return (0);
 }
 
@@ -43,89 +45,62 @@ static void		update_ray(t_ray *ray, t_vec3 pt_inter, t_vec3 normal, int t)
 ** Recherche la premiere intersection du rayon avec un objet.
 */
 
-t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
+t_obj			*closest_object(t_ray *ray, t_obj *objs)
 {
-	t_obj	*first_obj;
-	double	t1;
+	t_obj	*closest_obj;
 	double	t2;
-	t_vec3	pt_intersection;
+	t_vec3	pt_inter;
 	t_vec3	normal;
 
 	if (!objs)
 		return (NULL);
-	first_obj = NULL;
-	pt_intersection = create_vec3(0, 0, 0);
-	normal = create_vec3(0, 0, 0);
-	t1 = intersect_objects(ray, objs, &pt_intersection, &normal);
-
-	// s'il n'y a pas d'intersection avec l'objet courant, on passe au prochain obj.
-	if (t1 <= RAY_T_MIN || t1 > RAY_T_MAX)
-		return (find_first_intersection(ray, objs->next));
-
-	// S'il y a intersection, verifie s'il y a un autre objet plus proche que celui ci.
-	else
+	ray->t = intersect_objects(ray, objs, &ray->pt_intersection, &ray->normal);
+	if (ray->t == 0)
+		return (closest_object(ray, objs->next));
+	closest_obj = objs;
+	while (objs->next)
 	{
-		first_obj = objs;
-		update_ray(ray, pt_intersection, normal, t1);
-		while (objs->next)
+		t2 = intersect_objects(ray, objs->next, &pt_inter, &normal);
+		if (t2 > 0 && t2 < ray->t)
 		{
-			t2 = intersect_objects(ray, objs->next, &pt_intersection, &normal);
-			if (t2 > RAY_T_MIN && t2 < t1)
-			{
-				t1 = t2;
-				first_obj = objs->next;
-				update_ray(ray, pt_intersection, normal, t1);
-			}
-			objs = objs->next;
+			closest_obj = objs->next;
+			update_ray(ray, pt_inter, normal, t2);
 		}
-		return (first_obj);
+		objs = objs->next;
 	}
+	return (closest_obj);
 }
 
 /*
-** Pour chaque pixel de l'image, recherche une intersection avec un obj 
+** Pour chaque pixel de l'image, recherche une intersection avec un obj
 ** en fonction du rayon de la camera (cam) envoyé en parametre.
 */
 
-int				browse_image_for_intersection(t_camera *cam, int w, int h)
+int				browse_image_for_intersection(t_camera *cam, int w, int h,
+			t_image *img)
 {
-	int		i;
-	int		j;
-	t_obj	*first_obj;
+	int		x;
+	int		y;
+	t_obj	*closest_obj;
 	t_ray	*ray;
 
-	printf("browse_image OK\n");
-	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 1));
-	i = 0;
-	while (i < h)
+	ray = malloc_ray(cam->pos, sub_vec3(cam->orient, cam->pos));
+	x = 0;
+	while (x < w)
 	{
-		j = 0;
-		while (j < w)
+		y = 0;
+		while (y < h)
 		{
-				//printf("browse_image	i = %d		j = %d\n", i, j);
-			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
-			ray->direction = normalize_vec3(create_vec3(j - (w / 2) + 0.5, i - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
-
-			// recherche le premier objet intersepté sur le lancer de rayon
-			first_obj = find_first_intersection(ray, g_app->scene->objs);
-
-			// s'il y a intersection / s'il y a un obj sur le rayon :
-			//		color le pixel de la couleur retourné par find pixel color.
-			if (first_obj != NULL)
-			{
-				//if (first_obj->type == TRIANGLE)
-				//	put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
-				//else
-					put_pixel(g_app->img, j, h - i - 1, find_pixel_color(first_obj, ray));
-			}
-			// remet a zero le point d'intersection et la normal modifié dans
-			// find intersection.
+			ray->direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
+							y - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
+			closest_obj = closest_object(ray, g_scene->objs);
+			if (closest_obj != NULL)
+				put_pixel(img, x, h - y - 1, find_pixel_color(closest_obj, ray));
 			ray->pt_intersection = create_vec3(0, 0, 0);
 			ray->normal = create_vec3(0, 0, 0);
-			j++;
+			y++;
 		}
-		i++;
+		x++;
 	}
-	free_ray(ray);
 	return (0);
 }

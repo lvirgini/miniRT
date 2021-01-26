@@ -6,11 +6,22 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/07/01 11:08:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:18:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void	print_help_key(void)
+{
+	ft_putstr("* -------------------------------------------------------- *\n");
+	ft_putstr("Welcome to hellp\n\nPress 'echap' for exit program\n");
+	ft_putstr("Press 'space' for change camera\n");
+	ft_putstr("Press 'z, q, s, d w, x' for moving this camera position\n");
+	ft_putstr("Press the arrow keys, + and - for moving light\n");
+	ft_putstr("Use the mouse wheel on a object to grow it or get it smaller\n");
+	ft_putstr("* -------------------------------------------------------- *\n");
+}
 
 /*
 ** Gestion des touches du clavier
@@ -25,26 +36,48 @@ int handle_key(int key, void **param)
 	
 	if (key == KEY_ESC)
 		exit(0);
-	else if (key == KEY_SPACE)
+	else if (key == KEY_SPACE) // change cam ou tab ?
 			;
+	else if (key == 104)   // h for help
+		print_help_key();
 	else if (key == 65361) // fleche gauche
-		g_app->scene->light->pos.x -= 10;
+		g_scene->light->pos.x -= 10;
 	else if (key == 65363) // fleche droite
-		g_app->scene->light->pos.x += 10;
+		g_scene->light->pos.x += 10;
 	else if (key == 65362) // fleche haut
-		g_app->scene->light->pos.y += 10;
+		g_scene->light->pos.y += 10;
 	else if (key == 65364) // fleche bas
-		g_app->scene->light->pos.y -= 10;
+		g_scene->light->pos.y -= 10;
 	else if (key == 65451) // +
-		g_app->scene->light->pos.z -= 10;
+		g_scene->light->pos.z -= 10;
 	else if (key == 65453) // -
-		g_app->scene->light->pos.z += 10;
-	raytracing_test(param);
+		g_scene->light->pos.z += 10;
+
+	else if (key == 122)   // z
+		g_scene->cam->pos.z -= 3;
+	else if (key == 115)   // s
+		g_scene->cam->pos.z += 3;
+	else if (key == 113)   // q
+		g_scene->cam->pos.x -= 3;
+	else if (key == 100)   // d
+		g_scene->cam->pos.x += 3;
+	else if (key == 119)   // w
+		g_scene->cam->pos.y += 3;
+	else if (key == 120)   // x
+		g_scene->cam->pos.y -= 3;
+	else if (key == 97)		// a
+		g_scene->cam->orient.x += 100;
+	else if (key == 101)	// e
+		g_scene->cam->orient.x -= 100;
+	else
+		return (0);
+	generate_raytracing(param);
 	return (0);
 }
 
 /*
-** Gestion de la souris : Pour le moment gere la premiere sphere touchee par la souris.
+** Gestion de la souris : Pour le moment gere la premiere sphere
+** touchee par la souris.
 **
 ** 1 = clic gauche
 ** 2 = clic molette
@@ -53,19 +86,24 @@ int handle_key(int key, void **param)
 ** 5 molette vers le bas.
 */
 
-int		handle_mouse(int button, int x,int y, void *param)
-{	
+int		handle_mouse(int button, int x, int y, void *param)
+{
 	printf("button = %d		x = %d	y = %d\n", button, x, y);
-	
-	t_ray 		*ray;
-	t_sphere 	*sphere;
+
+	t_ray		*ray;
+	t_sphere	*sphere;
 	t_obj		*first_obj;
+	t_camera	*cam;
+	t_app		*app;
 
-	ray = malloc_ray(create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-	ray->direction = normalize_vec3(create_vec3(y - g_app->size.x / 2, x - g_app->size.y / 2, - g_app->size.x / (2 * tan(g_app->scene->cam->fov/2))));
-	first_obj = find_first_intersection(ray, g_app->scene->objs);
-
-	if (first_obj)
+	app = (t_app *)param;
+	cam = g_scene->cam;
+	ray = malloc_ray(cam->pos, add_vec3(cam->pos, cam->orient));
+	ray->direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
+					+ 0.5, x - (app->size.y / 2) + 0.5, -app->size.x /
+					(2 * tan(cam->fov / 2))));
+	first_obj = closest_object(ray, g_scene->objs);
+	if (first_obj && first_obj->type == SPHERE)
 	{
 		sphere = first_obj->shape;
 		if (button == 4)
@@ -77,7 +115,7 @@ int		handle_mouse(int button, int x,int y, void *param)
 			t_color color = find_pixel_color(first_obj, ray);
 			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
 		}
-		raytracing_test(param);
+		generate_raytracing(param);
 	}
 	free(ray);
 	return (0);

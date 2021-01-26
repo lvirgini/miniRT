@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 17:57:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:23:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 **	"R"			"1920"		"1080"			//	EXAMPLE //
 */
 
-int		get_resolution(char **tab)
+int		get_resolution(char **tab, t_vec2 *size)
 {
 	static int	get_resolution = 0;
 
 	if (get_resolution == 1)
-		file_error("RESOLUTION", 1);
+		return (file_error("RESOLUTION", 1));
 	if (tab_len(tab) < 3)
-		file_error("RESOLUTION", 2);
-	g_app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
-	if (g_app->size.x <= 0 || g_app->size.x > RES_X_MAX
-		|| g_app->size.y <= 0 || g_app->size.y > RES_Y_MAX)
-		file_error("RESOLUTION", 2);
+		return (file_error("RESOLUTION", 2));
+	*size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
+	if ((*size).x <= 0 || (*size).x > RES_X_MAX
+	|| (*size).y <= 0 || (*size).y > RES_Y_MAX)
+		return (file_error("RESOLUTION", 2));
 	get_resolution = 1;
 	return (0);
 }
@@ -47,11 +47,14 @@ int		get_ambiant_ligth(char **tab)
 	t_color		ambiant_color;
 	double		ratio;
 
-	if (tab_len(tab) != 3 || (ratio = ft_atof(tab[1])) > 1.0 || ratio < 0.0
-		|| get_color_from_line(&ambiant_color, tab[2]))
-		file_error("AMBIANT LIGHT", 2);
-	g_app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
-								ratio, ambiant_color);
+	if (tab_len(tab) != 3
+	|| (ratio = ft_atof(tab[1])) > 1.0
+	|| ratio < 0.0
+	|| get_color_from_line(&ambiant_color, tab[2]))
+		return (file_error("AMBIANT LIGHT", 2));
+	if (!(g_scene->light_ambiant = malloc_light(create_vec3(0, 0, 0), \
+	ratio, ambiant_color)))
+		return (malloc_error());
 	return (0);
 }
 
@@ -69,12 +72,14 @@ int		get_light(char **tab)
 	t_vec3		pos;
 
 	if (tab_len(tab) < 4
-		|| (ratio = ft_atof(tab[2])) > 1 || ratio < 0
-		|| get_color_from_line(&light_color, tab[3])
-		|| get_coord_from_line(&pos, tab[1]))
-		file_error("LIGHT", 2);
-	g_app->scene->light = malloc_light(pos, ratio, light_color);
-	/// voir pour plusieurs lights
+	|| (ratio = ft_atof(tab[2])) > 1
+	|| ratio < 0
+	|| get_color_from_line(&light_color, tab[3])
+	|| get_coord_from_line(&pos, tab[1]))
+		return (file_error("LIGHT", 2));
+	if (!(g_scene->light = malloc_light(pos, ratio, light_color)))
+		return (malloc_error());
+	//t_light tmp; voir pour plusieurs lights
 	return (0);
 }
 
@@ -92,12 +97,11 @@ int		get_camera(char **tab)
 	double		fov;
 
 	if (tab_len(tab) < 4
-		|| get_coord_from_line(&pos, tab[1])
-		|| get_coord_from_line(&orient, tab[2])
-		|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
-		file_error("CAMERA", 2);
-	g_app->scene->cam =  malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-///////////////////////////
-	//g_app->scene->cam = malloc_camera(fov, pos, orient);
+	|| get_coord_from_line(&pos, tab[1])
+	|| get_coord_from_line(&orient, tab[2])
+	|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
+		return (file_error("CAMERA", 2));
+	if (!(g_scene->cam = malloc_camera(fov, pos, orient)))
+		return (malloc_error());
 	return (0);
 }

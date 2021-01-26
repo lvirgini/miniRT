@@ -6,25 +6,26 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/25 17:49:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:33:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
+** check if a parameter is missing
 ** verifie s'il ne manque pas un parametre obligatoire pour le scene.
-** Minimum : camera, resolution
+** Minimum : camera, resolution, lumiere ambiante
 */
 
-static int		check_file_is_complete(void)
+static int		check_file_is_complete(const t_vec2 size)
 {
-	if (g_app->size.x == 0 && g_app->size.y == 0)
-		file_error("RESOLUTION", 3);
-	if (g_app->scene->light_ambiant == NULL)
-		file_error("AMBIANT LIGHT", 3);
-	if (g_app->scene->cam == NULL)
-		file_error("CAMERA", 3);
+	if (size.x == 0 || size.y == 0)
+		return (file_error("RESOLUTION", 3));
+	if (g_scene->light_ambiant == NULL)
+		return (file_error("AMBIANT LIGHT", 3));
+	if (g_scene->cam == NULL)
+		return (file_error("CAMERA", 3));
 	return (0);
 }
 
@@ -44,17 +45,16 @@ static int		file_type(char *str)
 ** minimum required is file.rt
 */
 
-int				file_checking(int ac, char **av)
+int				file_checking(int ac, char **av, t_app *app)
 {
-
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
 		return (0);	//// SAUVEGARDE EN IMAGE A FAIRE
 	if (ac < 2)
-		file_error("no file in first argument", 0);
+		return (file_error("no file in first argument", 0));
 	if (file_type(av[1]) == -1)
-		file_error("file is not .rt", 0);
-	//*g_app = create_application(1024, 1024, "test1");
-	read_file(av[1]);
-	check_file_is_complete();
-	return (0); 
+		return (file_error("file is not .rt", 0));
+	if (read_file(av[1], app) == -1
+	|| check_file_is_complete(app->size))
+		return (-1);
+	return (0);
 }

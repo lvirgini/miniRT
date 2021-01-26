@@ -6,49 +6,47 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/09/26 17:24:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 18:50:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_app		*g_app;
+// faire une image avec --save
+// croix ne ferme pas
+// intersection a l'interieur d'une sphere
+// faire une sphere blanche pour voir les lumieres colorées
+// intersection triangle
+//	ATTENTION : pas d'ombre si light devant le triangle (derriere oui)
+//			  :	pas de reflex sur le mirroir du triangle entier
+// intersection carré
+// intersection cylindre
+// tableau d'erreur;
 
-/*
-** Derniere chose a faire : demarrer l'application.
-*/
+// pb gnl
+// integration de "bonus".
 
-int		run_application(void)
+t_scene		*g_scene;
+
+int			main(int ac, char **av)
 {
-	mlx_loop(g_app->mlx_ptr);
-	free_application(g_app);
-	return (0);
+	t_app	app;
+	t_scene	scene;
+
+	app = init_application();
+	scene = init_scene();
+	g_scene = &scene;
+	if (file_checking(ac, av, &app) == -1)
+		exit_free_minirt(&app, -1);
+	print_all_scene(g_scene);
+	generate_content(&app);
+	generate_raytracing((void *)&app);
+	return (run_application(&app));
 }
 
-/// A VIRER : 
-void	make_croix_milieu(void)
-{
-	int x = 0;
-	int y = 0;
-
-	while (x < g_app->size.x)
-	{
-		while (y < g_app->size.y)
-		{
-			if (((g_app->size.x / 2)) == x)
-				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
-			if (((g_app->size.y / 2)) == y)
-				put_pixel(g_app->img, x, y, create_color(255, 255, 255, 255));
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
-}
 
 //// TEST DE SCENE :
-
+/*
 void	generate_scene(void)
 {
 	printf("generate scene enter\n");
@@ -56,21 +54,16 @@ void	generate_scene(void)
 		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.9, create_color(255,255,255,255));/// ratio a voir
 		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.4, create_color(200,0,200,255));
 
-		
-		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -55), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
-		//t_sphere *sphere6 = malloc_sphere(create_vec3(-15, 0, -55), 10.0, create_color(0, 0, 255, 200), TEXTURE_MIRROIR);
-		
-	//	t_sphere *sphere1 = malloc_sphere(create_vec3(0, -2000-20, 0), 2000.0, create_color(210, 180, 220, 200), 0);
-
 		t_plane *plan = malloc_plane(create_vec3(0, -30, 0), create_vec3(0, 1, 0), create_color(102, 51, 153, 255), 0);
-		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(204, 153, 102, 255), 0);
+		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(244, 193, 142, 255), 0);
 		t_plane *plan3 = malloc_plane(create_vec3(70, 0, 0), create_vec3(1, 0, 0), create_color(51, 204, 255, 255), 0);
 
-		t_sphere *sphere4 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
-		t_sphere *sphere5 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
+		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -70), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
+		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
+		t_sphere *sphere3 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
 
-		//t_vec3 pos[3] = {create_vec3(0,15,-70), create_vec3(-15, 0, -70), create_vec3(15, 0, -55)};
-		//t_triangle *triangle = malloc_triangle(pos, create_color(255, 255, 255, 255), 0);
+		t_vec3 pos[3] = {create_vec3(15,0,-50), create_vec3(0, 15, -50), create_vec3(-15, 0, -50)};
+		t_triangle *triangle = malloc_triangle(pos, create_color(255, 200, 200, 255), 0);
 
 		
 		t_obj	*obj;
@@ -79,52 +72,15 @@ void	generate_scene(void)
 		obj->next = malloc_object(PLANE, plan);
 		obj->next->next = malloc_object(PLANE, plan2);
 		obj->next->next->next = malloc_object(PLANE, plan3);
-		obj->next->next->next->next = malloc_object(SPHERE, sphere4);
-		obj->next->next->next->next->next = malloc_object(SPHERE, sphere5);
-		//obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
+		obj->next->next->next->next = malloc_object(SPHERE, sphere2);
+		obj->next->next->next->next->next = malloc_object(SPHERE, sphere3);
+		obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
 
 
-		g_app->scene = create_scene(cam, obj, light, light_ambiant);
-		printf("generate scene OK\n");
-		print_all_scene(g_app->scene);
+		/////g_scene = generate_scene(cam, obj, light, light_ambiant);
+		print_all_scene(g_scene);
 }
-
-void	generate_content(void)
-{
-	g_app->mlx_ptr = mlx_init();
-	g_app->mlx_ptr = mlx_init();
-	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr, g_app->size.x, g_app->size.y, "title");
-	if (!(g_app->img = malloc_image((int)g_app->size.x, (int)g_app->size.y)))
-		minirt_exit_on_error(1);
-}
-
-int		main(int ac, char **av)
-{
-	void 	*param[5];
-
-	if (!(g_app = malloc_application()))
-		minirt_exit_on_error(1);
-	if (!(g_app->scene = malloc_scene()))
-		minirt_exit_on_error(1);
-
-	// 1ere scene sans le fichier :
-	//generate_scene();	
-	//g_app->size = create_vec2(1024,1024);
-
-	
-	//1ere sene avec fichier :
-	if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(1);
-	
-	generate_content();
-	raytracing_test(param);
-
-	return (run_application());
-	return (0);
-	if (file_checking(ac, av) == -1)/////
-		minirt_exit_on_error(1);
-}
-
+*/
 
 /*
 	g_app = malloc_application();
@@ -273,3 +229,99 @@ dot_wv_wu[1]) / object->calcul_d;
 triangle->dot_uv * triangle->dot_uv - triangle->dot_uu * triangle->dot_vv;
 */
 
+
+/*
+for x in [-Cw/2, Cw/2] {
+    for y in [-Ch/2, Ch/2] {
+        D = CanvasToViewport(x, y)
+        color = TraceRay(O, D, 1, inf)
+        canvas.PutPixel(x, y, color)
+    }
+
+	CanvasToViewport(x, y) {
+    return (x*Vw/Cw, y*Vh/Ch, d)
+}
+}*/
+/*
+int				browse_image_for_intersectionfirst(t_camera *cam, int w, int h, t_image	*img)
+{
+	int		i;
+	int		j;
+	t_obj	*first_obj;
+	t_ray	*ray;
+
+	ray = malloc_ray(cam->pos, add_vec3(cam->pos, cam->orient));
+	i = 0;
+	while (i < h)
+	{
+		j = 0;
+		while (j < w)
+		{
+				//printf("browse_image	i = %d		j = %d\n", i, j);
+			// creation du rayon normalisé entre le point de la camera et le pixel de "l'ecran".
+			ray->direction = normalize_vec3(create_vec3(j - (w / 2) + 0.5, i - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
+					// recherche le premier objet intersepté sur le lancer de rayon
+			first_obj = find_first_intersection(ray, g_scene->objs);
+
+			// s'il y a intersection / s'il y a un obj sur le rayon :
+			//		color le pixel de la couleur retourné par find pixel color.
+			if (first_obj != NULL)
+			{
+				//if (first_obj->type == TRIANGLE)
+				//	put_pixel(g_app->img, j, h - i - 1, create_color(255, 255, 255, 255));
+				//else
+					put_pixel(img, j, h - i - 1, find_pixel_color(first_obj, ray));
+			}
+			// remet a zero le point d'intersection et la normal modifié dans
+			// find intersection.
+			ray->pt_intersection = create_vec3(0, 0, 0);
+			ray->normal = create_vec3(0, 0, 0);
+			j++;
+		}
+		i++;
+	}
+	free_ray(ray);
+	return (0);
+}
+
+
+
+
+
+t_obj			*find_first_intersectionold(t_ray *ray, t_obj *objs)
+{
+	t_obj	*first_obj;
+	double	t1;
+	double	t2;
+	t_vec3	pt_inter;
+	t_vec3	normal;
+
+	if (!objs)
+		return (NULL);
+	first_obj = NULL;
+	pt_inter = create_vec3(0, 0, 0);
+	normal = create_vec3(0, 0, 0);
+	t1 = intersect_objects(ray, objs, &pt_inter, &normal);
+// s'il n'y a pas d'intersection avec l'objet courant, on passe au prochain obj.
+	if (t1 == 0)
+		return (find_first_intersection(ray, objs->next));
+// S'il y a intersection, verifie s'il y a un autre objet plus proche que lui.
+	else
+	{
+		first_obj = objs;
+		update_ray(ray, pt_inter, normal, t1);
+		while (objs->next)
+		{
+			t2 = intersect_objects(ray, objs->next, &pt_inter, &normal);
+			if (t2 > RAY_T_MIN && t2 < t1)
+			{
+				t1 = t2;
+				first_obj = objs->next;
+				update_ray(ray, pt_inter, normal, t1);
+			}
+			objs = objs->next;
+		}
+		return (first_obj);
+	}
+}
+*/

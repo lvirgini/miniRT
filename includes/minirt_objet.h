@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/28 11:46:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/10/07 23:08:00 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define TEXTURE_MIRROIR	1
 # define TEXTURE_REFLE
 
-typedef	int	(*t_func)(char **);
 
 typedef struct s_obj		t_obj;
 
@@ -62,6 +61,7 @@ struct		s_light
 	double		ratio;
 	t_vec3		pos;
 	t_color		color;
+	t_light		*next;
 };
 
 struct		s_sphere
@@ -101,12 +101,17 @@ struct		s_cyl
 
 struct		s_triangle
 {
-	t_vec3		pos1;
-	t_vec3		pos2;
-	t_vec3		pos3;
-	t_vec3		vec1;
-	t_vec3		vec2;
-	t_vec3		vec3;
+	t_vec3		a;
+	t_vec3		b;
+	t_vec3		c;
+	t_vec3		ab;
+	t_vec3		ac;
+	t_vec3		bc;
+	t_plane		*plane;
+	double		norme2_ab;
+	double		norme2_ac;
+	double		dot_ab_ac;
+	double		determinant;
 	t_vec3		normal;
 	t_color		color;
 	int			texture;
@@ -116,11 +121,9 @@ struct		s_triangle
 ** Fonctions initialisation de la liste d'object
 */
 
-t_obj		create_object(int type, void *shape);
 t_obj		*malloc_object(int type, void *shape);
-void		destroy_object(t_obj obj);
-void		free_object(t_obj *obj);
-void		free_all_object(t_obj *obj);
+void		free_object_shape(void *shape, int type);
+void		free_all_objects(t_obj *obj);
 
 /*
 ** Fonctions initialisation des objets
@@ -136,14 +139,13 @@ t_cyl		*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2], t_color col,
 
 void		free_sphere(t_sphere *sphere);
 void		free_plane(t_plane *plane);
-void		free_triange(t_triangle *triange);
+void		free_triangle(t_triangle *triange);
 void		free_square(t_square *square);
 void		free_cyl(t_cyl *cyl);
 
 t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient);
 void		free_camera(t_camera *cam);
 
-t_light		create_light(t_vec3 pos, double ratio, t_color color);
 t_light		*malloc_light(t_vec3 pos, double ratio, t_color color);
 void		free_light(t_light *light);
 
