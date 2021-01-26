@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/26 12:19:00 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:44:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 		return (find_good_color(ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_scene->light));
 	/*else if (obj->type == SQUARE)
 		return(color_square((t_square *)obj->shape));
-	else if (obj->type == TRIANGLE)
-		return(color_triangle((t_triangle *)obj->shape));
 	else if (obj->type == CYLINDRE)
 		return(color_triangle((t_sphere *)obj->shape));*/
 	return (create_color(255, 255, 255, 255)); ///// NOPE
