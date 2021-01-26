@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2020/05/07 15:10:57 by lvirgini         ###   ########.fr        #
+#    Updated: 2021/01/25 14:34:37 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@
 
 NAME =		a.out #####################
 
-LIB_DIR =	lib/libft/	lib/mlx_linux2/ 
+LIB_DIR =	lib/libft/	lib/minilibx-linux/ 
 SRC_DIR =	$(shell find srcs -type d)
-INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/mlx_linux2
+INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx-linux
 OBJ_DIR =	obj/
 
-LIB		=	ft mlx  m GLEW glfw GL
+LIB		=	ft mlx m GLEW glfw GL
 SRC 	=	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdir $(file))))
 OBJ 	=	$(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 HEADERS = 	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
@@ -61,11 +61,11 @@ $(NAME): 	install $(OBJ)
 
 install :
 			@make -C lib/libft
-#	@make -C lib/minilibx-linux
+			@make -C lib/minilibx-linux
 
 re-install :
 			@make -C lib/libft re
-	#		@make -C lib/minilibx-linux re
+			@make -C lib/minilibx-linux re
 
 bonus : all
 

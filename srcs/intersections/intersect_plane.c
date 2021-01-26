@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 18:17:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 15:22:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 18:55:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 ** d'intersection.
 */
 
-double		intersect_plane(t_ray *ray, t_plane *plane, t_vec3 *pt_intersection, t_vec3 *normal)
+double		intersect_plane(t_ray *ray, t_plane *plane, t_vec3 *pt_inter,
+				t_vec3 *normal)
 {
 	double n_dot_ray;
 	double d;
@@ -30,7 +31,7 @@ double		intersect_plane(t_ray *ray, t_plane *plane, t_vec3 *pt_intersection, t_v
 	t = -d / n_dot_ray;
 	if (t < RAY_T_MIN || t > RAY_T_MAX)
 		return (0);
-	*pt_intersection = add_vec3(ray->origin, mul_vec3(ray->direction, t));
+	*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t));
 	if (dot_vec3(sub_vec3(plane->pos, ray->origin), plane->normal) < 0)
 		*normal = plane->normal;
 	else

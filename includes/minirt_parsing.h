@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 21:47:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:28:01 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			get_cyl(char **tab);
 int			get_ambiant_ligth(char **tab);
 int			get_light(char **tab);
 int			get_camera(char **tab);
-
+int			save_obj_in_scene(int type, void *shape);
 /*
 ** Fonctions pratiques
 */

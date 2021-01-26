@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:04:30 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:23:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int		get_ambiant_ligth(char **tab)
 	double		ratio;
 
 	if (tab_len(tab) != 3
-	|| (ratio = ft_atof(tab[1])) > 1.0 
+	|| (ratio = ft_atof(tab[1])) > 1.0
 	|| ratio < 0.0
 	|| get_color_from_line(&ambiant_color, tab[2]))
 		return (file_error("AMBIANT LIGHT", 2));
 	if (!(g_scene->light_ambiant = malloc_light(create_vec3(0, 0, 0), \
 	ratio, ambiant_color)))
-		return (malloc_error());					
+		return (malloc_error());
 	return (0);
 }
 
@@ -70,17 +70,16 @@ int		get_light(char **tab)
 	t_color		light_color;
 	double		ratio;
 	t_vec3		pos;
-	//t_light		tmp;
 
 	if (tab_len(tab) < 4
-	|| (ratio = ft_atof(tab[2])) > 1 
+	|| (ratio = ft_atof(tab[2])) > 1
 	|| ratio < 0
 	|| get_color_from_line(&light_color, tab[3])
 	|| get_coord_from_line(&pos, tab[1]))
 		return (file_error("LIGHT", 2));
 	if (!(g_scene->light = malloc_light(pos, ratio, light_color)))
 		return (malloc_error());
-	/// voir pour plusieurs lights
+	//t_light tmp; voir pour plusieurs lights
 	return (0);
 }
 

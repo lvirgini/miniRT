@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 17:55:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:19:00 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
 		return (create_color(0, 0, 0, 255));
 	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
 	new_ray = create_ray(add_vec3(ray_incident.pt_intersection, mul_vec3(ray_incident.normal, 0.01)), new_direction);
-	first_obj = find_first_intersection(&new_ray, g_scene->objs);
+	first_obj = closest_object(&new_ray, g_scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
 	else

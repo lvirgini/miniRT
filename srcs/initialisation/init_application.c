@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 22:56:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:38:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_app		init_application(void)
 ** free de l'integralite d'une t_app
 */
 
-void	destroy_application(t_app *app)
+void		destroy_application(t_app *app)
 {
 	if (app)
 	{

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/06 17:04:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 20:37:00 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		print_all_obj(t_obj *obj)
 		if (obj->type == PLANE)
 			print_plane((t_plane *)obj->shape);
 		obj = obj->next;
+		printf ("\n");
 	}
 }
 
@@ -79,6 +80,7 @@ void		print_all_cam(t_camera *cam)
 		print_vec3(cam->pos, "cam->pos");
 		print_vec3(cam->orient, "cam->orient");
 	}
+	printf ("\n");
 }
 
 void		print_all_lights(t_light *l, t_light *la)
@@ -92,13 +94,14 @@ void		print_all_lights(t_light *l, t_light *la)
 		print_vec3(la->pos, "la->pos");
 		print_color(la->color);
 	}
-
+	printf ("\n");
 	if (l)
 	{
 		printf("Light %ld : ratio = %lf\n", i++, l->ratio);
 		print_vec3(l->pos, "\t l->pos");
 		print_color(l->color);
 	}
+	printf ("\n");
 }
 
 void		print_all_scene(t_scene *scene)

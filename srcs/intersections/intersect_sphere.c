@@ -6,26 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 17:22:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/25 19:33:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-/*
-**							   			S.origin
-**								/radius	|B
-**   *Ro --> Rd ---------   (t1--- A ----P--------t2)------>
-**
-** Point = Ray.origin + Ray.direction * t
-** t = dot(Sphere.origin - Ray.origin, Ray.direction)
-** *
-** A =  racine carree de radius^2 - B^2
-** B =  longueur entre Sphere origin et P
-** *
-** t1 = P - A
-** t2 = P + A
-*/
 
 /*
 ** intersection entre un rayon et une sphere revient a resoudre :
@@ -36,7 +21,7 @@
 **
 ** retourne la longueur la plus petite ou 0 si pas d'intersection.
 ** modifie le pt_inter = rayon origin + (t * rayon direction)
-**	la normale = vecteur normalise (pt intersection - sphere origine)
+** la normale = vecteur normalise (pt intersection - sphere origine)
 */
 
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
@@ -63,12 +48,11 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 	{
 		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[0]));
 		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
-		return (t[0]); // si normal negative dans la sphere
+		return (t[0]);
 	}
-	
-	/// DANS LA SPHERE ///
-	//if (t[0] < RAY_T_MIN && (t[1] > RAY_T_MIN déja mis plus haut)
-	//&& t[1] < RAY_T_MAX)
-	//return (0);
 	return (0);
 }
+/*DANS LA SPHERE ///// si normal negative dans la sphere
+	//if (t[0] < RAY_T_MIN && (t[1] > RAY_T_MIN déja mis plus haut)
+	//&& t[1] < RAY_T_MAX)
+	//return (0);*/
