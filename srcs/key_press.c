@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 19:36:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:18:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int handle_key(int key, void **param)
 	
 	if (key == KEY_ESC)
 		exit(0);
-	else if (key == KEY_SPACE) // change cam
+	else if (key == KEY_SPACE) // change cam ou tab ?
 			;
 	else if (key == 104)   // h for help
 		print_help_key();
@@ -68,7 +68,7 @@ int handle_key(int key, void **param)
 	else if (key == 97)		// a
 		g_scene->cam->orient.x += 100;
 	else if (key == 101)	// e
-		g_scene->cam->orient.x -= 100;	
+		g_scene->cam->orient.x -= 100;
 	else
 		return (0);
 	generate_raytracing(param);
@@ -102,7 +102,7 @@ int		handle_mouse(int button, int x, int y, void *param)
 	ray->direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
 					+ 0.5, x - (app->size.y / 2) + 0.5, -app->size.x /
 					(2 * tan(cam->fov / 2))));
-	first_obj = find_first_intersection(ray, g_scene->objs);
+	first_obj = closest_object(ray, g_scene->objs);
 	if (first_obj && first_obj->type == SPHERE)
 	{
 		sphere = first_obj->shape;

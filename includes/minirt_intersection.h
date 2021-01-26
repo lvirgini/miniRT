@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 18:09:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:17:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_vec3		ray_calculate_t(t_ray ray, double t); //
 */
 
 int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y, t_image *img);
-t_obj		*find_first_intersection(t_ray *ray, t_obj *obj);
+t_obj		*closest_object(t_ray *ray, t_obj *obj);
 //double		intersect_objects(t_ray *ray, t_obj *objs,
 //				t_vec3 *pt_intersection, t_vec3 *normal);
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,

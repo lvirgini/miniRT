@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 17:53:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:21:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 	ray_light = create_ray(add_vec3(ray_origin->pt_intersection,
 			mul_vec3(ray_origin->normal, RAY_T_MIN)),
 			normalize_vec3((obj_to_light)));
-	if (find_first_intersection(&ray_light, g_scene->objs) != NULL)
+	if (closest_object(&ray_light, g_scene->objs) != NULL)
 	{
 		distance_light2 = norme2_vec3(obj_to_light);
 		if (ray_light.t * ray_light.t < distance_light2) // SI CEST DANS L'OMBRE
@@ -56,6 +56,15 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 			color.b = color.b * light_ambiant;
 			color.a = color.a * light_ambiant;
 		}
+		else
+		{
+		color.r = color.r * (light_ambiant + light->ratio);
+		color.g = color.g * (light_ambiant + light->ratio);
+		color.b = color.b * (light_ambiant + light->ratio) ;
+		color.a = color.a * (light_ambiant + light->ratio);
+		}
+		
+
 	}
 	return (color);
 }
@@ -78,7 +87,7 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light,
 	lumiere_pt_inter = ft_sub_vec3(light->pos, ray_origin->pt_intersection);
 	ray_light = create_ray(ft_add_vec3(ray_origin->pt_intersection, ft_mul_vec3(ray_origin->normal, 0.01)), ft_normalize_vec3((lumiere_pt_inter)));
 	ray_light.t = 0;
-	if (find_first_intersection(&ray_light, g_scene->objs) != NULL)
+	if (closest_object(&ray_light, g_scene->objs) != NULL)
 		{
 			if (texture == 1)
 			{
