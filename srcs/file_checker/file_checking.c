@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 17:33:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:19:21 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ int				file_checking(int ac, char **av, t_app *app)
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
 		return (0);	//// SAUVEGARDE EN IMAGE A FAIRE
 	if (ac < 2)
-		return (file_error("no file in first argument", 0));
+		return (file_error("no file in first argument\n", 0));
 	if (file_type(av[1]) == -1)
-		return (file_error("file is not .rt", 0));
-	if (read_file(av[1], app) == -1
-	|| check_file_is_complete(app->size))
+		return (file_error("file is not .rt\n", 0));
+	if (read_file(av[1], app) == -1)
 		return (-1);
-	return (0);
+	return (check_file_is_complete(app->size));
 }

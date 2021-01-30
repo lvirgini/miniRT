@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:05:31 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:47:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exit_free_minirt(t_app *app, int if_error)
 
 int		file_error(char *location, int error)
 {
-	ft_putstr("Error in file :\t");
+	ft_putstr("Error file : ");
 	ft_putstr(location);
 	if (error == 1)
 		ft_putstr(" : defined twice in file\n");
@@ -37,7 +37,7 @@ int		file_error(char *location, int error)
 		ft_putstr(" : is undefined\n");
 	else if (error == 4)
 		ft_putstr(" : is not a type of element for this minirt\n");
-	return (-1);
+	exit (-1);
 }
 
 /*

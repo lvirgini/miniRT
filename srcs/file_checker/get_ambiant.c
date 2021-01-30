@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 16:23:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:23:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		get_resolution(char **tab, t_vec2 *size)
 
 	if (get_resolution == 1)
 		return (file_error("RESOLUTION", 1));
-	if (tab_len(tab) < 3)
+	if (tab_len(tab) != 3)
 		return (file_error("RESOLUTION", 2));
 	*size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if ((*size).x <= 0 || (*size).x > RES_X_MAX
@@ -52,7 +52,7 @@ int		get_ambiant_ligth(char **tab)
 	|| ratio < 0.0
 	|| get_color_from_line(&ambiant_color, tab[2]))
 		return (file_error("AMBIANT LIGHT", 2));
-	if (!(g_scene->light_ambiant = malloc_light(create_vec3(0, 0, 0), \
+	if (!(g_scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
 	ratio, ambiant_color)))
 		return (malloc_error());
 	return (0);

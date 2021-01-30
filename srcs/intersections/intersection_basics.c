@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/26 18:44:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/30 13:51:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 		}
 		x++;
 	}
+	free_ray(ray);
 	return (0);
 }
