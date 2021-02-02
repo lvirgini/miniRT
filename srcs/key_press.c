@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/26 12:18:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/01/30 15:38:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	print_help_key(void)
 {
 	ft_putstr("* -------------------------------------------------------- *\n");
-	ft_putstr("Welcome to hellp\n\nPress 'echap' for exit program\n");
-	ft_putstr("Press 'space' for change camera\n");
-	ft_putstr("Press 'z, q, s, d w, x' for moving this camera position\n");
-	ft_putstr("Press the arrow keys, + and - for moving light\n");
+	ft_putstr("Welcome to hellp\n\nexit program : Echap\n");
+	ft_putstr("switch camera : Space\n");
+	ft_putstr("Move camera position : Z Q S D  and W X\n");
+	ft_putstr("Move light : + -\n");
 	ft_putstr("Use the mouse wheel on a object to grow it or get it smaller\n");
 	ft_putstr("* -------------------------------------------------------- *\n");
 }

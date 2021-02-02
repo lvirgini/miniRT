@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/27 16:47:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:56:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ int		file_error(char *location, int error)
 		ft_putstr(" : is undefined\n");
 	else if (error == 4)
 		ft_putstr(" : is not a type of element for this minirt\n");
-	exit (-1);
+	else if (error == 5)
+	{
+		ft_putstr(" : (open) return bad fd\n");
+		// use errno
+	}
+	return (-1);
 }
 
 /*
@@ -47,5 +52,6 @@ int		file_error(char *location, int error)
 int		malloc_error(void)
 {
 	ft_putstr("Error : Malloc return NULL : allocation problem\n");
+	//stderr(errno);
 	return (-1);
 }

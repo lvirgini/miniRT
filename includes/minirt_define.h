@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/08/27 10:34:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:08:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef	unsigned char	t_uchar;
 # define PI  		3.14159265359
 # define RES_X_MAX 	2000 //
 # define RES_Y_MAX 	2000 //
+# define ERROR_MALLOC	1
+# define ERROR_FD		2
 
 /*
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:08:00 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:17:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define TEXTURE_DIFFUS		0
 # define TEXTURE_MIRROIR	1
 # define TEXTURE_REFLE
-
 
 typedef struct s_obj		t_obj;
 
@@ -134,8 +133,8 @@ t_plane		*malloc_plane(t_vec3 pos, t_vec3 orient, t_color col, int texture);
 t_triangle	*malloc_triangle(t_vec3 pos[3], t_color col, int texture);
 t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
 				int texture);
-t_cyl		*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2], t_color col,
-				int texture);
+t_cyl		*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2],
+				t_color col, int texture);
 
 void		free_sphere(t_sphere *sphere);
 void		free_plane(t_plane *plane);

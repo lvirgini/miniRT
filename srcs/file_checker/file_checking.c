@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/27 16:19:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:00:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		file_type(char *str)
 int				file_checking(int ac, char **av, t_app *app)
 {
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
-		return (0);	//// SAUVEGARDE EN IMAGE A FAIRE
+		app->save = 1;
 	if (ac < 2)
 		return (file_error("no file in first argument\n", 0));
 	if (file_type(av[1]) == -1)

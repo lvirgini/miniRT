@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/30 13:40:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:15:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int			get_coord_from_line(t_vec3 *result, char *line)
 		free_tab(tab);
 		return (-1);
 	}
-	//print_tab(tab);
 	result->x = ft_atof(tab[0]);
 	result->y = ft_atof(tab[1]);
 	result->z = ft_atof(tab[2]);

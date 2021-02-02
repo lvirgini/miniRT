@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 16:40:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:11:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ t_image		*malloc_image(int x, int y, void *mlx_ptr)
 
 void		free_image(t_image *to_free, void *mlx_ptr)
 {
-	mlx_destroy_image(mlx_ptr, to_free);
+	mlx_destroy_image(mlx_ptr, to_free->img_ptr);
 	free(to_free);
 }

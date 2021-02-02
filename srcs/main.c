@@ -6,13 +6,12 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/27 16:27:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:02:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// faire une image avec --save
 // croix ne ferme pas
 // intersection a l'interieur d'une sphere
 // faire une sphere blanche pour voir les lumieres colorées
@@ -36,12 +35,18 @@ int			main(int ac, char **av)
 	errno = 0;
 	app = init_application();
 	scene = init_scene();
+	app.scene = &scene;
 	g_scene = &scene;
 	if (file_checking(ac, av, &app) == -1)
 		return (-1);
-	print_all_scene(g_scene);
+//	print_all_scene(g_scene);//
 	generate_content(&app);
 	generate_raytracing((void *)&app);
+	if (app.save == 1)
+	{
+		destroy_scene(scene);
+		return (img_to_bmp(&app));
+	}
 	return (run_application(&app));
 }
 

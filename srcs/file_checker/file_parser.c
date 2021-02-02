@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/30 13:46:09 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:15:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static size_t	index_set(char *s)
 	while (i < 9 && ft_strcmp(set[i], s) != 0)
 		i++;
 	if (i == 0 && a_done++ == 1)
-		file_error("AMBIANT LIGHT", 1);
+		return (file_error("AMBIANT LIGHT", 1));
 	else if (i == 8 && r_done++ == 1)
-		file_error("RESOLUTION", 1);
+		return (file_error("RESOLUTION", 1));
 	else if (i == 9)
-		file_error(s, 4);
+		return (file_error(s, 4));
 	return (i);
 }
 
@@ -56,16 +56,8 @@ static void		set_functions_get(t_func *f)
 }
 
 /*
-** Free si
+** recuperation de chaque parametre de la ligne.
 */
-/*
-static int		free_read_file(char **tab, char *line, int fd)
-{
-	free_tab(tab);
-	free(line);
-	close(fd);
-	return (-1);
-}*/
 
 static int		parse_line(char *line, t_app *app, t_func *f, int fd)
 {
@@ -76,17 +68,18 @@ static int		parse_line(char *line, t_app *app, t_func *f, int fd)
 	index_ft = index_set(tab[0]);
 	if ((index_ft == 8 && (get_resolution(tab, &(app)->size)) != 0)
 	|| (index_ft != 8 && (f[index_ft](tab) != 0)))
-		{
-			free_tab(tab);
-			free(line);
-			close(fd);
-			return (-1);
-		}
+	{
+		free_tab(tab);
+		free(line);
+		close(fd);
+		return (-1);
+	}
 	free_tab(tab);
-	return (1);
+	return (0);
 }
+
 /*
-** Get next line du fichier.rt et recuperation de chaque parametre de la scene.
+** Get next line du fichier.rt et envoie de la ligne a parse line
 */
 
 int				read_file(char *str, t_app *app)
@@ -94,20 +87,18 @@ int				read_file(char *str, t_app *app)
 	t_func	f[8];
 	int		fd;
 	char	*line;
-	int 	ret;
+	int		ret;
 
 	if ((fd = open(str, O_RDONLY)) == -1)
 		return (file_error("file cannot be read by the (read) function ", 0));
 	set_functions_get(f);
-	while ((ret = get_next_line(fd, &line)) > 0 || (ret == 0 && line[0] != '\0'))
+	while ((ret = get_next_line(fd, &line)) > 0 || (ret == 0 && line[0] != 0))
 	{
-		printf("ret = %d line = %s\n",ret,  line);
 		if (line && line[0] != '\0')
-			if (!(parse_line(line, app, f, fd)))
+			if (parse_line(line, app, f, fd) == -1)
 				return (-1);
 		free(line);
 	}
-	//printf("2 line = %s\n", line);
 	free(line);
 	close(fd);
 	return (0);
