@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 14:48:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:09:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void		destroy_application(t_app *app)
 	{
 		if (app->img)
 			free_image(app->img, app->mlx_ptr);
-		if (app->mlx_ptr)
+		if (app->win_ptr)
 			mlx_destroy_window(app->mlx_ptr, app->win_ptr);
+		if (app->mlx_ptr)
+			mlx_destroy_display(app->mlx_ptr);
 	}
 }

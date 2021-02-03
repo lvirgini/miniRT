@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/30 13:51:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:12:09 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 							y - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
 			closest_obj = closest_object(ray, g_scene->objs);
 			if (closest_obj != NULL)
-				put_pixel(img, x, h - y - 1, find_pixel_color(closest_obj, ray));
+				{
+					put_pixel(img, x, h - y - 1, find_pixel_color(closest_obj, ray));
+				}
 			ray->pt_intersection = create_vec3(0, 0, 0);
 			ray->normal = create_vec3(0, 0, 0);
 			y++;

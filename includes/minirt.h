@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 17:16:37 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:48:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			handle_mouse(int button, int x, int y, void *param);
 int			generate_raytracing(void *param);
 int			generate_content(t_app *app);
 int			run_application(t_app *app);
-int			img_to_bmp(t_app *app);
+int			generate_bmp_file(t_app *app);
 
 // Foncitons a supprimer : fichier print
 

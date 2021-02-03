@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 16:02:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:48:19 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@ int			main(int ac, char **av)
 		return (-1);
 //	print_all_scene(g_scene);//
 	generate_content(&app);
-	generate_raytracing((void *)&app);
 	if (app.save == 1)
-	{
-		destroy_scene(scene);
-		return (img_to_bmp(&app));
-	}
-	return (run_application(&app));
+		return(generate_bmp_file(&app));
+	return (generate_raytracing((void *)&app));
 }
 
 

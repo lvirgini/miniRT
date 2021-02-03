@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:58:38 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 14:58:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:48:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void		bmp_write_data(int fd, t_image *img)
 	}
 }
 
-int				img_to_bmp(t_app *app)
+static int		img_to_bmp(t_app *app)
 {
 	int		fd;
 
@@ -95,4 +95,11 @@ int				img_to_bmp(t_app *app)
 	}
 	destroy_application(app);
 	return (file_error("uncreate bmp", 5));
+}
+
+int				generate_bmp_file(t_app *app)
+{
+	browse_image_for_intersection(app->scene->cam, app->size.x, app->size.y, app->img);
+	destroy_scene(*app->scene);
+	return (img_to_bmp(&app));
 }

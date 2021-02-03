@@ -1,0 +1,62 @@
+find first intersection
+{
+	(while t1 == 0 && obj)
+	{
+		t1 = intersect_objects (obj)
+		obj = obj->next
+	}
+	while (obj->next)
+	{
+		t2 = intersect_objects (obj->next)
+		if t2 > 0 && t2 < t1
+			t1 = t2
+			firstobj = obj->next
+			update_ray(ray, pt_inter, normal, t1);
+		obj = next
+	}
+		
+
+		firstobj = t1 > t2 ? t2 : t1;
+
+
+}
+
+
+
+
+t_obj			*find_first_intersection(t_ray *ray, t_obj *objs)
+{
+	t_obj	*first_obj;
+	double	t1;
+	double	t2;
+	t_vec3	pt_inter;
+	t_vec3	normal;
+
+	if (!objs)
+		return (NULL);
+	first_obj = NULL;
+	pt_inter = create_vec3(0, 0, 0);
+	normal = create_vec3(0, 0, 0);
+	t1 = intersect_objects(ray, objs, &pt_inter, &normal);
+// s'il n'y a pas d'intersection avec l'objet courant, on passe au prochain obj.
+	if (t1 == 0)
+		return (find_first_intersection(ray, objs->next));
+// S'il y a intersection, verifie s'il y a un autre objet plus proche que lui.
+	else
+	{
+		first_obj = objs;
+		update_ray(ray, pt_inter, normal, t1);
+		while (objs->next)
+		{
+			t2 = intersect_objects(ray, objs->next, &pt_inter, &normal);
+			if (t2 > RAY_T_MIN && t2 < t1)
+			{
+				t1 = t2;
+				first_obj = objs->next;
+				update_ray(ray, pt_inter, normal, t1);
+			}
+			objs = objs->next;
+		}
+		return (first_obj);
+	}
+}

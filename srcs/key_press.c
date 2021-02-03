@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/30 15:38:42 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:49:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int handle_key(int key, void **param)
 	printf("key = %d\n", key);
 	
 	if (key == KEY_ESC)
-		exit(0);
+		exit_free_minirt((t_app *)param, 0);
 	else if (key == KEY_SPACE) // change cam ou tab ?
 			;
 	else if (key == 104)   // h for help
