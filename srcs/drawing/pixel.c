@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 14:22:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 13:37:47 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 12:14:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 	t_vec3		light_orient;
 
 	color = calculate_shadow(sphere->color, ray_origin, g_scene->light);
-	light_orient = normalize_vec3(sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+	light_orient = normalize_vec3(sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
 	intensite_pixel = pow(0.9 * dot_vec3(light_orient, ray_origin->normal), 1 / 2.2);
 	if (intensite_pixel > 1)
 		return (color);
@@ -82,7 +82,7 @@ t_vec3		ft_mul2_vec3(t_vec3 a, t_vec3 b)
 	return (create_vec3(a.x * b.x, a.y * b.y, a.z * b.z));
 }
 
-/*		intensite_pixel = g_scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection)), ray_origin->normal) / ft_norme2_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+/*		intensite_pixel = g_scene->light->ratio * ft_dot_vec3(ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter)), ray_origin->normal) / ft_norme2_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
 */
 
 	//light_orient = create_vec3(0, 0, 0);

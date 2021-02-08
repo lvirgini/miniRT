@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 19:33:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 11:49:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,18 @@
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 				t_vec3 *pt_inter, t_vec3 *normal)
 {
-	double a;
 	double b;
 	double c;
 	double delta;
 	double t[2];
 
-	a = 1.0;
 	b = 2 * dot_vec3(ray->direction, sub_vec3(ray->origin, sphere->pos));
 	c = (norme2_vec3(sub_vec3(ray->origin, sphere->pos)) -
 							(sphere->radius * sphere->radius));
-	delta = (b * b) - (4 * a * c);
-	if (delta < 0) /// SI dans la sphere
+	if ((delta = (b * b) - (4 * 1.0 * c)) < 0)
 		return (0);
-	t[0] = (-b - sqrt(delta)) / (2 * a);
-	t[1] = (-b + sqrt(delta)) / (2 * a);
+	t[0] = (-b - sqrt(delta)) / (2 * 1.0);
+	t[1] = (-b + sqrt(delta)) / (2 * 1.0);
 	if (t[1] < RAY_T_MIN)
 		return (0);
 	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
@@ -50,9 +47,7 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
 		return (t[0]);
 	}
+	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && (ray->t = -1.0) == -1.0)
+		return (ray->t);
 	return (0);
 }
-/*DANS LA SPHERE ///// si normal negative dans la sphere
-	//if (t[0] < RAY_T_MIN && (t[1] > RAY_T_MIN déja mis plus haut)
-	//&& t[1] < RAY_T_MAX)
-	//return (0);*/

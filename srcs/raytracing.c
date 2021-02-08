@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 15:03:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:33:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ static int	exit_minirt(void *param)
 int			generate_raytracing(void *param) // param a determier
 {
 	t_app	*app;
+	int		ret;
 
 	app = (t_app *)param;
-//	clear_application(create_color(25, 25, 25, 255), app); // a determiner
-	browse_image_for_intersection(g_scene->cam, app->size.x, app->size.y, app->img);
+	ret = browse_image_for_intersection(g_scene->cam, app->size.x, app->size.y, app->img);
+	if (ret == -1)
+		clear_application(create_color(255, 0, 0, 0), app);
 	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img->img_ptr, 0, 0);
 	return (run_application(app));
 }
@@ -45,7 +47,7 @@ int			generate_raytracing(void *param) // param a determier
 
 int			run_application(t_app *app)
 {
-	mlx_hook(app->win_ptr, DestroyNotify, StructureNotifyMask, &exit_minirt, app);
+	mlx_hook(app->win_ptr, DestroyNotify, StructureNotifyMask, exit_minirt, app);// dont work
  	mlx_key_hook(app->win_ptr, handle_key, app);
 	mlx_mouse_hook(app->win_ptr, handle_mouse, g_scene->objs);
 	mlx_loop(app->mlx_ptr);

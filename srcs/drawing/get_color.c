@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 14:05:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 12:18:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
 	if (max_rebound == 0)
 		return (create_color(0, 0, 0, 255));
 	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
-	new_ray = create_ray(add_vec3(ray_incident.pt_intersection, mul_vec3(ray_incident.normal, 0.01)), new_direction);
+	new_ray = create_ray(add_vec3(ray_incident.pt_inter, mul_vec3(ray_incident.normal, 0.01)), new_direction);
 	first_obj = closest_object(&new_ray, g_scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
@@ -60,11 +60,11 @@ static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture
 	color = calculate_shadow(obj_color, ray_origin, light);
 
 	// intensité de la lumière :
-	light_vec = sub_vec3(light->pos, ray_origin->pt_intersection);
+	light_vec = sub_vec3(light->pos, ray_origin->pt_inter);
 
 	double light_scalaire = dot_vec3(normalize_vec3(light_vec), ray_origin->normal);
 
-	if (light_scalaire < 0.)
+	if (light_scalaire < 0)
 		light_scalaire = 0;
 
 	// PAS DE CORRECTION
@@ -124,8 +124,8 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 		color = calculate_shadow(obj_color, ray_origin, g_scene->light);
 
 		// faire une fonction pour plusieurs lumiere /////////////////////
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
-		light_distance = ft_norme_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
+		light_distance = ft_norme_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
 
 		// calcul l'intensité du pixel (nouveau ratio) suivant le ratio de la lumiere, la normal au pt d'intersection.
 		// avec correction gamma = puissance 1/2.2
@@ -183,7 +183,7 @@ t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
 
 // creation couleur et lumiere directe
 
-	t_vec3	light_vector= ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+	t_vec3	light_vector= ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
 
 	double N_L = ft_dot_vec3(ray_origin->normal, light_vector);
 	double Il = g_scene->light->ratio;
@@ -246,7 +246,7 @@ t_color		color_sphere(t_sphere *sphere, t_ray *ray_origin)
 		t_vec3 		light_orient;
 
 		color = calculate_shadow(sphere->color, ray_origin, g_scene->light);
-		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_intersection));
+		light_orient = ft_normalize_vec3(ft_sub_vec3(g_scene->light->pos, ray_origin->pt_inter));
 		intensite_pixel = pow(0.5 * ft_dot_vec3(light_orient, ray_origin->normal), 1/2.2);
 		if (intensite_pixel > 1)
 			return (color);
