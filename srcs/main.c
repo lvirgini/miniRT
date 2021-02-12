@@ -6,14 +6,13 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 14:48:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:41:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // croix ne ferme pas
-// intersection a l'interieur d'une sphere
 // faire une sphere blanche pour voir les lumieres colorées
 // intersection triangle
 //	ATTENTION : pas d'ombre si light devant le triangle (derriere oui)
@@ -21,8 +20,8 @@
 // intersection carré
 // intersection cylindre
 // tableau d'erreur;
+// changer le nom a.out dans le Makefile
 
-// pb gnl
 // integration de "bonus".
 
 t_scene		*g_scene;

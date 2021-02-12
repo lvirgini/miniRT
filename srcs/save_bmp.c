@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:58:38 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 14:48:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 14:20:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int		img_to_bmp(t_app *app)
 
 	fd = open("Minirt.bmp", O_RDWR | O_CREAT | O_TRUNC,
 		S_IRWXU | S_IRWXG | S_IRWXO);
+	printf("FD = %d\n", fd);
 	if (fd != -1)
 	{
 		bmp_write_header(fd, app->img);
@@ -101,5 +102,5 @@ int				generate_bmp_file(t_app *app)
 {
 	browse_image_for_intersection(app->scene->cam, app->size.x, app->size.y, app->img);
 	destroy_scene(*app->scene);
-	return (img_to_bmp(&app));
+	return (img_to_bmp(app));
 }

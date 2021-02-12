@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 13:34:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:12:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 	double		distance_light2;
 	t_vec3		obj_to_light;
 	t_ray		ray_light;
-	int			light_ambiant;
+	double		light_ambiant;
 
-	light_ambiant = g_scene->light_ambiant->ratio; ///
-
+	light_ambiant = g_scene->light_ambiant->ratio;
 	obj_to_light = sub_vec3(light->pos, ray_origin->pt_inter);
 	ray_light = create_ray(add_vec3(ray_origin->pt_inter,
 			mul_vec3(ray_origin->normal, RAY_T_MIN)),
@@ -45,26 +44,11 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 		distance_light2 = norme2_vec3(obj_to_light);
 		if (ray_light.t * ray_light.t < distance_light2) // SI CEST DANS L'OMBRE
 		{
-			/*
-			color.r = color.r * ray_light.t / distance_light2 *256;
-			color.g = color.g * ray_light.t / distance_light2 *256;
-			color.b = color.b * ray_light.t / distance_light2 *256;
-			color.a = color.a * ray_light.t / distance_light2 *256; ////NOPE
-			*/
 			color.r = color.r * light_ambiant;
 			color.g = color.g * light_ambiant;
 			color.b = color.b * light_ambiant;
 			color.a = color.a * light_ambiant;
 		}
-		else
-		{
-		color.r = color.r * (light_ambiant + light->ratio);
-		color.g = color.g * (light_ambiant + light->ratio);
-		color.b = color.b * (light_ambiant + light->ratio) ;
-		color.a = color.a * (light_ambiant + light->ratio);
-		}
-		
-
 	}
 	return (color);
 }

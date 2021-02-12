@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 11:49:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 14:13:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** intersection entre un rayon et une sphere revient a resoudre :
 ** a*t² + b*t + c = 0
 ** delta = b² - 4ac
+** si delta < 0 pas d'intersection.
 ** t1 = -b - racine(delta) / 2a  -> plus proche
 ** t2 = -b + racine(delta) / 2a  -> plus loin
 **
@@ -23,6 +24,9 @@
 ** modifie le pt_inter = rayon origin + (t * rayon direction)
 ** la normale = vecteur normalise (pt intersection - sphere origine)
 */
+
+// if if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && t[1] < RAY_T_MAX
+//	return t[1] interieur sphere 
 
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 				t_vec3 *pt_inter, t_vec3 *normal)

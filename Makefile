@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2021/01/28 10:25:26 by lvirgini         ###   ########.fr        #
+#    Updated: 2021/02/10 18:56:36 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #	 VARIABLES		#
 # ----------------- #
 
-NAME =		a.out #####################
+NAME =		minirt
 
 LIB_DIR =	lib/libft/	lib/minilibx-linux/ 
 SRC_DIR =	$(shell find srcs -type d)
@@ -41,7 +41,7 @@ CFLAG 	= 	-Wall -Wextra -g -O2 -std=gnu99 -Wpedantic -fsanitize=leak
 #-O2 -std=gnu99 
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
-LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
+#LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
 
 
 # ----------------- #

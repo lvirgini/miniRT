@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 12:18:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:41:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
 	if (max_rebound == 0)
 		return (create_color(0, 0, 0, 255));
 	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
-	new_ray = create_ray(add_vec3(ray_incident.pt_inter, mul_vec3(ray_incident.normal, 0.01)), new_direction);
+	new_ray = create_ray(add_vec3(ray_incident.pt_inter, mul_vec3(ray_incident.normal, RAY_T_MIN)), new_direction);
 	first_obj = closest_object(&new_ray, g_scene->objs);
 	if (first_obj != NULL)
 		color = find_pixel_color(first_obj, &new_ray);
@@ -50,7 +50,7 @@ static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture
 	double		intensite_pixel;
 	t_color		color;
 	t_vec3		light_vec;
-	int			r;
+	double		r;
 
 	// si MIRROIR :
 	if (texture == TEXTURE_MIRROIR)
@@ -62,21 +62,17 @@ static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture
 	// intensité de la lumière :
 	light_vec = sub_vec3(light->pos, ray_origin->pt_inter);
 
-	double light_scalaire = dot_vec3(normalize_vec3(light_vec), ray_origin->normal);
+	double light_scalaire = dot_vec3(light_vec, ray_origin->normal);
 
 	if (light_scalaire < 0)
 		light_scalaire = 0;
 
-	// PAS DE CORRECTION
-	//int light_intensity = 6000 * light->ratio ; /////
-	//intensite_pixel = light_intensity * light_scalaire / ft_norme2_vec3(light_vec);
-
-	// CORRECTION GAMMA
-	int	light_intensity = 6000 * light->ratio ;
+	// I = < N,L> / d * d
+	double	light_intensity = 65 * light->ratio ;
 	intensite_pixel = pow(light_intensity * light_scalaire / norme2_vec3(light_vec), 1 / 2.2);
 
-	if (intensite_pixel < 0)
-		intensite_pixel = 0;
+	/*if (intensite_pixel <= 0.2)
+		intensite_pixel = 0.2;*/
 
 	r = color.r * intensite_pixel;
 	color.r = r > 255 ? 255 : r;
@@ -84,8 +80,8 @@ static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture
 	color.g = r > 255 ? 255 : r;
 	r = color.b * intensite_pixel;
 	color.b = r > 255 ? 255 : r;
-	r = color.a * intensite_pixel;
-	color.a = r > 255 ? 255 : r;
+	/*r = color.a * intensite_pixel;
+	color.a = r > 255 ? 255 : r;*/
 	return (color);
 }
 

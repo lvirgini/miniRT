@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 14:56:46 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:46:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	exit_free_minirt(t_app *app, int if_error)
 		destroy_scene(*g_scene);
 	if (app)
 		destroy_application(app);
+	if (if_error == 1)
+		ft_putstr("mlx_init return -1\n");
 	exit(if_error);
 }
 
