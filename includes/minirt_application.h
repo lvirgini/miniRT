@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 14:34:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 14:38:26 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "minirt.h"
 
 typedef struct s_app		t_app;
-typedef	int	(*t_func)(char **);
 
 /*
 ** s_app :
@@ -42,7 +41,16 @@ struct		s_app
 ** Fonctions qui gerent la variable t_app
 */
 
-t_app		init_application(void);
+void		init_application(t_app *app);
 void		destroy_application(t_app *app);
+int			generate_mlx_content(t_app *app);
+int			run_application(t_app *app);
+int			generate_bmp_file(t_app *app);
+
+/*
+** Fonctions event mlx
+*/
+
+int			handle_mouse(int button, int x, int y, t_app *app);
 
 #endif

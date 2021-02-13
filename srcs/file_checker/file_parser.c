@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 17:15:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:51:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static size_t	index_set(char *s)
 	while (i < 9 && ft_strcmp(set[i], s) != 0)
 		i++;
 	if (i == 0 && a_done++ == 1)
-		return (file_error("AMBIANT LIGHT", 1));
+		return (file_error(0, "AMBIANT LIGHT", ERR_DEF_TWICE));
 	else if (i == 8 && r_done++ == 1)
-		return (file_error("RESOLUTION", 1));
+		return (file_error(0, "RESOLUTION", ERR_DEF_TWICE));
 	else if (i == 9)
-		return (file_error(s, 4));
+		return (file_error(0, s, ERR_NOT_TYPE));
 	return (i);
 }
 
@@ -53,6 +53,7 @@ static void		set_functions_get(t_func *f)
 	f[5] = &get_cyl;
 	f[6] = &get_sphere;
 	f[7] = &get_square;
+	f[8] = &get_resolution;
 }
 
 /*
@@ -66,8 +67,7 @@ static int		parse_line(char *line, t_app *app, t_func *f, int fd)
 
 	tab = ft_split_set(line, " \r\t\v\f");
 	index_ft = index_set(tab[0]);
-	if ((index_ft == 8 && (get_resolution(tab, &(app)->size)) != 0)
-	|| (index_ft != 8 && (f[index_ft](tab) != 0)))
+	if (index_ft == -1 || f[index_ft](app, tab) != 0)
 	{
 		free_tab(tab);
 		free(line);
@@ -90,7 +90,7 @@ int				read_file(char *str, t_app *app)
 	int		ret;
 
 	if ((fd = open(str, O_RDONLY)) == -1)
-		return (file_error("file cannot be read by the (read) function ", 0));
+		return (file_error(app, str, ERR_NOT_READ));
 	set_functions_get(f);
 	while ((ret = get_next_line(fd, &line)) > 0 || (ret == 0 && line[0] != 0))
 	{

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 11:08:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:42:23 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ typedef	unsigned char	t_uchar;
 # define PI  		3.14159265359
 # define RES_X_MAX 	2000 //
 # define RES_Y_MAX 	2000 //
-# define ERROR_MALLOC	1
-# define ERROR_FD		2
 
 /*
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même
@@ -37,7 +35,7 @@ typedef	unsigned char	t_uchar;
 /*
 ** EVENT MLX
 */
-
+///
 # define KEYPRESS 2
 # define KEYRELEASE 3
 # define BUTTONPRESS 4
@@ -53,7 +51,7 @@ typedef	unsigned char	t_uchar;
 # define NOEXPOSE 14
 # define VISIBILITYNOTIFY 15
 # define CREATENOTIFY 16
-# define DESTROYNOTIFY 17
+# define DESTROYNOTIFY 33
 # define UNMAPNOTIFY 18
 # define MAPNOTIFY 19
 # define MAPREQUEST 20

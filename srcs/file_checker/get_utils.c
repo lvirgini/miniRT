@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 17:15:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:43:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int			save_obj_in_scene(int type, void *shape)
 	if (!(g_scene->objs))
 	{
 		if (!(g_scene->objs = malloc_object(type, shape)))
-			return (malloc_error());
+			return (file_error(0, __FILE__, ERR_MALLOC));
 	}
 	else
 	{
 		obj = find_last_obj(g_scene->objs);
 		if (!(obj->next = malloc_object(type, shape)))
-			return (malloc_error());
+			return (file_error(0, __FILE__, ERR_MALLOC));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 22:57:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:45:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ struct		s_scene
 ** Fonctions qui gerent la variable t_scene
 */
 
-t_scene		init_scene(void);
+void		init_scene(t_scene *scene);
 void		destroy_scene(t_scene to_destroy);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 14:09:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:59:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@
 ** 		win_ptr recupere le retour de mlx_new_window.
 */
 
-t_app		init_application(void)
+void		init_application(t_app *app)
 {
-	t_app	app;
-
-	ft_bzero(&app, sizeof(t_app));
-	return (app);
+	ft_bzero(app, sizeof(t_app));
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/12 10:42:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:52:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 **	"R"			"1920"		"1080"			//	EXAMPLE //
 */
 
-int		get_resolution(char **tab, t_vec2 *size)
+int		get_resolution(t_app *app, char **tab)
 {
 	static int	get_resolution = 0;
 
 	if (get_resolution == 1)
-		return (file_error("RESOLUTION", 1));
+		return (file_error(app, "RESOLUTION", ERR_DEF_TWICE));
 	if (tab_len(tab) != 3)
-		return (file_error("RESOLUTION", 2));
-	*size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
-	if ((*size).x <= 0 || (*size).y <= 0)
-		return (file_error("RESOLUTION", 2));
-	size->x = size->x > RES_X_MAX ? RES_X_MAX : size->x;
-	size->y = size->y > RES_Y_MAX ? RES_Y_MAX : size->y;
+		return (file_error(app, "RESOLUTION", ERR_BAD_VALUE));
+	app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
+	if (app->size.x <= 0 || app->size.y <= 0)
+		return (file_error(app, "RESOLUTION", ERR_BAD_VALUE));
+	app->size.x = app->size.x > RES_X_MAX ? RES_X_MAX : app->size.x;
+	app->size.y = app->size.y > RES_Y_MAX ? RES_Y_MAX : app->size.y;
 	get_resolution = 1;
 	return (0);
 }
@@ -43,7 +43,7 @@ int		get_resolution(char **tab, t_vec2 *size)
 **	"A"			"0.2"		"255,255,255"			//	EXAMPLE //
 */
 
-int		get_ambiant_ligth(char **tab)
+int		get_ambiant_ligth(t_app *app, char **tab)
 {
 	t_color		ambiant_color;
 	double		ratio;
@@ -52,10 +52,10 @@ int		get_ambiant_ligth(char **tab)
 	|| (ratio = ft_atof(tab[1])) > 1.0
 	|| ratio < 0.0
 	|| get_color_from_line(&ambiant_color, tab[2]))
-		return (file_error("AMBIANT LIGHT", 2));
-	if (!(g_scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
+		return (file_error(app, "AMBIANT LIGHT", ERR_BAD_VALUE));
+	if (!(app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
 	ratio, ambiant_color)))
-		return (malloc_error());
+		return (file_error(app, "AMBIANT LIGHT", ERR_MALLOC));
 	return (0);
 }
 
@@ -66,7 +66,7 @@ int		get_ambiant_ligth(char **tab)
 **	"l"			"-40,0,30"	"0.2"		"255,255,255"			//	EXAMPLE //
 */
 
-int		get_light(char **tab)
+int		get_light(t_app *app, char **tab)
 {
 	t_color		light_color;
 	double		ratio;
@@ -77,11 +77,11 @@ int		get_light(char **tab)
 	|| ratio < 0
 	|| get_color_from_line(&light_color, tab[3])
 	|| get_coord_from_line(&pos, tab[1]))
-		return (file_error("LIGHT", 2));
-	if (!(g_scene->light = malloc_light(pos, ratio, light_color)))
-		return (malloc_error());
-	//t_light tmp; voir pour plusieurs lights
+		return (file_error(app, "LIGHT", ERR_BAD_VALUE));
+	if (!(app->scene->light = malloc_light(pos, ratio, light_color)))
+		return (file_error(app, "LIGHT", ERR_MALLOC));
 	return (0);
+	// t_light tmp; voir pour plusieurs lights
 }
 
 /*
@@ -91,7 +91,7 @@ int		get_light(char **tab)
 **	"c"			"-40,0,30"	"-40,0,30"	 0 < 180		//	EXAMPLE //
 */
 
-int		get_camera(char **tab)
+int		get_camera(t_app *app, char **tab)
 {
 	t_vec3		pos;
 	t_vec3		orient;
@@ -101,8 +101,8 @@ int		get_camera(char **tab)
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
 	|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
-		return (file_error("CAMERA", 2));
-	if (!(g_scene->cam = malloc_camera(fov, pos, orient)))
-		return (malloc_error());
+		return (file_error(app, "CAMERA", ERR_BAD_VALUE));
+	if (!(app->scene->cam = malloc_camera(fov, pos, orient)))
+		return (file_error(app, "CAMERA", ERR_MALLOC));
 	return (0);
 }

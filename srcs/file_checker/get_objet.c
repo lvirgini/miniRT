@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 14:47:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:53:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **	"sp"		"-40,0,30"	"20"		"255,255,255"			//	EXAMPLE //
 */
 
-int		get_sphere(char **tab)
+int		get_sphere(t_app *app, char **tab)
 {
 	t_sphere	*sphere;
 	t_vec3		pos;
@@ -30,9 +30,9 @@ int		get_sphere(char **tab)
 	|| (radius = ft_atof(tab[2]) / 2) < 0
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_color_from_line(&color, tab[3]))
-		return (file_error("SPHERE", 2));
+		return (file_error(app, "SPHERE", ERR_BAD_VALUE));
 	if (!(sphere = malloc_sphere(pos, radius, color, 0)))
-		return (malloc_error());
+		return (file_error(app, "SPHERE", ERR_MALLOC));
 	return (save_obj_in_scene(SPHERE, sphere));
 }
 
@@ -43,7 +43,7 @@ int		get_sphere(char **tab)
 **	"pl"		"-40,0,30"	"0,1.0,0"	"255,255,255"			//	EXAMPLE //
 */
 
-int		get_plane(char **tab)
+int		get_plane(t_app *app, char **tab)
 {
 	t_vec3		pos;
 	t_vec3		orient;
@@ -54,9 +54,9 @@ int		get_plane(char **tab)
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
 	|| get_color_from_line(&color, tab[3])))
-		return (file_error("PLAN", 2));
+		return (file_error(app, "PLANE", ERR_BAD_VALUE));
 	if (!(plane = malloc_plane(pos, orient, color, 0)))
-		return (malloc_error());
+		return (file_error(app, "PLANE", ERR_MALLOC));
 	return (save_obj_in_scene(PLANE, plane));
 }
 
@@ -67,7 +67,7 @@ int		get_plane(char **tab)
 **	"sq"		"-40,0,30"	"0,1.0,0"	"26.5"	"255,255,255" //	EXAMPLE //
 */
 
-int		get_square(char **tab)
+int		get_square(t_app *app, char **tab)
 {
 	t_vec3		pos_orient[2];
 	double		hight;
@@ -79,9 +79,9 @@ int		get_square(char **tab)
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
 	|| get_color_from_line(&color, tab[4])))
-		return (file_error("SQUARE", 2));
+		return (file_error(app, "SQUARE", ERR_BAD_VALUE));
 	if (!(square = malloc_square(pos_orient, hight, color, 0)))
-		return (malloc_error());
+		return (file_error(app, "SQUARE", ERR_MALLOC));
 	return (save_obj_in_scene(SQUARE, square));
 }
 
@@ -92,7 +92,7 @@ int		get_square(char **tab)
 **	"sq"	"-40,0,30"	"0,1.0,0"	"26.5"		"12.2"	"255,255,255"
 */
 
-int		get_cyl(char **tab)
+int		get_cyl(t_app *app, char **tab)
 {
 	t_vec3		pos_orient[2];
 	double		radius_hight[2];
@@ -105,9 +105,9 @@ int		get_cyl(char **tab)
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
 	|| get_color_from_line(&color, tab[5])))
-		return (file_error("CYLINDRE", 2));
+		return (file_error(app, "CYLINDRE", ERR_BAD_VALUE));
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
-		return (malloc_error());
+		return (file_error(app, "CYLINDRE", ERR_MALLOC));
 	return (save_obj_in_scene(CYLINDRE, cyl));
 }
 
@@ -118,7 +118,7 @@ int		get_cyl(char **tab)
 **	"tr"	"-40,0,30"	"0,1.0,0"	"20,10,10"	"255,255,255"
 */
 
-int		get_triangle(char **tab)
+int		get_triangle(t_app *app, char **tab)
 {
 	t_triangle	*triangle;
 	t_vec3		pos[3];
@@ -129,8 +129,8 @@ int		get_triangle(char **tab)
 	|| get_coord_from_line(pos + 1, tab[2])
 	|| get_coord_from_line(pos + 2, tab[3])
 	|| get_color_from_line(&color, tab[4])))
-		return (file_error("TRIANGLE", 2));
+		return (file_error(app, "TRIANGLE", ERR_BAD_VALUE));
 	if (!(triangle = malloc_triangle(pos, color, 0)))
-		return (malloc_error());
+		return (file_error(app, "TRIANGLE", ERR_MALLOC));
 	return (save_obj_in_scene(TRIANGLE, triangle));
 }

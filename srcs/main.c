@@ -6,22 +6,18 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/10 12:41:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 14:37:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// croix ne ferme pas
 // faire une sphere blanche pour voir les lumieres colorées
 // intersection triangle
 //	ATTENTION : pas d'ombre si light devant le triangle (derriere oui)
 //			  :	pas de reflex sur le mirroir du triangle entier
 // intersection carré
 // intersection cylindre
-// tableau d'erreur;
-// changer le nom a.out dans le Makefile
-
 // integration de "bonus".
 
 t_scene		*g_scene;
@@ -32,19 +28,19 @@ int			main(int ac, char **av)
 	t_scene	scene;
 
 	errno = 0;
-	app = init_application();
-	scene = init_scene();
+	init_application(&app);
+	init_scene(&scene);
 	app.scene = &scene;
 	g_scene = &scene;
 	if (file_checking(ac, av, &app) == -1)
 		return (-1);
 //	print_all_scene(g_scene);//
-	generate_content(&app);
+	generate_mlx_content(&app);
+	generate_raytracing((void *)&app);
 	if (app.save == 1)
 		return(generate_bmp_file(&app));
-	return (generate_raytracing((void *)&app));
+	return (run_application(&app));
 }
-
 
 //// TEST DE SCENE :
 /*

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 12:13:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:13:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ t_obj			*closest_object(t_ray *ray, t_obj *objs)
 	return (closest_obj);
 }
 
-static int		free_ray_return(t_ray *ray)
-{
-	free(ray);
-	return (-1);
-}
-
 static void		reinit_ray_pt_and_normal(t_ray *ray)
 {
 	ray->pt_inter = create_vec3(0, 0, 0);
@@ -97,26 +91,25 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 	int		x;
 	int		y;
 	t_obj	*close_obj;
-	t_ray	*ray;
+	t_ray	ray;
 
-	ray = malloc_ray(cam->pos, sub_vec3(cam->orient, cam->pos));
+	ray = create_ray(cam->pos, sub_vec3(cam->orient, cam->pos));
 	x = 0;
 	while (x < w)
 	{
 		y = 0;
 		while (y < h)
 		{
-			ray->direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
+			ray.direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
 							y - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
-			if ((close_obj = closest_object(ray, g_scene->objs)) != NULL)
-				put_pixel(img, x, h - y - 1, find_pixel_color(close_obj, ray));
-			else if (ray->t == -1)
-				return (free_ray_return(ray));
-			reinit_ray_pt_and_normal(ray);
+			if ((close_obj = closest_object(&ray, g_scene->objs)) != NULL)
+				put_pixel(img, x, h - y - 1, find_pixel_color(close_obj, &ray));
+			else if (ray.t == -1)
+				return (-1);
+			reinit_ray_pt_and_normal(&ray);
 			y++;
 		}
 		x++;
 	}
-	free(ray);
 	return (0);
 }

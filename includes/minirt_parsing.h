@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 16:28:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:07:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 
 # include "minirt.h"
 
-int			premiers_test(void *param);
-int			raytracing_test(void *param);
+typedef	int	(*t_func)(t_app *, char **);
 
 /*
 ** Fonctions traitant les events pour les fonctions mlx
 */
 
-int			handle_key(int key, void **param);
+int			handle_key(int key, t_app *app);
 
 /*
 ** Fonctions de traitement du file.rt
 */
 
 int			file_checking(int ac, char **av, t_app	*app);
-int			file_error(char *location, int error);
 int			read_file(char *str, t_app *app);
 /*
 ** Fonctions qui récupèrent les éléments fournis dans le .rt
@@ -37,15 +35,15 @@ int			read_file(char *str, t_app *app);
 
 int			get_coord_from_line(t_vec3 *result, char *line);
 int			get_color_from_line(t_color *result, char *line);
-int			get_resolution(char **tab, t_vec2 *size);
-int			get_sphere(char **tab);
-int			get_plane(char **tab);
-int			get_square(char **tab);
-int			get_triangle(char **tab);
-int			get_cyl(char **tab);
-int			get_ambiant_ligth(char **tab);
-int			get_light(char **tab);
-int			get_camera(char **tab);
+int			get_resolution(t_app *app, char **tab);
+int			get_sphere(t_app *app, char **tab);
+int			get_plane(t_app *app, char **tab);
+int			get_square(t_app *app, char **tab);
+int			get_triangle(t_app *app, char **tab);
+int			get_cyl(t_app *app, char **tab);
+int			get_ambiant_ligth(t_app *app, char **tab);
+int			get_light(t_app *app, char **tab);
+int			get_camera(t_app *app, char **tab);
 int			save_obj_in_scene(int type, void *shape);
 /*
 ** Fonctions pratiques
@@ -53,6 +51,5 @@ int			save_obj_in_scene(int type, void *shape);
 
 size_t		tab_len(char **tab);
 void		free_tab(char **tab);
-void		print_tab(char **tab); //
 
 #endif

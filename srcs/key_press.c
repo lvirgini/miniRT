@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/03 14:49:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:08:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static void	print_help_key(void)
 **** Pour le moment gere la lumiere unique.
 */
 
-int handle_key(int key, void **param)
+int handle_key(int key, t_app *app)
 {
-	(void)param;
+
 
 	printf("key = %d\n", key);
 	
 	if (key == KEY_ESC)
-		exit_free_minirt((t_app *)param, 0);
+		exit_free_minirt(app, 0, 0);
 	else if (key == KEY_SPACE) // change cam ou tab ?
 			;
 	else if (key == 104)   // h for help
@@ -71,7 +71,8 @@ int handle_key(int key, void **param)
 		g_scene->cam->orient.x -= 100;
 	else
 		return (0);
-	generate_raytracing(param);
+	generate_raytracing(app);
+	run_application(app);
 	return (0);
 }
 
@@ -86,23 +87,21 @@ int handle_key(int key, void **param)
 ** 5 molette vers le bas.
 */
 
-int		handle_mouse(int button, int x, int y, void *param)
+int		handle_mouse(int button, int x, int y, t_app *app)
 {
 	printf("button = %d		x = %d	y = %d\n", button, x, y);
 
-	t_ray		*ray;
+	t_ray		ray;
 	t_sphere	*sphere;
 	t_obj		*first_obj;
 	t_camera	*cam;
-	t_app		*app;
 
-	app = (t_app *)param;
 	cam = g_scene->cam;
-	ray = malloc_ray(cam->pos, add_vec3(cam->pos, cam->orient));
-	ray->direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
+	ray = create_ray(cam->pos, add_vec3(cam->pos, cam->orient));
+	ray.direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
 					+ 0.5, x - (app->size.y / 2) + 0.5, -app->size.x /
 					(2 * tan(cam->fov / 2))));
-	first_obj = closest_object(ray, g_scene->objs);
+	first_obj = closest_object(&ray, g_scene->objs);
 	if (first_obj && first_obj->type == SPHERE)
 	{
 		sphere = first_obj->shape;
@@ -112,11 +111,11 @@ int		handle_mouse(int button, int x, int y, void *param)
 			sphere->radius -= 1;
 		if (button == 1)
 		{
-			t_color color = find_pixel_color(first_obj, ray);
+			t_color color = find_pixel_color(first_obj, &ray);
 			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
 		}
-		generate_raytracing(param);
+		generate_raytracing(app);
+		run_application(app);
 	}
-	free(ray);
 	return (0);
 }

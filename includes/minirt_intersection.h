@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 12:13:19 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 14:45:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 ** pose probleme par la suite.
 */
 
-typedef	struct s_vec2		t_point2;
-typedef	struct s_vec3		t_point3;
+typedef	struct s_vec2		t_pt2; //
+typedef	struct s_vec3		t_pt3;
 typedef struct s_ray		t_ray;
 
 /*
@@ -31,7 +31,7 @@ typedef struct s_ray		t_ray;
 
 struct		s_ray
 {
-	t_point3	origin;
+	t_pt3		origin;
 	t_vec3		direction;
 	t_vec3		pt_inter;
 	t_vec3		normal;
@@ -45,16 +45,15 @@ struct		s_ray
 t_ray		create_ray(t_vec3 origin, t_vec3 direction);
 t_ray		*malloc_ray(t_vec3 origin, t_vec3 direction);
 void		free_ray(t_ray *ray);
-t_vec3		ray_calculate_t(t_ray ray, double t); //
 
 /*
 ** Fonctions qui gerent les intersections rayon / obj.
 */
 
-int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y, t_image *img);
+int			generate_raytracing(t_app *app);
+int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y,
+				t_image *img);
 t_obj		*closest_object(t_ray *ray, t_obj *obj);
-//double		intersect_objects(t_ray *ray, t_obj *objs,
-//				t_vec3 *pt_intersection, t_vec3 *normal);
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 				t_vec3 *pt_inter, t_vec3 *normal);
 double		intersect_plane(t_ray *ray, t_plane *plane,

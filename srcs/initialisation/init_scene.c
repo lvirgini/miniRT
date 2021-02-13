@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:40:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 10:43:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:45:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@
 ** Gestion des t_scene : initialisation et destruction du contenu.
 */
 
-t_scene		init_scene(void)
+void		init_scene(t_scene *scene)
 {
-	t_scene	scene;
-
-	ft_bzero(&scene, sizeof(t_scene));
-	return (scene);
+	ft_bzero(scene, sizeof(t_scene));
 }
 
 void		destroy_scene(t_scene to_destroy)

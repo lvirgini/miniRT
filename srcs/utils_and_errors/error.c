@@ -6,54 +6,73 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/12 10:46:40 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/13 14:38:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	exit_free_minirt(t_app *app, int if_error) 
+/*
+** All message error with enum e_nb_error in file_error.h
+*/
+
+static char		*g_msg_error[NB_ERR] =
 {
-	if (g_scene)
-		destroy_scene(*g_scene);
+	"\n",
+	" : no file in first argument\n",
+	" : file is not .rt\n",
+	" : file cannot be read by the (read) function. maybe not exist ? \n",
+	" : defined twice in file\n",
+	" : badly defined value\n",
+	" : is undefined\n",
+	" : is not a type of element for this minirt\n",
+	" : (open) return bad fd : uncreate bmp file\n",
+	" : Malloc return NULL : allocation problem\n",
+	" : mlx_init return -1\n"
+};
+
+static void		print_error(char *location, unsigned int n_error)
+{
+	ft_putstr("ERROR  ");
+	if (location)
+		ft_putstr(location);
+	if (n_error && n_error < NB_ERR)
+		ft_putstr(g_msg_error[n_error]);
+}
+
+/*
+** destroy and free all malloc in minirt
+*/
+
+static void		free_all_minirt(t_app *app, t_scene *scene)
+{
 	if (app)
 		destroy_application(app);
-	if (if_error == 1)
-		ft_putstr("mlx_init return -1\n");
+	if (scene)
+		destroy_scene(*scene);
+}
+
+/*
+** free all and exit
+*/
+
+void			exit_free_minirt(t_app *app, char *location,
+								unsigned int if_error)
+{
+	if (if_error)
+		print_error(location, if_error);
+	free_all_minirt(app, g_scene);
 	exit(if_error);
 }
 
 /*
-** print error of file
+** file error and return -1 // no exit
 */
 
-int		file_error(char *location, int error)
+int				file_error(t_app *app, char *location, unsigned int n_error)
 {
-	ft_putstr("Error file : ");
-	ft_putstr(location);
-	if (error == 1)
-		ft_putstr(" : defined twice in file\n");
-	else if (error == 2)
-		ft_putstr(" : badly defined value\n");
-	else if (error == 3)
-		ft_putstr(" : is undefined\n");
-	else if (error == 4)
-		ft_putstr(" : is not a type of element for this minirt\n");
-	else if (error == 5)
-	{
-		ft_putstr(" : (open) return bad fd\n");
-		// use errno
-	}
-	return (-1);
-}
-
-/*
-** print error of malloc
-*/
-
-int		malloc_error(void)
-{
-	ft_putstr("Error : Malloc return NULL : allocation problem\n");
-	//stderr(errno);
+	print_error(location, n_error);
+	printf("%s", (char *)strerror(errno));
+	free_all_minirt(app, g_scene);
 	return (-1);
 }
