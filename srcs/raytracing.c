@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 12:20:17 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 15:45:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	exit_minirt(t_app *app)
 int			generate_raytracing(t_app *app) // param a determier
 {
 	int	ret;
-	
+
 	ret = browse_image_for_intersection(g_scene->cam, app->size.x, app->size.y, app->img);
 	if (ret == -1)
 		clear_application(create_color(255, 0, 0, 0), app);
@@ -46,7 +46,7 @@ int			generate_raytracing(t_app *app) // param a determier
 int			run_application(t_app *app)
 {
 	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img->img_ptr, 0, 0);
-	mlx_hook(app->win_ptr, 33, StructureNotifyMask, exit_minirt, app);	  
+	mlx_hook(app->win_ptr, 33, StructureNotifyMask, exit_minirt, app);
 	mlx_key_hook(app->win_ptr, handle_key, app);
 	mlx_mouse_hook(app->win_ptr, handle_mouse, g_scene->objs);
 	mlx_loop(app->mlx_ptr);
@@ -54,11 +54,24 @@ int			run_application(t_app *app)
 	return (0);
 }
 
+static void	check_max_display(void *mlx_ptr, t_vec2 *size)
+{
+	int		max_x;
+	int		max_y;
+
+	mlx_get_screen_size(mlx_ptr, &max_x, &max_y);
+	if (size->x > max_x)
+		size->x = max_x;
+	if (size->y > max_y)
+		size->y = max_y;
+}
+
 int			generate_mlx_content(t_app *app)
 {
 	app->mlx_ptr = mlx_init();
 	if (app->mlx_ptr == NULL)
 		exit_free_minirt(app, __FILE__, ERR_MLX_INIT);
+	check_max_display(app->mlx_ptr, &app->size);
 	if (app->save == 0)
 		app->win_ptr = mlx_new_window(app->mlx_ptr, app->size.x,
 				app->size.y, "Minirt");
