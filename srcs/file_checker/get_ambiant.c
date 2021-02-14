@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 13:52:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 15:46:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int		get_resolution(t_app *app, char **tab)
 	app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if (app->size.x <= 0 || app->size.y <= 0)
 		return (file_error(app, "RESOLUTION", ERR_BAD_VALUE));
-	app->size.x = app->size.x > RES_X_MAX ? RES_X_MAX : app->size.x;
-	app->size.y = app->size.y > RES_Y_MAX ? RES_Y_MAX : app->size.y;
 	get_resolution = 1;
 	return (0);
 }
