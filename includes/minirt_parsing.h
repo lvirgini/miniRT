@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 12:07:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 16:46:53 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int			read_file(char *str, t_app *app);
 ** Fonctions qui récupèrent les éléments fournis dans le .rt
 */
 
-int			get_coord_from_line(t_vec3 *result, char *line);
-int			get_color_from_line(t_color *result, char *line);
 int			get_resolution(t_app *app, char **tab);
 int			get_sphere(t_app *app, char **tab);
 int			get_plane(t_app *app, char **tab);
@@ -44,12 +42,15 @@ int			get_cyl(t_app *app, char **tab);
 int			get_ambiant_ligth(t_app *app, char **tab);
 int			get_light(t_app *app, char **tab);
 int			get_camera(t_app *app, char **tab);
-int			save_obj_in_scene(int type, void *shape);
 /*
 ** Fonctions pratiques
 */
 
 size_t		tab_len(char **tab);
 void		free_tab(char **tab);
+int			check_in_range(t_vec3 vec, double min, double max);
+int			get_coord_from_line(t_vec3 *result, char *line);
+int			get_color_from_line(t_color *result, char *line);
+int			save_obj_in_scene(int type, void *shape);
 
 #endif

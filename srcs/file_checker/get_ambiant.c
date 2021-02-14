@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 15:46:56 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 17:08:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		get_resolution(t_app *app, char **tab)
 ** Recuperation de la lumiere ambiante a partir de la ligne A du fichier.rt
 **  tab 0		tab 1 		tab 2
 **	"A"			ratio		color
+**				[0:1]		[0:255]
 **	"A"			"0.2"		"255,255,255"			//	EXAMPLE //
 */
 
@@ -61,6 +62,7 @@ int		get_ambiant_ligth(t_app *app, char **tab)
 ** Recuperation d'une lumiere a partir de la ligne l du fichier.rt
 **  tab 0		tab 1 		tab 2		tab 3
 **	"l"			coord		ratio		color
+**							[0:1]		[0:255]
 **	"l"			"-40,0,30"	"0.2"		"255,255,255"			//	EXAMPLE //
 */
 
@@ -85,8 +87,8 @@ int		get_light(t_app *app, char **tab)
 /*
 ** Recuperation d'une camera a partir de la ligne c du fichier.rt
 **  tab 0		tab 1 		tab 2		tab 3
-**	"c"			pos			orient		fov
-**	"c"			"-40,0,30"	"-40,0,30"	 0 < 180		//	EXAMPLE //
+**	"c"			pos 		orient		fov
+**	"c"						[-1:1]	 	[0:180]
 */
 
 int		get_camera(t_app *app, char **tab)
@@ -98,6 +100,7 @@ int		get_camera(t_app *app, char **tab)
 	if (tab_len(tab) < 4
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
+	|| check_in_range(orient, -1.0, 1.0)
 	|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
 		return (file_error(app, "CAMERA", ERR_BAD_VALUE));
 	if (!(app->scene->cam = malloc_camera(fov, pos, orient)))

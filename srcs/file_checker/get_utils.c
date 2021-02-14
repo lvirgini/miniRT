@@ -6,33 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 12:43:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 16:48:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-size_t		tab_len(char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-void		free_tab(char **tab)
-{
-	size_t	i;
-
-	if (!tab)
-		return ;
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
 
 /*
 ** Selon si la scene est vide d'objet ou non.
@@ -93,6 +71,7 @@ int			get_coord_from_line(t_vec3 *result, char *line)
 int			get_color_from_line(t_color *result, char *line)
 {
 	char	**tab;
+	t_vec3	tmp;
 
 	tab = ft_split(line, ',');
 	if (tab_len(tab) < 3)
@@ -100,9 +79,14 @@ int			get_color_from_line(t_color *result, char *line)
 		free_tab(tab);
 		return (-1);
 	}
-	result->r = ft_atoi(tab[0]);
-	result->g = ft_atoi(tab[1]);
-	result->b = ft_atoi(tab[2]);
+	tmp.x = ft_atoi(tab[0]);
+	tmp.y = ft_atoi(tab[1]);
+	tmp.z = ft_atoi(tab[2]);
 	free_tab(tab);
+	if (check_in_range(tmp, 0.0, 255.0))
+		return (-1);
+	result->r = tmp.x;
+	result->g = tmp.y;
+	result->b = tmp.z;
 	return (0);
 }

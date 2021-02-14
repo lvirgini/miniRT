@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 13:53:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/14 17:08:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 ** Recuperation d'une sphere a partir de la ligne sp du fichier.rt
 **  tab 0		tab 1 		tab 2		tab 3
-**	"sp"		pos			radius		color
-**	"sp"		"-40,0,30"	"20"		"255,255,255"			//	EXAMPLE //
+**	"sp"		pos			radius		color [0:255]
+**	"sp"		"-40,0,30"	"20"		"255,255,255"		//	EXAMPLE //
 */
 
 int		get_sphere(t_app *app, char **tab)
@@ -40,6 +40,7 @@ int		get_sphere(t_app *app, char **tab)
 ** Recuperation d'un plan a partir de la ligne pl du fichier.rt
 **  tab 0		tab 1 		tab 2		tab 3
 **	"pl"		pos			orient		color
+**							[-1:1]		[0:255]
 **	"pl"		"-40,0,30"	"0,1.0,0"	"255,255,255"			//	EXAMPLE //
 */
 
@@ -53,6 +54,7 @@ int		get_plane(t_app *app, char **tab)
 	if ((tab_len(tab) < 4
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
+	|| check_in_range(orient, -1.0, 1.0)
 	|| get_color_from_line(&color, tab[3])))
 		return (file_error(app, "PLANE", ERR_BAD_VALUE));
 	if (!(plane = malloc_plane(pos, orient, color, 0)))
@@ -64,6 +66,7 @@ int		get_plane(t_app *app, char **tab)
 ** Recuperation d'un square a partir de la ligne sq du fichier.rt
 **  tab 0		tab 1 		tab 2		tab3	tab 4
 **	"sq"		pos			orient		hauteur	color
+**							[-1:1]				[0:255]
 **	"sq"		"-40,0,30"	"0,1.0,0"	"26.5"	"255,255,255" //	EXAMPLE //
 */
 
@@ -78,6 +81,7 @@ int		get_square(t_app *app, char **tab)
 	|| (hight = ft_atof(tab[3])) < 0.0
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
+	|| check_in_range(pos_orient[1], -1.0, 1.0)
 	|| get_color_from_line(&color, tab[4])))
 		return (file_error(app, "SQUARE", ERR_BAD_VALUE));
 	if (!(square = malloc_square(pos_orient, hight, color, 0)))
@@ -89,6 +93,7 @@ int		get_square(t_app *app, char **tab)
 ** Recuperation d'un square a partir de la ligne sq du fichier.rt
 **  tab 0	tab 1 		tab 2		tab3		tab4	tab 5
 **	"sq"	pos			orient		diametre	hauteur	color
+**						[-1:1]							[0:255]
 **	"sq"	"-40,0,30"	"0,1.0,0"	"26.5"		"12.2"	"255,255,255"
 */
 
@@ -104,6 +109,7 @@ int		get_cyl(t_app *app, char **tab)
 	|| (radius_hight[1] = ft_atof(tab[4])) < 0.0
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
+	|| check_in_range(pos_orient[1], -1.0, 1.0)
 	|| get_color_from_line(&color, tab[5])))
 		return (file_error(app, "CYLINDRE", ERR_BAD_VALUE));
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
