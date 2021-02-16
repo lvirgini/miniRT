@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/12 17:13:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 17:12:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,25 @@ static void		reinit_ray_pt_and_normal(t_ray *ray)
 }
 
 /*
+** get the ray direction
+*/
+
+t_vec3			get_ray_dir(t_camera cam, double x, double y, double w, double h)
+{
+	
+	t_vec3	res;
+	double	img_aspect_ratio;
+	double	scale;
+
+	img_aspect_ratio =  w * h;
+	scale = tan((cam.fov * 0.5) * PI / 180);
+	res.x = (2.0 * (x + 0.5) / w - 1.0) * img_aspect_ratio * scale;
+	res.y = (1.0 - 2.0 * (y + 0.5) / h) * scale;
+	res.z = 1.0;
+	return (normalize_vec3(res));
+}
+
+/*
 ** Pour chaque pixel de l'image, recherche une intersection avec un obj
 ** en fonction du rayon de la camera (cam) envoyé en parametre.
 */
@@ -100,12 +119,21 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 		y = 0;
 		while (y < h)
 		{
+
+			// GENERATE RAY DIRECTION
+			// FIND INTERSECTION
+			// FIND COLOR
+			// PUT PIXEL
+
+			//ray.direction = get_ray_dir(*cam, (double)x, (double)y, (double)w, (double)h);
 			ray.direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
-							y - (h / 2) + 0.5, -w / (2 * tan(cam->fov / 2))));
+							y - (h / 2) + 0.5, w / (2 * tan((cam->fov * 0.5) * PI / 180))));
 			if ((close_obj = closest_object(&ray, g_scene->objs)) != NULL)
 				put_pixel(img, x, h - y - 1, find_pixel_color(close_obj, &ray));
 			else if (ray.t == -1)
 				return (-1);
+			else
+				put_pixel(img, x, h - y - 1, create_color(0, 0, 0));
 			reinit_ray_pt_and_normal(&ray);
 			y++;
 		}

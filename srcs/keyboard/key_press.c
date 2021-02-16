@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 12:08:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:59:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_help_key(void)
 	ft_putstr("Welcome to hellp\n\nexit program : Echap\n");
 	ft_putstr("switch camera : Space\n");
 	ft_putstr("Move camera position : Z Q S D  and W X\n");
-	ft_putstr("Move light : + -\n");
+	ft_putstr("Move 1st light : + -\n");
 	ft_putstr("Use the mouse wheel on a object to grow it or get it smaller\n");
 	ft_putstr("* -------------------------------------------------------- *\n");
 }
@@ -30,8 +30,6 @@ static void	print_help_key(void)
 
 int handle_key(int key, t_app *app)
 {
-
-
 	printf("key = %d\n", key);
 	
 	if (key == KEY_ESC)
@@ -45,22 +43,22 @@ int handle_key(int key, t_app *app)
 	else if (key == 65363) // fleche droite
 		g_scene->light->pos.x += 10;
 	else if (key == 65362) // fleche haut
-		g_scene->light->pos.y += 10;
-	else if (key == 65364) // fleche bas
 		g_scene->light->pos.y -= 10;
+	else if (key == 65364) // fleche bas
+		g_scene->light->pos.y += 10;
 	else if (key == 65451) // +
 		g_scene->light->pos.z -= 10;
 	else if (key == 65453) // -
 		g_scene->light->pos.z += 10;
 
 	else if (key == 122)   // z
-		g_scene->cam->pos.z -= 3;
-	else if (key == 115)   // s
 		g_scene->cam->pos.z += 3;
+	else if (key == 115)   // s
+		g_scene->cam->pos.z -= 3;
 	else if (key == 113)   // q
-		g_scene->cam->pos.x -= 3;
-	else if (key == 100)   // d
 		g_scene->cam->pos.x += 3;
+	else if (key == 100)   // d
+		g_scene->cam->pos.x -= 3;
 	else if (key == 119)   // w
 		g_scene->cam->pos.y += 3;
 	else if (key == 120)   // x
@@ -112,7 +110,7 @@ int		handle_mouse(int button, int x, int y, t_app *app)
 		if (button == 1)
 		{
 			t_color color = find_pixel_color(first_obj, &ray);
-			printf("r = %d\ng = %d\nb = %d\na = %d\n\n", color.r, color.b, color.b, color.a);
+			printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.b, color.b);
 		}
 		generate_raytracing(app);
 		run_application(app);

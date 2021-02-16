@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 16:12:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:50:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 
 //// sph1.w est la taille de la sphère
 //float amb = smoothstep(0.0, sph1.w, length(pos.xz-sph1.sz));
+ 
+ 
+ //////OLD
 
 t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 {
@@ -47,10 +50,30 @@ t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light)
 			color.r = color.r * light_ambiant;
 			color.g = color.g * light_ambiant;
 			color.b = color.b * light_ambiant;
-			color.a = color.a * light_ambiant;
 		}
 	}
 	return (color);
+}
+
+
+			////// NEW
+int		check_if_shadow(t_ray *ray_origin, t_light *light)
+{
+	double		distance_light2;
+	t_vec3		obj_to_light;
+	t_ray		ray_light;
+
+	obj_to_light = sub_vec3(light->pos, ray_origin->pt_inter);
+	ray_light = create_ray(add_vec3(ray_origin->pt_inter,
+			mul_vec3(ray_origin->normal, RAY_T_MIN)),
+			normalize_vec3((obj_to_light)));
+	if (closest_object(&ray_light, g_scene->objs) != NULL)
+	{
+		distance_light2 = norme2_vec3(obj_to_light);
+		if (ray_light.t * ray_light.t < distance_light2) // SI CEST DANS L'OMBRE
+			return (1);
+	}
+	return (0);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 11:51:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:38:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # include "minirt_scene.h"
 # include "minirt_application.h"
 # include "minirt_intersection.h"
-# include "minirt_drawing.h"
+# include "minirt_pixel.h"
 # include "minirt_parsing.h"
 # include "minirt_error.h"
 

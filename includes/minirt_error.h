@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 11:25:29 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:42:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:58:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-# define NB_ERR	11
+# define NB_ERR	12
 
 typedef enum e_nb_error	t_nb_error;
 
@@ -36,6 +36,7 @@ enum	e_nb_error
 	ERR_FD,
 	ERR_MALLOC,
 	ERR_MLX_INIT,
+	ERR_MLX_NEW_WINDOW,
 };
 
 int			file_error(t_app *app, char *location, unsigned int nb_error);

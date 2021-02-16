@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_drawing.h                                   :+:      :+:    :+:   */
+/*   minirt_pixel.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:58:36 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:42:53 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:14:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_DRAWING_H
-# define MINIRT_DRAWING_H
+#ifndef MINIRT_PIXEL_H
+# define MINIRT_PIXEL_H
 
 # include "minirt.h"
 
 /*
-** Fonctions de gestion du dessin
+** Fonctions de gestion des pixels
 */
 
 void		clear_application(t_color color, t_app *app);

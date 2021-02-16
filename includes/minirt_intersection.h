@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:45:30 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:50:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ double		intersect_plane(t_ray *ray, t_plane *plane,
 				t_vec3 *pt_inter, t_vec3 *normal);
 double		intersect_triangle(t_ray *ray, t_triangle *triangle,
 				t_vec3 *pt_inter, t_vec3 *normal);
+//int			calculate_shadow(t_ray *ray_origin, t_light *light);
+
+int			check_if_shadow(t_ray *ray_origin, t_light *light);
 t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light);
 
 #endif

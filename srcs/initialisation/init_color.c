@@ -6,20 +6,19 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:46:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 16:39:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:30:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color		create_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a)
+t_color		create_color(t_uchar r, t_uchar g, t_uchar b)
 {
 	t_color color;
 
 	color.r = r;
 	color.g = g;
 	color.b = b;
-	color.a = a;
 	return (color);
 }
 
@@ -36,7 +35,7 @@ t_color		create_color(t_uchar r, t_uchar g, t_uchar b, t_uchar a)
 ** 2 ) Calcul de 100 - X -> inv_alpha
 ** 3 ) Application de la formule
 */
-
+/*
 t_color		fuze_color(t_color actual, t_color to_add)
 {
 	t_color	result;
@@ -52,3 +51,4 @@ t_color		fuze_color(t_color actual, t_color to_add)
 		255);
 	return (result);
 }
+*/

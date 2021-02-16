@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/01/25 20:37:00 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:58:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_vec3(t_vec3	v, char *name)
 
 void	print_color(t_color color)
 {
-	printf("R: %d\tG: %d\tB: %d\n", color.r, color.g, color.b);
+	printf("R: %f\tG: %f\tB: %f\n", color.r, color.g, color.b);
 }
 
 void	print_tab(char **tab)

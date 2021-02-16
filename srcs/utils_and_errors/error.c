@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:38:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:58:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static char		*g_msg_error[NB_ERR] =
 	" : is not a type of element for this minirt\n",
 	" : (open) return bad fd : uncreate bmp file\n",
 	" : Malloc return NULL : allocation problem\n",
-	" : mlx_init return -1\n"
+	" : mlx_init() return NULL (allocation problem ?)\n"
+	" : mlx_new_window() return NULL( allocation problem ?)\n"
 };
 
 static void		print_error(char *location, unsigned int n_error)

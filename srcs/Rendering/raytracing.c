@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 15:45:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:00:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			generate_raytracing(t_app *app) // param a determier
 
 	ret = browse_image_for_intersection(g_scene->cam, app->size.x, app->size.y, app->img);
 	if (ret == -1)
-		clear_application(create_color(255, 0, 0, 0), app);
+		clear_application(create_color(255, 0, 0), app);
 	return (0);
 }
 
@@ -73,10 +73,12 @@ int			generate_mlx_content(t_app *app)
 		exit_free_minirt(app, __FILE__, ERR_MLX_INIT);
 	check_max_display(app->mlx_ptr, &app->size);
 	if (app->save == 0)
+	{
 		app->win_ptr = mlx_new_window(app->mlx_ptr, app->size.x,
 				app->size.y, "Minirt");
-	if (app->win_ptr == NULL)
-		exit_free_minirt(app, __FILE__, ERR_MALLOC);
+		if (app->win_ptr == NULL)
+			exit_free_minirt(app, __FILE__, ERR_MLX_NEW_WINDOW);
+	}
 	if (!(app->img = malloc_image(app->size.x, app->size.y, app->mlx_ptr)))
 		exit_free_minirt(app, __FILE__, ERR_MALLOC);
 	return (0);

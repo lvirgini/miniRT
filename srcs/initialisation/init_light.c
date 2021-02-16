@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 20:45:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 22:08:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 11:48:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_light		*malloc_light(t_vec3 pos, double ratio, t_color color)
 	light->ratio = ratio;
 	light->color = color;
 	light->next = NULL;
+	g_scene->total_intens += ratio;
 	return (light);
 }
 

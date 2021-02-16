@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:37:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 11:53:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			main(int ac, char **av)
 //	print_all_scene(g_scene);//
 	generate_mlx_content(&app);
 	generate_raytracing((void *)&app);
+	printf("TOTAL RATIO = %f\n", g_scene->total_intens);
 	if (app.save == 1)
 		return(generate_bmp_file(&app));
 	return (run_application(&app));

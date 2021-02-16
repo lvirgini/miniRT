@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/08 14:13:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:13:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 ** t2 = -b + racine(delta) / 2a  -> plus loin
 **
 ** retourne la longueur la plus petite ou 0 si pas d'intersection.
-** modifie le pt_inter = rayon origin + (t * rayon direction)
-** la normale = vecteur normalise (pt intersection - sphere origine)
+** 		pt_inter = rayon origin + (t * rayon direction)
+** 		normale = vecteur normalise (pt intersection - sphere origine)
 */
 
 // if if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && t[1] < RAY_T_MAX

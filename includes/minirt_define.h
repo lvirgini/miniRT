@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 15:48:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/16 17:14:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef	unsigned char	t_uchar;
 ** MAX_REBOUND : rebond maximum de rayon récursif (find mirroir color)
 */
 
-# define RAY_T_MIN		0.001f
+# define RAY_T_MIN		0.00001f
 # define RAY_T_MAX		1.0e30f //1e99
 # define MAX_REBOUND	10
 
