@@ -6,134 +6,85 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 18:20:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:18:05 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void		get_color_ambiant(t_light amb, t_color *result)
+{
+	add_color_light(result, amb.color, amb.ratio / g_scene->total_intens);
+}
+
 /*
-** Si l'objet est mirroir calcul du nouveau rayon pour trouver la couleur 
-** réfléchie par la surface mirroir.
-** max_rebound pour stopper la reflexion infinie.
+** Contribution lumiere diffuse :
+** Couleur finale += couleur lumiere * <L.N> * coeff
+** L vecteur entre position de la lumiere et le pt intersection
+** N la normale au pt inter
+** coeff ratio / total ratio dans la scene
+**
+**GAMMA = intensity =pow(light.ratio * light_scalaire, 1/2.2);
+** NO GAMMA intensity = light.ratio * light_scalaire / g_scene->total_intens;
 */
 
-t_color			find_mirroir_color(t_ray ray_incident, t_color obj_color)
+static void		get_color_light(t_light light, t_ray ray, t_color *result)
 {
-	t_ray		new_ray;
-	t_vec3		new_direction;
-	t_obj		*first_obj;
-	t_color		color;
-	static int	max_rebound = MAX_REBOUND;
-
-	max_rebound--;
-	if (max_rebound == 0)
-		return (create_color(0, 0, 0));
-	new_direction = sub_vec3(ray_incident.direction, mul_vec3(ray_incident.normal, 2 * dot_vec3(ray_incident.direction, ray_incident.normal)));
-	new_ray = create_ray(add_vec3(ray_incident.pt_inter, mul_vec3(ray_incident.normal, RAY_T_MIN)), new_direction);
-	first_obj = closest_object(&new_ray, g_scene->objs);
-	if (first_obj != NULL)
-		color = find_pixel_color(first_obj, &new_ray);
-	else
-		color = create_color(0, 0, 0);
-	max_rebound = MAX_REBOUND;
-	(void)obj_color; ///
-	return (color);
-}
-
-void		get_color_ambiant(t_light ambiant, t_color obj_color, t_color *final)
-{
-
-	final->r += ambiant.color.r * ambiant.ratio / g_scene->total_intens;
-	final->g += ambiant.color.g * ambiant.ratio / g_scene->total_intens;
-	final->b += ambiant.color.b * ambiant.ratio / g_scene->total_intens;
-
-/*	final->r += (obj_color.r + ambiant.color.r)/2 * ambiant.ratio / g_scene->total_intens;
-	final->g += (obj_color.g + ambiant.color.g)/2 * ambiant.ratio / g_scene->total_intens;
-	final->b += (obj_color.b + ambiant.color.b)/2 * ambiant.ratio / g_scene->total_intens;*/
-}
-
-double		cos_vec3(t_vec3 a, t_vec3 b)
-{
-	return (dot_vec3(a, b) / (norme_vec3(a) * norme_vec3(b)));
-}
-
-static t_color	find_good_color(t_ray *ray_origin, t_color obj_color, int texture, t_light *light)
-{
-	double		intensite_pixel;
-	t_color		color;
+	double		intensity;
+	double		light_scalaire;
 	t_vec3		light_vec;
-	double		r;
+
+	light_vec = sub_vec3(light.pos, ray.pt_inter);
+	light_scalaire = dot_vec3(normalize_vec3(light_vec), ray.normal);
+	if (light_scalaire < 0)
+		light_scalaire = 0;
+	intensity = light.ratio * light_scalaire / g_scene->total_intens;
+	add_color_light(result, light.color, intensity);
+}
+
+t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
+					int texture, t_light *light)
+{
+	t_color		final_color;
 
 	if (g_scene->total_intens < 1.0)
 		g_scene->total_intens = 1.0;
-	// si MIRROIR :
 	if (texture == TEXTURE_MIRROIR)
-		return (find_mirroir_color(*ray_origin, obj_color));
-
-	color = (t_color){0, 0, 0};
-	get_color_ambiant(*(g_scene)->light_ambiant, obj_color, &color);
-
-	/*color.r = obj_color.r * g_scene->light_ambiant->ratio;
-	color.g = obj_color.g * g_scene->light_ambiant->ratio;
-	color.b = obj_color.b * g_scene->light_ambiant->ratio;*/
+		return (find_mirroir_color(*ray_origin));
+	final_color = (t_color){0, 0, 0};
+	get_color_ambiant(*(g_scene)->light_ambiant, &final_color);
 	if (check_if_shadow(ray_origin, light) == 0)
 	{
-	// intensité de la lumière :
-		light_vec = sub_vec3(light->pos, ray_origin->pt_inter);
-		double light_scalaire = dot_vec3(light_vec, ray_origin->normal);
-		if (light_scalaire < 0)
-			light_scalaire = 0;
-
-		//GAMMA
-		//intensite_pixel = light->ratio * pow(cos_vec3(ray_origin->normal, normalize_vec3(light_vec)), 1 / 2.2);
-		
-		// NO GAMMA
-		intensite_pixel = light->ratio * cos_vec3(ray_origin->normal, normalize_vec3(light_vec));
-	
-		/*color.r +=  (obj_color.r + light->color.r)/2 * intensite_pixel/ g_scene->total_intens;
-		color.g +=  (obj_color.g + light->color.g)/2 * intensite_pixel/ g_scene->total_intens;
-		color.b +=  (obj_color.b + light->color.b)/2 * intensite_pixel/ g_scene->total_intens;*/
-		
-		color.r += light->color.r * intensite_pixel / g_scene->total_intens;
-		color.g += light->color.g * intensite_pixel / g_scene->total_intens;
-		color.b += light->color.b * intensite_pixel / g_scene->total_intens;
+		get_color_light(*light, *ray_origin, &final_color);
 	}
-
-	color.r = obj_color.r * (color.r / 255);
-	color.g = obj_color.g * (color.g / 255);
-	color.b = obj_color.b * (color.b / 255);
-
-	return (color);
-}
-
-
-
-t_color		adjust_final_color(t_color color)
-{	
-	t_color res;
-
-	res.r = fmax(0, fmin(255, color.r));
-	res.g = fmax(0, fmin(255, color.g));
-	res.b = fmax(0, fmin(255, color.b));
-	return (res);
+	final_color.r = obj_color.r * (final_color.r / 255);
+	final_color.g = obj_color.g * (final_color.g / 255);
+	final_color.b = obj_color.b * (final_color.b / 255);
+	return (adjust_final_color(final_color));
 }
 
 /*
-** en fonction du rayon, et de l'objet intersepté par ce rayon, retourne la couleur obtenue.
+** en fonction du rayon, et de l'objet intersepté par ce rayon,
+** retourne la couleur obtenue.
 */
 
-t_color			find_pixel_color(t_obj *obj, t_ray *ray_origin)
+t_color			find_pixel_color(t_obj *obj, t_ray *ray)
 {
 	if (obj->type == SPHERE)
-		return (find_good_color(ray_origin, ((t_sphere *)obj->shape)->color, ((t_sphere *)obj->shape)->texture, g_scene->light));
+		return (find_good_color(ray, ((t_sphere *)obj->shape)->color,
+				((t_sphere *)obj->shape)->texture, g_scene->light));
 	else if (obj->type == PLANE)
-		return (find_good_color(ray_origin, ((t_plane *)obj->shape)->color, ((t_plane *)obj->shape)->texture, g_scene->light));
+		return (find_good_color(ray, ((t_plane *)obj->shape)->color,
+				((t_plane *)obj->shape)->texture, g_scene->light));
 	else if (obj->type == TRIANGLE)
-		return (find_good_color(ray_origin, ((t_triangle *)obj->shape)->color, ((t_triangle *)obj->shape)->texture, g_scene->light));
-	/*else if (obj->type == SQUARE)
-		return(color_square((t_square *)obj->shape));
+		return (find_good_color(ray, ((t_triangle *)obj->shape)->color,
+				((t_triangle *)obj->shape)->texture, g_scene->light));
+	else if (obj->type == SQUARE)
+		return (find_good_color(ray, ((t_square *)obj->shape)->color,
+				((t_square *)obj->shape)->texture, g_scene->light));
 	else if (obj->type == CYLINDRE)
-		return(color_triangle((t_sphere *)obj->shape));*/
-	return (create_color(255, 255, 255)); ///// NOPE
+		return (find_good_color(ray, ((t_cyl *)obj->shape)->color,
+				((t_cyl *)obj->shape)->texture, g_scene->light));
+	else
+		return (create_color(255, 255, 255));
 }

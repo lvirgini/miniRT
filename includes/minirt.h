@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/15 13:38:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:25:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,10 @@ void		print_all_cam(t_camera *cam);
 void		print_all_lights(t_light *l, t_light *la);
 void		print_all_scene(t_scene *scene);
 
+t_color		find_mirroir_color(t_ray ray_incident);
+t_color		find_good_color(t_ray *ray_origin, t_color obj_color,
+				int texture, t_light *light);
+
 extern		t_scene	*g_scene;
+
 #endif
