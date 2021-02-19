@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/15 11:58:25 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:52:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ void		print_all_lights(t_light *l, t_light *la)
 		print_color(la->color);
 	}
 	printf ("\n");
-	if (l)
+	while (l)
 	{
 		printf("Light %ld : ratio = %lf\n", i++, l->ratio);
 		print_vec3(l->pos, "\t l->pos");
 		print_color(l->color);
+		l = l->next;
 	}
+
 	printf ("\n");
 }
 
@@ -120,6 +122,7 @@ void		print_all_scene(t_scene *scene)
 		printf("*------------------------------------------------------------*\n");
 		print_all_lights(scene->light, scene->light_ambiant);
 		printf("*------------------------------------------------------------*\n");
+		printf("MAX RATIO = %lf\n", scene->total_intens);
 	}
 	printf("*-----------------------END----------------------------------*\n");
 }

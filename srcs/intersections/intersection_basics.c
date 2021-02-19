@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 17:12:10 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/19 09:34:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void		reinit_ray_pt_and_normal(t_ray *ray)
 ** get the ray direction
 */
 
-t_vec3			get_ray_dir(t_camera cam, double x, double y, double w, double h)
+t_vec3			get_new_ray_dir(t_camera cam, double x, double y, double w, double h)
 {
 	
 	t_vec3	res;
@@ -125,7 +125,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 			// FIND COLOR
 			// PUT PIXEL
 
-			//ray.direction = get_ray_dir(*cam, (double)x, (double)y, (double)w, (double)h);
+			//ray.direction = get_new_ray_dir(*cam, (double)x, (double)y, (double)w, (double)h);
 			ray.direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
 							y - (h / 2) + 0.5, w / (2 * tan((cam->fov * 0.5) * PI / 180))));
 			if ((close_obj = closest_object(&ray, g_scene->objs)) != NULL)

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 17:18:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:24:21 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
 					int texture, t_light *light)
 {
 	t_color		final_color;
+	t_light		*l;
 
 	if (g_scene->total_intens < 1.0)
 		g_scene->total_intens = 1.0;
@@ -53,9 +54,12 @@ t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
 		return (find_mirroir_color(*ray_origin));
 	final_color = (t_color){0, 0, 0};
 	get_color_ambiant(*(g_scene)->light_ambiant, &final_color);
-	if (check_if_shadow(ray_origin, light) == 0)
+	l = light;
+	while (l)
 	{
-		get_color_light(*light, *ray_origin, &final_color);
+		if (check_if_shadow(ray_origin, l) == 0)
+			get_color_light(*l, *ray_origin, &final_color);
+		l = l->next;
 	}
 	final_color.r = obj_color.r * (final_color.r / 255);
 	final_color.g = obj_color.g * (final_color.g / 255);

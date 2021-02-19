@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 11:33:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:46:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ struct		s_obj
 
 struct		s_camera
 {
-	double		fov; // compris entre 0 et 180
+	double		fov;
 	t_vec3		pos;
 	t_vec3		orient;
+	t_camera	*next;
 };
 
 struct		s_light

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 11:53:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:24:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(int ac, char **av)
 	g_scene = &scene;
 	if (file_checking(ac, av, &app) == -1)
 		return (-1);
-//	print_all_scene(g_scene);//
+	print_all_scene(g_scene);
 	generate_mlx_content(&app);
 	generate_raytracing((void *)&app);
 	printf("TOTAL RATIO = %f\n", g_scene->total_intens);
@@ -42,86 +42,6 @@ int			main(int ac, char **av)
 		return(generate_bmp_file(&app));
 	return (run_application(&app));
 }
-
-//// TEST DE SCENE :
-/*
-void	generate_scene(void)
-{
-	printf("generate scene enter\n");
-		t_camera *cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-		t_light *light = malloc_light(create_vec3(15, 70, -30), 0.9, create_color(255,255,255,255));/// ratio a voir
-		t_light	*light_ambiant = malloc_light(create_vec3(0, 0, 0), 0.4, create_color(200,0,200,255));
-
-		t_plane *plan = malloc_plane(create_vec3(0, -30, 0), create_vec3(0, 1, 0), create_color(102, 51, 153, 255), 0);
-		t_plane *plan2 = malloc_plane(create_vec3(-70, 0, 0), create_vec3(1, 0, 0),  create_color(244, 193, 142, 255), 0);
-		t_plane *plan3 = malloc_plane(create_vec3(70, 0, 0), create_vec3(1, 0, 0), create_color(51, 204, 255, 255), 0);
-
-		t_sphere *sphere = malloc_sphere(create_vec3(15, 0, -70), 10.0, create_color(0, 200, 255, 200), TEXTURE_MIRROIR);
-		t_sphere *sphere2 = malloc_sphere(create_vec3(0, 15, -70), 10.0, create_color(255, 0, 0, 255), 0);
-		t_sphere *sphere3 = malloc_sphere(create_vec3(-15, 0, -70), 10.0, create_color(0, 0, 255, 200),0);
-
-		t_vec3 pos[3] = {create_vec3(15,0,-50), create_vec3(0, 15, -50), create_vec3(-15, 0, -50)};
-		t_triangle *triangle = malloc_triangle(pos, create_color(255, 200, 200, 255), 0);
-
-		
-		t_obj	*obj;
-
-		obj = malloc_object(SPHERE, sphere);
-		obj->next = malloc_object(PLANE, plan);
-		obj->next->next = malloc_object(PLANE, plan2);
-		obj->next->next->next = malloc_object(PLANE, plan3);
-		obj->next->next->next->next = malloc_object(SPHERE, sphere2);
-		obj->next->next->next->next->next = malloc_object(SPHERE, sphere3);
-		obj->next->next->next->next->next->next = malloc_object(TRIANGLE, triangle);
-
-
-		/////g_scene = generate_scene(cam, obj, light, light_ambiant);
-		print_all_scene(g_scene);
-}
-*/
-
-/*
-	g_app = malloc_application();
-	g_app->scene = malloc_scene();
-	if (file_checking(ac, av) == -1)
-		minirt_exit_on_error(1);
-
-
-	g_app->size = create_vec2(g_app->size.x, g_app->size.y);
-	g_app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
-	g_app->mlx_ptr = mlx_init();
-	g_app->win_ptr = mlx_new_window(g_app->mlx_ptr,g_app->size.x, g_app->size.y, "Minirt");	//app->mlx_ptr = mlx_init(); // 2x car sinon ca ne marche pas ..
-
-	if (!(g_app->img = malloc_image((int)g_app->size.x, (int)g_app->size.y)))
-		minirt_exit_on_error(1);
-
-
-	printf("OK\n");
-
-	g_app->scene->cam = NULL;
-	g_app->scene->cam = malloc_camera(60 * PI / 180, create_vec3(0, 0, 0), create_vec3(0, 0, 0));
-
-
-	
-	raytracing_test(param);
-	//make_croix_milieu();
-
-	mlx_put_image_to_window(g_app->mlx_ptr, g_app->win_ptr, g_app->img->img_ptr,0, 0);
-
- 	mlx_key_hook(g_app->win_ptr,handle_key, param);
-	mlx_mouse_hook (g_app->win_ptr,handle_mouse, g_app->scene->objs);
-	mlx_hook(g_app->win_ptr, 17, (1L << 17), exit_program, 0);
-	*/
-
-//	mlx_hook(g_app->win_ptr, 3, 2, handle_key, &param);
-//	mlx_loop_hook(g_app->mlx_ptr, raytracing_test, param);
-//	premiers_test(param);
-
-
-
-
-
-
 
 /*
  const Vec3f &orig, const Vec3f &dir, 

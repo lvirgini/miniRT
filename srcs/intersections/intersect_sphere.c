@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 13:13:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:59:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,21 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
 		return (t[0]);
 	}
+	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN)
+	{
+		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[1]));
+		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
+		return (t[1]);
+	}
+	return (0);
+/*
+	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
+	{
+		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[0]));
+		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
+		return (t[0]);
+	}
 	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && (ray->t = -1.0) == -1.0)
 		return (ray->t);
-	return (0);
+	return (0);*/
 }

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 17:08:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:17:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		get_ambiant_ligth(t_app *app, char **tab)
 	if (!(app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
 	ratio, ambiant_color)))
 		return (file_error(app, "AMBIANT LIGHT", ERR_MALLOC));
+	//app->scene->total_intens += ratio; + clair
 	return (0);
 }
 
@@ -71,6 +72,7 @@ int		get_light(t_app *app, char **tab)
 	t_color		light_color;
 	double		ratio;
 	t_vec3		pos;
+	t_light		*light;
 
 	if (tab_len(tab) < 4
 	|| (ratio = ft_atof(tab[2])) > 1
@@ -78,10 +80,12 @@ int		get_light(t_app *app, char **tab)
 	|| get_color_from_line(&light_color, tab[3])
 	|| get_coord_from_line(&pos, tab[1]))
 		return (file_error(app, "LIGHT", ERR_BAD_VALUE));
-	if (!(app->scene->light = malloc_light(pos, ratio, light_color)))
+	if (!(light = malloc_light(pos, ratio, light_color)))
 		return (file_error(app, "LIGHT", ERR_MALLOC));
+	light->next = app->scene->light;
+	app->scene->light = light;
+	app->scene->total_intens += light->ratio;
 	return (0);
-	// t_light tmp; voir pour plusieurs lights
 }
 
 /*
