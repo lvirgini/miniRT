@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 10:00:10 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 16:52:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ static int	exit_minirt(t_app *app)
 **	- quitte le programme si la fenetre est fermee.
 */
 
-int			generate_raytracing(t_app *app) // param a determier
+int				generate_raytracing(t_app *app)
 {
-	int	ret;
+	t_camera	*cam;
+	t_image		*img;
+	int			nb_cam;
 
-	ret = browse_image_for_intersection(g_scene->cam, app->size.x, app->size.y, app->img);
-	if (ret == -1)
-		clear_application(create_color(255, 0, 0), app);
+	nb_cam = app->scene->nb_cam;
+	cam = app->scene->cam;
+	img = app->img;
+	while (nb_cam--)
+	{
+		browse_image_for_intersection(cam, app->size.x, app->size.y, img);
+		cam = cam->next;
+		img = img->next;
+	}
 	return (0);
 }
 
@@ -43,9 +51,10 @@ int			generate_raytracing(t_app *app) // param a determier
 ** Derniere chose a faire : demarrer l'application.
 */
 
-int			run_application(t_app *app)
+int				run_application(t_app *app)
 {
-	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr,
+			app->img->img_ptr, 0, 0);
 	mlx_hook(app->win_ptr, 33, StructureNotifyMask, exit_minirt, app);
 	mlx_key_hook(app->win_ptr, handle_key, app);
 	mlx_mouse_hook(app->win_ptr, handle_mouse, g_scene->objs);
@@ -54,7 +63,7 @@ int			run_application(t_app *app)
 	return (0);
 }
 
-static void	check_max_display(void *mlx_ptr, t_vec2 *size)
+static void		check_max_display(void *mlx_ptr, t_vec2 *size)
 {
 	int		max_x;
 	int		max_y;
@@ -66,7 +75,26 @@ static void	check_max_display(void *mlx_ptr, t_vec2 *size)
 		size->y = max_y;
 }
 
-int			generate_mlx_content(t_app *app)
+static t_image	*generate_all_img(void *mlx_ptr, double x, double y, int nb_cam)
+{
+	t_image	*img;
+	t_image	*tmp;
+
+	tmp = NULL;
+	while (nb_cam--)
+	{
+		if (!(img = malloc_image(x, y, mlx_ptr)))
+			return (NULL);
+		img->next = tmp;
+		tmp = img;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = img;
+	return (img);
+}
+
+int				generate_mlx_content(t_app *app)
 {
 	app->mlx_ptr = mlx_init();
 	if (app->mlx_ptr == NULL)
@@ -79,7 +107,8 @@ int			generate_mlx_content(t_app *app)
 		if (app->win_ptr == NULL)
 			exit_free_minirt(app, __FILE__, ERR_MLX_NEW_WINDOW);
 	}
-	if (!(app->img = malloc_image(app->size.x, app->size.y, app->mlx_ptr)))
+	if (!(app->img = generate_all_img(app->mlx_ptr, app->size.x,
+			app->size.y, app->scene->nb_cam)))
 		exit_free_minirt(app, __FILE__, ERR_MALLOC);
 	return (0);
 }

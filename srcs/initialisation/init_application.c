@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:36:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 16:08:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/19 12:03:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		destroy_application(t_app *app)
 	if (app)
 	{
 		if (app->img)
-			free_image(app->img, app->mlx_ptr);
+			free_image(app->img, app->mlx_ptr, app->scene->nb_cam);
 		if (app->win_ptr)
 			mlx_destroy_window(app->mlx_ptr, app->win_ptr);
 		if (app->mlx_ptr)

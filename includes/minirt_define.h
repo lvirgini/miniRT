@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 17:14:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:28:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef	unsigned char	t_uchar;
 
-# define PI  		3.14159265359
+# define M_PI  		3.14159265359
 
 /*
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même

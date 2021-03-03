@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/15 11:59:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:10:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int handle_key(int key, t_app *app)
 	if (key == KEY_ESC)
 		exit_free_minirt(app, 0, 0);
 	else if (key == KEY_SPACE) // change cam ou tab ?
-			;
+		{
+			app->img = app->img->next;
+			return(run_application(app));
+		}	
 	else if (key == 104)   // h for help
 		print_help_key();
 	else if (key == 65361) // fleche gauche
@@ -95,10 +98,10 @@ int		handle_mouse(int button, int x, int y, t_app *app)
 	t_camera	*cam;
 
 	cam = g_scene->cam;
-	ray = create_ray(cam->pos, add_vec3(cam->pos, cam->orient));
+	ray = create_ray(cam->pos, add_vec3(cam->pos, cam->orient), create_vec3(0,0,0));
 	ray.direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
 					+ 0.5, x - (app->size.y / 2) + 0.5, -app->size.x /
-					(2 * tan(cam->fov / 2))));
+					(2 * tan(cam->angle))));
 	first_obj = closest_object(&ray, g_scene->objs);
 	if (first_obj && first_obj->type == SPHERE)
 	{

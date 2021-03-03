@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/02 17:11:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:25:01 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ t_image		*malloc_image(int x, int y, void *mlx_ptr)
 **	Free une t_image entierement.
 */
 
-void		free_image(t_image *to_free, void *mlx_ptr)
+void		free_image(t_image *to_free, void *mlx_ptr, int nb_img)
 {
-	mlx_destroy_image(mlx_ptr, to_free->img_ptr);
-	free(to_free);
+	t_image	*tmp;
+
+	while (nb_img--)
+	{
+		tmp = to_free->next;
+		mlx_destroy_image(mlx_ptr, to_free->img_ptr);
+		free(to_free);
+		to_free = tmp;
+	}
 }

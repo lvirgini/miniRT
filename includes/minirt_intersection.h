@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 13:50:45 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:07:25 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ struct		s_ray
 {
 	t_pt3		origin;
 	t_vec3		direction;
+	t_vec3		dir_std;
 	t_vec3		pt_inter;
 	t_vec3		normal;
 	double		t;
@@ -42,7 +43,7 @@ struct		s_ray
 ** Fonctions qui gerent la creation et suppression d'un s_ray.
 */
 
-t_ray		create_ray(t_vec3 origin, t_vec3 direction);
+t_ray		create_ray(t_vec3 origin, t_vec3 direction, t_vec3 dir_std);
 t_ray		*malloc_ray(t_vec3 origin, t_vec3 direction);
 void		free_ray(t_ray *ray);
 

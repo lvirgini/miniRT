@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/19 09:34:51 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:22:23 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ static double	intersect_obj(t_ray *ray, t_obj *obj, t_vec3 *p, t_vec3 *normal)
 	return (0);
 }
 
-static void		update_ray(t_ray *ray, t_vec3 pt_inter, t_vec3 normal, int t)
-{
-	ray->pt_inter = copy_vec3(pt_inter);
-	ray->normal = copy_vec3(normal);
-	ray->t = t;
-}
-
 /*
 ** Recherche la premiere intersection du rayon avec un objet.
 **	ray->t == -1 : a l'interieur d'un obj
@@ -56,47 +49,54 @@ t_obj			*closest_object(t_ray *ray, t_obj *objs)
 		return (NULL);
 	if ((ray->t = intersect_obj(ray, objs, &ray->pt_inter, &ray->normal)) == 0)
 		return (closest_object(ray, objs->next));
-	if (ray->t == -1.0)
-		return (NULL);
 	closest_obj = objs;
 	while (objs->next)
 	{
 		t2 = intersect_obj(ray, objs->next, &pt_inter, &normal);
-		if (ray->t == -1.0)
-			return (NULL);
 		if (t2 != 0 && t2 < ray->t)
 		{
 			closest_obj = objs->next;
-			update_ray(ray, pt_inter, normal, t2);
+			ray->pt_inter = pt_inter;
+			ray->normal = normal;
+			ray->t = t2;
 		}
 		objs = objs->next;
 	}
 	return (closest_obj);
 }
 
-static void		reinit_ray_pt_and_normal(t_ray *ray)
+/*
+**   x and y + dir_std : for less calculs.
+**			 	x +		- (w / 2) + 0.5
+**				y + 	- (h / 2) + 0.5
+**				0 + 	w / (2 * tan(cam->angle))));
+*/
+
+static void		reinit_ray_direction(t_ray *ray, t_camera *cam,
+					t_m4x4 matrix, t_vec3 xy_canvas)
 {
+	ray->direction = normalize_vec3(add_vec3(xy_canvas, ray->dir_std));
+	ray->direction = m4x4_mul_vec(matrix, ray->direction);
 	ray->pt_inter = create_vec3(0, 0, 0);
 	ray->normal = create_vec3(0, 0, 0);
 }
 
-/*
-** get the ray direction
-*/
-
-t_vec3			get_new_ray_dir(t_camera cam, double x, double y, double w, double h)
+static void		get_camera_matrix(t_m4x4 m, t_camera cam)
 {
-	
-	t_vec3	res;
-	double	img_aspect_ratio;
-	double	scale;
+	t_vec3	right;
+	t_vec3	up;
+	t_vec3	m_ru[2];
 
-	img_aspect_ratio =  w * h;
-	scale = tan((cam.fov * 0.5) * PI / 180);
-	res.x = (2.0 * (x + 0.5) / w - 1.0) * img_aspect_ratio * scale;
-	res.y = (1.0 - 2.0 * (y + 0.5) / h) * scale;
-	res.z = 1.0;
-	return (normalize_vec3(res));
+	if (cam.orient.y == 1)
+		right = create_vec3(1, 0, 0);
+	else if (cam.orient.y == -1)
+		right = create_vec3(-1, 0, 0);
+	else
+		right = normalize_vec3(cross_vec3(cam.orient, create_vec3(0, 1, 0)));
+	up = normalize_vec3(cross_vec3(right, cam.orient));
+	m_ru[0] = right;
+	m_ru[1] = up;
+	m4x4_create(m, m_ru, cam.orient, cam.pos);
 }
 
 /*
@@ -111,33 +111,24 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 	int		y;
 	t_obj	*close_obj;
 	t_ray	ray;
+	t_m4x4	cam_matrix;
 
-	ray = create_ray(cam->pos, sub_vec3(cam->orient, cam->pos));
-	x = 0;
-	while (x < w)
+	get_camera_matrix(cam_matrix, *cam);
+	ray = create_ray(cam->pos, cam->orient,
+		create_vec3(-(w / 2) + 0.5, -(h / 2) + 0.5, w / (2 * tan(cam->angle))));
+	x = -1;
+	while (++x < w)
 	{
-		y = 0;
-		while (y < h)
+		y = -1;
+		while (++y < h)
 		{
-
-			// GENERATE RAY DIRECTION
-			// FIND INTERSECTION
-			// FIND COLOR
-			// PUT PIXEL
-
-			//ray.direction = get_new_ray_dir(*cam, (double)x, (double)y, (double)w, (double)h);
-			ray.direction = normalize_vec3(create_vec3(x - (w / 2) + 0.5,
-							y - (h / 2) + 0.5, w / (2 * tan((cam->fov * 0.5) * PI / 180))));
+			reinit_ray_direction(&ray, cam, cam_matrix, create_vec3(x, y, 0));
 			if ((close_obj = closest_object(&ray, g_scene->objs)) != NULL)
-				put_pixel(img, x, h - y - 1, find_pixel_color(close_obj, &ray));
-			else if (ray.t == -1)
-				return (-1);
+				put_pixel(img, w - x - 1, h - y - 1, find_pixel_color(
+						close_obj, &ray));
 			else
-				put_pixel(img, x, h - y - 1, create_color(0, 0, 0));
-			reinit_ray_pt_and_normal(&ray);
-			y++;
+				put_pixel(img, w - x - 1, h - y - 1, create_color(0, 0, 0));
 		}
-		x++;
 	}
 	return (0);
 }

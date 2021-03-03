@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 17:25:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:28:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 ** INCLUDES propre a minirt
 */
 
+# include "minirt_matrix_4x4.h"
 # include "minirt_define.h"
 # include "minirt_color.h"
 # include "minirt_image.h"

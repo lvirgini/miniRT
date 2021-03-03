@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 22:23:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:42:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,22 @@ t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient)
 
 	if (!(cam = (t_camera *)malloc(sizeof(t_camera))))
 		return (NULL);
-	cam->fov = fov;
+	cam->fov = fov == 180 ? 179.9 : fov;
 	cam->pos = pos;
-	cam->orient = orient;
+	cam->orient = normalize_vec3(orient);
+	cam->angle = fov * 0.5 * M_PI / 180;
+	cam->next = NULL;
 	return (cam);
 }
 
-void		free_camera(t_camera *cam)
+void		free_camera(t_camera *cam, int nb_cam)
 {
-	if (cam)
+	t_camera	*tmp;
+
+	while (nb_cam--)
+	{
+		tmp = cam->next;
 		free(cam);
+		cam = tmp;
+	}
 }

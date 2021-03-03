@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_scene.h                                     :+:      :+:    :+:   */
+/*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 17:02:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/19 11:32:20 by lvirgini         ###   ########.fr       */
+/*   Created: 2021/02/24 14:32:01 by lvirgini          #+#    #+#             */
+/*   Updated: 2021/03/03 16:37:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_SCENE_H
-# define MINIRT_SCENE_H
+#include "minirt.h"
 
-# include "minirt.h"
-
-typedef struct s_scene	t_scene;
-
-struct		s_scene
+void	m4x4_print(t_m4x4 m) //
 {
-	t_camera	*cam;
-	t_light		*light_ambiant;
-	t_light		*light;
-	t_obj		*objs;
-	double		total_intens;
-	int			nb_cam;
-};
-
-/*
-** Fonctions qui gerent la variable t_scene
-*/
-
-void		init_scene(t_scene *scene);
-void		destroy_scene(t_scene to_destroy);
-
-#endif
+	printf("[%f %f %f %f]\n", m[0][0], m[0][1], m[0][2], m[0][3]);
+	printf("[%f %f %f %f]\n", m[1][0], m[1][1], m[1][2], m[1][3]);
+	printf("[%f %f %f %f]\n", m[2][0], m[2][1], m[2][2], m[2][3]);
+	printf("[%f %f %f %f]\n\n", m[3][0], m[3][1], m[3][2], m[3][3]);
+}

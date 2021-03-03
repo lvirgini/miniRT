@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 17:46:36 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/02/28 16:31:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define TEXTURE_DIFFUS		0
 # define TEXTURE_MIRROIR	1
-# define TEXTURE_REFLE
+# define TEXTURE_REFLEX		2
 
 typedef struct s_obj		t_obj;
 typedef struct s_camera		t_camera;
@@ -50,6 +50,7 @@ struct		s_obj
 struct		s_camera
 {
 	double		fov;
+	double		angle;
 	t_vec3		pos;
 	t_vec3		orient;
 	t_camera	*next;
@@ -151,7 +152,7 @@ void		free_cyl(t_cyl *cyl);
 */
 
 t_camera	*malloc_camera(double fov, t_vec3 pos, t_vec3 orient);
-void		free_camera(t_camera *cam);
+void		free_camera(t_camera *cam, int nb_cam);
 
 /*
 ** Light

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_shadow.c                                     :+:      :+:    :+:   */
+/*   if_shadow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 09:40:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:19:01 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		check_if_shadow(t_ray *ray_origin, t_light *light)
 	obj_to_light = sub_vec3(light->pos, ray_origin->pt_inter);
 	ray_light = create_ray(add_vec3(ray_origin->pt_inter,
 			mul_vec3(ray_origin->normal, RAY_T_MIN)),
-			normalize_vec3((obj_to_light)));
+			normalize_vec3((obj_to_light)), create_vec3(0, 0, 0));
 	if (closest_object(&ray_light, g_scene->objs) != NULL)
 	{
 		distance_light2 = norme2_vec3(obj_to_light);

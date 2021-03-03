@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/18 17:17:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:26:32 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Recuperation de la resolution a partir de la ligne R du fichier.rt
 **  tab 0		tab 1 		tab 2
 **	"R"			 x			 y
-**	"R"			"1920"		"1080"			//	EXAMPLE //
+**	"R"			"1920"		"1080"
 */
 
 int		get_resolution(t_app *app, char **tab)
@@ -39,7 +39,7 @@ int		get_resolution(t_app *app, char **tab)
 **  tab 0		tab 1 		tab 2
 **	"A"			ratio		color
 **				[0:1]		[0:255]
-**	"A"			"0.2"		"255,255,255"			//	EXAMPLE //
+**	"A"			"0.2"		"255,255,255"
 */
 
 int		get_ambiant_ligth(t_app *app, char **tab)
@@ -55,7 +55,6 @@ int		get_ambiant_ligth(t_app *app, char **tab)
 	if (!(app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
 	ratio, ambiant_color)))
 		return (file_error(app, "AMBIANT LIGHT", ERR_MALLOC));
-	//app->scene->total_intens += ratio; + clair
 	return (0);
 }
 
@@ -64,7 +63,7 @@ int		get_ambiant_ligth(t_app *app, char **tab)
 **  tab 0		tab 1 		tab 2		tab 3
 **	"l"			coord		ratio		color
 **							[0:1]		[0:255]
-**	"l"			"-40,0,30"	"0.2"		"255,255,255"			//	EXAMPLE //
+**	"l"			"-40,0,30"	"0.2"		"255,255,255"
 */
 
 int		get_light(t_app *app, char **tab)
@@ -100,14 +99,18 @@ int		get_camera(t_app *app, char **tab)
 	t_vec3		pos;
 	t_vec3		orient;
 	double		fov;
+	t_camera	*cam;
 
 	if (tab_len(tab) < 4
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
 	|| check_in_range(orient, -1.0, 1.0)
-	|| (fov = ft_atof(tab[3])) < 0 || fov > 180)
+	|| (fov = ft_atof(tab[3])) <= 0 || fov > 180)
 		return (file_error(app, "CAMERA", ERR_BAD_VALUE));
-	if (!(app->scene->cam = malloc_camera(fov, pos, orient)))
+	if (!(cam = malloc_camera(fov, pos, orient)))
 		return (file_error(app, "CAMERA", ERR_MALLOC));
+	cam->next = app->scene->cam;
+	app->scene->cam = cam;
+	app->scene->nb_cam++;
 	return (0);
 }
