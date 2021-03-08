@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 09:58:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/05 17:30:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			exit_free_minirt(t_app *app, char *location,
 int				file_error(t_app *app, char *location, unsigned int n_error)
 {
 	print_error(location, n_error);
-	printf("%s", (char *)strerror(errno));
+	printf("%s", (char *)strerror(errno));// cast ?
 	free_all_minirt(app, g_scene);
 	return (-1);
 }

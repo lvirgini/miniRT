@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 17:22:23 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:25:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,33 @@ static void		get_camera_matrix(t_m4x4 m, t_camera cam)
 	t_vec3	right;
 	t_vec3	up;
 	t_vec3	m_ru[2];
+	t_vec3	world_up;
 
 	if (cam.orient.y == 1)
-		right = create_vec3(1, 0, 0);
+		world_up = create_vec3(0, 0, -1);
 	else if (cam.orient.y == -1)
-		right = create_vec3(-1, 0, 0);
+		world_up = create_vec3(0, 0, 1);
 	else
-		right = normalize_vec3(cross_vec3(cam.orient, create_vec3(0, 1, 0)));
+		world_up = create_vec3(0, 1, 0);
+	right = normalize_vec3(cross_vec3(cam.orient, world_up));
 	up = normalize_vec3(cross_vec3(right, cam.orient));
 	m_ru[0] = right;
 	m_ru[1] = up;
+
+	//m_ru[0] = normalize_vec3(right);
+	//m_ru[1] = normalize_vec3(up);
+
+	print_vec3(cam.orient, "cam orient");
+	print_vec3(normalize_vec3(cam.orient), "cam orient norm");
+	print_vec3(up, "up");
+	print_vec3(normalize_vec3(up), "up norm");
+	print_vec3(right, "right");
+	print_vec3(normalize_vec3(right),  "right norm");
+
 	m4x4_create(m, m_ru, cam.orient, cam.pos);
+	m4x4_create_invers(m, m_ru, cam.orient, create_vec3(0, 0, 0));
+//	m4x4_create_invers(m, m_ru, cam.orient, create_vec3(0, 0, 0));
+
 }
 
 /*
@@ -114,6 +130,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 	t_m4x4	cam_matrix;
 
 	get_camera_matrix(cam_matrix, *cam);
+	m4x4_print(cam_matrix);
 	ray = create_ray(cam->pos, cam->orient,
 		create_vec3(-(w / 2) + 0.5, -(h / 2) + 0.5, w / (2 * tan(cam->angle))));
 	x = -1;
@@ -122,7 +139,7 @@ int				browse_image_for_intersection(t_camera *cam, int w, int h,
 		y = -1;
 		while (++y < h)
 		{
-			reinit_ray_direction(&ray, cam, cam_matrix, create_vec3(x, y, 0));
+			reinit_ray_direction(&ray, cam, cam_matrix, create_vec3(x, y, 1));
 			if ((close_obj = closest_object(&ray, g_scene->objs)) != NULL)
 				put_pixel(img, w - x - 1, h - y - 1, find_pixel_color(
 						close_obj, &ray));

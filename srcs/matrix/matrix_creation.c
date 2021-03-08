@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:36:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 16:36:39 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:07:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,63 @@ void	m4x4_create_invers(t_m4x4 res, t_vec3 a_b[2], t_vec3 c, t_vec3 d)
 	res[3][1] = 0;
 	res[3][2] = 0;
 	res[3][3] = 1;
+}
+
+/*
+** 		mat		 -> mat inverse
+**
+** [00 01 02 03]	[00 10 20 30]
+** [10 11 12 13] 	[01 11 21 31]
+** [20 21 22 23]	[02 12 22 32]
+** [30 31 32 33]	[03 13 23 33]
+*/
+
+void	m4x4_transpose(t_m4x4 result, t_m4x4 m)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < 4)
+			result[i][j] = m[j][i];
+	}
+}
+
+/*
+** matrix identity
+**
+** [1 0 0 0]
+** [0 1 0 0]
+** [0 0 1 0]
+** [0 0 0 1]
+*/
+
+void	m4x4_get_identity(t_m4x4 m)
+{
+	m4x4_init_zero(m);
+	m[0][0] = 1;
+	m[1][1] = 1;
+	m[2][2] = 1;
+	m[3][3] = 1;
+}
+
+/*
+** matrix 4x4 all at 0
+*/
+
+void	m4x4_init_zero(t_m4x4 m)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < 4)
+			m[i][j] = 0;
+	}
 }

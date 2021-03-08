@@ -6,13 +6,13 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 16:52:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:11:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	exit_minirt(t_app *app)
+static int		exit_minirt(t_app *app)
 {
 	printf("IN EXIT\n");
 	exit_free_minirt(app, 0, 0);
