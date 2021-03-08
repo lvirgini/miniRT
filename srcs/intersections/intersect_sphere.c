@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/04 12:42:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:37:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,26 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 	double c;
 	double delta;
 	double t[2];
+	double ret;
 
 	b = 2 * dot_vec3(ray->direction, sub_vec3(ray->origin, sphere->pos));
 	c = (norme2_vec3(sub_vec3(ray->origin, sphere->pos)) -
 							(sphere->radius * sphere->radius));
-	if ((delta = (b * b) - (4 * 1.0 * c)) < 0)
+	if ((delta = (b * b) - (4.0 * c)) < 0)
 		return (0);
-	t[0] = (-b - sqrt(delta)) / (2 * 1.0);
-	t[1] = (-b + sqrt(delta)) / (2 * 1.0);
+	t[0] = (-b - sqrt(delta)) * 0.5;
+	t[1] = (-b + sqrt(delta)) * 0.5;
 	if (t[1] < RAY_T_MIN)
 		return (0);
 	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
-	{
-		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[0]));
-		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
-		return (t[0]);
-	}
-	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN)
-	{
-		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[1]));
-		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
-		return (t[1]);
-	}
-	return (0);
+		ret = t[0];
+	else if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN)
+		ret = t[1];
+	*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, ret));
+	*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
+	return (ret);
+}
+
 /*
 	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
 	{
@@ -68,4 +65,4 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && (ray->t = -1.0) == -1.0)
 		return (ray->t);
 	return (0);*/
-}
+

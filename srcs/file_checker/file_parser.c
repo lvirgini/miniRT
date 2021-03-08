@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 13:51:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:03:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int				read_file(char *str, t_app *app)
 	set_functions_get(f);
 	while ((ret = get_next_line(fd, &line)) > 0 || (ret == 0 && line[0] != 0))
 	{
-		if (line && line[0] != '\0')
+		if (line && line[0] != '\0' && line[0] != '#')
 			if (parse_line(line, app, f, fd) == -1)
 				return (-1);
 		free(line);

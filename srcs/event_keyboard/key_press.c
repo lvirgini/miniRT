@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 09:27:10 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 19:27:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ int handle_key(int key, t_app *app)
 	else if (key == 65453) // -
 		g_scene->light->pos.z += 10;
 	else if (key == 122)   // z
-		g_scene->cam->pos.z += 5;
+		g_scene->cam->pos.z += 10;
 	else if (key == 115)   // s
-		g_scene->cam->pos.z -= 5;
+		g_scene->cam->pos.z -= 10;
 	else if (key == 113)   // q
-		g_scene->cam->pos.x += 5;
+		g_scene->cam->pos.x -= 10;
 	else if (key == 100)   // d
-		g_scene->cam->pos.x += 5;
+		g_scene->cam->pos.x += 10;
 	else if (key == 119)   // w
-		g_scene->cam->pos.y -= 5;
+		g_scene->cam->pos.y -= 10;
 	else if (key == 120)   // x
-		g_scene->cam->pos.y += 5;
+		g_scene->cam->pos.y += 10;
 	else if (key == 97)		// a
 		g_scene->cam->orient.x += 100;
 	else if (key == 101)	// e

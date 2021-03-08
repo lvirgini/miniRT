@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/28 16:31:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:35:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_plane		t_plane;
 typedef struct s_square		t_square;
 typedef struct s_cyl		t_cyl;
 typedef struct s_triangle	t_triangle;
+typedef struct s_disc		t_disc;
 
 /*
 ** type compris entre 1 et 5 et correspond au une forme.
@@ -80,6 +81,15 @@ struct		s_plane
 	int			texture;
 };
 
+struct		s_disc
+{
+	t_vec3		pos;
+	t_vec3		normal;
+	t_color		color;
+	int			texture;
+	double		radius2;
+};
+
 struct		s_square
 {
 	t_vec3		pos;
@@ -102,16 +112,9 @@ struct		s_cyl
 struct		s_triangle
 {
 	t_vec3		a;
-	t_vec3		b;
-	t_vec3		c;
 	t_vec3		ab;
 	t_vec3		ac;
-	t_vec3		bc;
 	t_plane		*plane;
-	double		norme2_ab;
-	double		norme2_ac;
-	double		dot_ab_ac;
-	double		determinant;
 	t_vec3		normal;
 	t_color		color;
 	int			texture;

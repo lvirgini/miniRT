@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 12:03:21 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 17:52:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:11:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	print_vec3(t_vec3	v, char *name)
 {
 	if (name)
-		printf("%s : x = %lf\ty = %lf\tz = %lf\n",name, v.x, v.y, v.z);
+		printf("%s : x = %.1lf\ty = %.1lf\tz = %.1lf\n",name, v.x, v.y, v.z);
 }
 
 void	print_color(t_color color)
 {
-	printf("R: %f\tG: %f\tB: %f\n", color.r, color.g, color.b);
+	printf("\tR: %.0f\tG: %.0f\tB: %.0f\n", color.r, color.g, color.b);
 }
 
 void	print_tab(char **tab)
@@ -37,17 +37,17 @@ void	print_tab(char **tab)
 
 void		print_sphere(t_sphere *sp)
 {
-	printf("SPHERE\n");
+	printf("SPHERE\n\t");
 	print_vec3(sp->pos, "pos");
-	printf("radius: %lf\n texture = %d\n color =", sp->radius, sp->texture);
+	printf("\tradius: %.1lf\n\ttexture = %d\n\tcolor =", sp->radius, sp->texture);
 	print_color(sp->color);
 }
 
 void		print_plane(t_plane *pl)
 {
-	printf("PLANE:\ntexture = %d\n", pl->texture);
+	printf("PLANE:\n\ttexture = %d\n\t", pl->texture);
 	print_vec3(pl->pos, "pos");
-	print_vec3(pl->normal, "normal");
+	printf("\t");
 	print_color(pl->color);
 }
 void		print_all_obj(t_obj *obj)
@@ -58,7 +58,7 @@ void		print_all_obj(t_obj *obj)
 	while (obj)
 	{
 		printf("obj %ld : adresse : %p	TYPE : %d\n", i++, obj, obj->type);
-		printf("obj->next = %p\n", obj->next);
+		//printf("obj->next = %p\n", obj->next);
 		if (obj->type == SPHERE)
 			print_sphere((t_sphere *)obj->shape);
 		if (obj->type == PLANE)
