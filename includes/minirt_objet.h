@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 22:35:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:44:43 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ struct		s_disc
 struct		s_square
 {
 	t_vec3		pos;
-	t_vec3		orient;
+	t_vec3		normal;
 	double		hight;
 	t_color		color;
 	int			texture;

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 11:13:14 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/10/07 23:06:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:47:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_square	*malloc_square(t_vec3 pos_orient[2], double h, t_color col,
 	if (!(square = (t_square *)malloc(sizeof(t_square))))
 		return (NULL);
 	square->pos = pos_orient[0];
-	square->orient = pos_orient[1];
+	square->normal = pos_orient[1];
 	square->hight = h;
 	square->color = col;
 	square->texture = texture;

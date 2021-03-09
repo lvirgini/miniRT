@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 18:17:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 22:28:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:34:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ double		intersect_disc(t_ray *ray, t_disc *disc, t_vec3 *pt_inter,
 	double	t;
 	t_vec3	v;
 
-	ray_dot_pl = dot_vec3(disc->normal, ray->direction);
+	t = intersect_plane(ray, (t_plane *)disc, pt_inter, normal);
+/*	ray_dot_pl = dot_vec3(disc->normal, ray->direction);
 	if (fabs(ray_dot_pl) < RAY_T_MIN)
 		return (0);
 	v = sub_vec3(disc->pos, ray->origin);
 	t = dot_vec3(v, disc->normal) / ray_dot_pl;
 	if (t < RAY_T_MIN || t > RAY_T_MAX)
-		return (0);
+		return (0);*/
 	distance = sub_vec3(*pt_inter, disc->pos);
 	if (sqrt(dot_vec3(distance, distance)) > disc->radius2)
 		return (0);
