@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 20:03:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:08:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **  recherche l'index de fonctions correspondant a set_functions_get()
 **		0	1	2	3	4	5	6	7	8
-** 		R	A	l	c	pl	tr	cy	sp	sq
+** 		A	l	c	pl	tr	cy	sp	sq	R
 */
 
 static size_t	index_set(char *s)
@@ -40,7 +40,7 @@ static size_t	index_set(char *s)
 /*
 **	initialise le tableau de fonctions en correlation avec index_set();
 **		0	1	2	3	4	5	6	7	8
-** 		R	A	l	c	pl	tr	cy	sp	sq
+** 		A	l	c	pl	tr	cy	sp	sq	R
 */
 
 static void		set_functions_get(t_func *f)

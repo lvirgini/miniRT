@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/09 10:25:21 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/11 18:01:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
 	if (texture == TEXTURE_MIRROIR)
 		return (find_mirroir_color(*ray_origin));
 	final_color = (t_color){0, 0, 0};
+	//final_color = find_mirroir_color(*ray_origin);
+	/*
+	if (texture == REFLEC)
+		add_color_light(&final_color, find_mirroir_color(*ray_origin), obj reflect0.1);*/
 	get_color_ambiant(*(g_scene)->light_ambiant, &final_color);
 	l = light;
 	while (l)

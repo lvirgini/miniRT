@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:44:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 20:08:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:56:42 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Calculer si le point d'intersection se trouve a l'interieur ou a l'exterieur
 ** du triangle.
 **						 a
-**						 / \
+**				oa/		 / \
 **	 ray(o)_____________/__ \
 **					   /	 \
 **					  /_______\
