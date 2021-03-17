@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divers_application.c                               :+:      :+:    :+:   */
+/*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/29 17:02:24 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/17 16:51:51 by lvirgini         ###   ########.fr       */
+/*   Created: 2021/03/12 10:14:22 by lvirgini          #+#    #+#             */
+/*   Updated: 2021/03/16 11:43:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MINIRT_BONUS_H
+# define MINIRT_BONUS_H
 
-/*
-** Remplis entierement la fenetre de la couleur donnee en parametre.
-*/
+# include "minirt.h"
 
-void	clear_application(t_color color, t_app *app)
-{
-	size_t i;
-	size_t j;
+# define SPECULAR_VALUE 45
 
-	i = 0;
-	while (i < app->size.x)
-	{
-		j = 0;
-		while (j < app->size.y)
-		{
-			put_pixel(app->img, i, j, color);
-			j++;
-		}
-		i++;
-	}
-}
+#endif

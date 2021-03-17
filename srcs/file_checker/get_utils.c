@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 13:49:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:13:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,14 @@
 ** j'aurai pu faire filo
 */
 
-int			save_obj_in_scene(int type, void *shape)
+int			save_obj_in_scene(t_scene *scene, int type, void *shape)
 {
 	t_obj		*obj;
 
-	if (!(g_scene->objs))
-	{
-		if (!(g_scene->objs = malloc_object(type, shape)))
-			return (file_error(0, __FILE__, ERR_MALLOC));
-	}
-	else
-	{
-		obj = find_last_obj(g_scene->objs);
-		if (!(obj->next = malloc_object(type, shape)))
-			return (file_error(0, __FILE__, ERR_MALLOC));
-	}
+	if (!(obj = malloc_object(type, shape)))
+		return (file_error(0, __FILE__, ERR_MALLOC));
+	obj->next = scene->objs;
+	scene->objs = obj;
 	return (0);
 }
 
@@ -71,7 +64,6 @@ int			get_coord_from_line(t_vec3 *result, char *line)
 int			get_color_from_line(t_color *result, char *line)
 {
 	char	**tab;
-	t_vec3	tmp;
 
 	tab = ft_split(line, ',');
 	if (tab_len(tab) < 3)
@@ -79,14 +71,23 @@ int			get_color_from_line(t_color *result, char *line)
 		free_tab(tab);
 		return (-1);
 	}
-	tmp.x = ft_atoi(tab[0]);
-	tmp.y = ft_atoi(tab[1]);
-	tmp.z = ft_atoi(tab[2]);
+	result->r = ft_atoi(tab[0]);
+	result->g = ft_atoi(tab[1]);
+	result->b = ft_atoi(tab[2]);
 	free_tab(tab);
-	if (check_in_range(tmp, 0.0, 255.0))
+	if (check_in_range(*(t_vec3 *)result, 0.0, 255.0))
 		return (-1);
-	result->r = tmp.x;
-	result->g = tmp.y;
-	result->b = tmp.z;
 	return (0);
+}
+
+int			get_texture(char *line)
+{
+	if (line[0] == 'm')
+		return (TEXTURE_MIRROIR);
+	if (line[0] == 'r' && line[1])
+	{
+		line++;
+		return (ft_atoi(line));
+	}
+	return (TEXTURE_DIFFUS);
 }

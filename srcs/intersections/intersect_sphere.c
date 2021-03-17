@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 16:14:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 12:37:41 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:15:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 ** 		pt_inter = rayon origin + (t * rayon direction)
 ** 		normale = vecteur normalise (pt intersection - sphere origine)
 */
-
-// if if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && t[1] < RAY_T_MAX
-//	return t[1] interieur sphere 
 
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 				t_vec3 *pt_inter, t_vec3 *normal)
@@ -48,21 +45,9 @@ double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 		return (0);
 	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
 		ret = t[0];
-	else if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN)
+	else
 		ret = t[1];
 	*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, ret));
 	*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
 	return (ret);
 }
-
-/*
-	if (t[0] > RAY_T_MIN && t[0] < RAY_T_MAX)
-	{
-		*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t[0]));
-		*normal = normalize_vec3(sub_vec3(*pt_inter, sphere->pos));
-		return (t[0]);
-	}
-	if (t[0] < RAY_T_MIN && t[1] > RAY_T_MIN && (ray->t = -1.0) == -1.0)
-		return (ray->t);
-	return (0);*/
-

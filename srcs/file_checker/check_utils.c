@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 16:09:46 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 17:08:28 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/12 15:42:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int			check_in_range(t_vec3 vec, double min, double max)
 {
 	if (vec.x < min || vec.x > max
 	|| vec.y < min || vec.y > max
-	|| vec.z < min || vec.z > max)
+	|| vec.z < min || vec.z > max
+	|| (vec.x == 0.0 && vec.y == 0.0 && vec.z == 0.0))
 		return (-1);
 	return (0);
 }

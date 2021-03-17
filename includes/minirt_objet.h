@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/09 11:44:43 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:12:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,5 @@ void		free_camera(t_camera *cam, int nb_cam);
 
 t_light		*malloc_light(t_vec3 pos, double ratio, t_color color);
 void		free_light(t_light *light);
-
-/*
-** Fonctions utiles
-*/
-
-t_obj		*find_last_obj(t_obj *obj);
 
 #endif

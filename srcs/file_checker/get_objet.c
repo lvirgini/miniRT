@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/14 17:08:08 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:44:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ int		get_sphere(t_app *app, char **tab)
 	t_vec3		pos;
 	double		radius;
 	t_color		color;
+	int			texture;
 
 	if (tab_len(tab) < 4
-	|| (radius = ft_atof(tab[2]) / 2) < 0
+	|| (radius = ft_atof(tab[2]) / 2) <= 0.0
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_color_from_line(&color, tab[3]))
 		return (file_error(app, "SPHERE", ERR_BAD_VALUE));
-	if (!(sphere = malloc_sphere(pos, radius, color, 0)))
+	texture = (tab[4]) ? get_texture(tab[4]) : 0;
+	if (!(sphere = malloc_sphere(pos, radius, color, texture)))
 		return (file_error(app, "SPHERE", ERR_MALLOC));
-	return (save_obj_in_scene(SPHERE, sphere));
+	return (save_obj_in_scene(app->scene, SPHERE, sphere));
 }
 
 /*
@@ -50,16 +52,19 @@ int		get_plane(t_app *app, char **tab)
 	t_vec3		orient;
 	t_color		color;
 	t_plane		*plane;
+	int			texture;
 
-	if ((tab_len(tab) < 4
+	texture = 0;
+	if (tab_len(tab) < 4
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_coord_from_line(&orient, tab[2])
 	|| check_in_range(orient, -1.0, 1.0)
-	|| get_color_from_line(&color, tab[3])))
+	|| get_color_from_line(&color, tab[3]))
 		return (file_error(app, "PLANE", ERR_BAD_VALUE));
-	if (!(plane = malloc_plane(pos, orient, color, 0)))
+	texture = (tab[4]) ? get_texture(tab[4]) : 0;
+	if (!(plane = malloc_plane(pos, orient, color, texture)))
 		return (file_error(app, "PLANE", ERR_MALLOC));
-	return (save_obj_in_scene(PLANE, plane));
+	return (save_obj_in_scene(app->scene, PLANE, plane));
 }
 
 /*
@@ -76,17 +81,19 @@ int		get_square(t_app *app, char **tab)
 	double		hight;
 	t_color		color;
 	t_square	*square;
+	int			texture;
 
-	if ((tab_len(tab) < 5
-	|| (hight = ft_atof(tab[3])) < 0.0
+	if (tab_len(tab) < 5
+	|| (hight = ft_atof(tab[3])) <= 0.0
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
 	|| check_in_range(pos_orient[1], -1.0, 1.0)
-	|| get_color_from_line(&color, tab[4])))
+	|| get_color_from_line(&color, tab[4]))
 		return (file_error(app, "SQUARE", ERR_BAD_VALUE));
-	if (!(square = malloc_square(pos_orient, hight, color, 0)))
+	texture = (tab[5]) ? get_texture(tab[5]) : 0;
+	if (!(square = malloc_square(pos_orient, hight, color, texture)))
 		return (file_error(app, "SQUARE", ERR_MALLOC));
-	return (save_obj_in_scene(SQUARE, square));
+	return (save_obj_in_scene(app->scene, SQUARE, square));
 }
 
 /*
@@ -103,18 +110,20 @@ int		get_cyl(t_app *app, char **tab)
 	double		radius_hight[2];
 	t_color		color;
 	t_cyl		*cyl;
+	int			texture;
 
-	if ((tab_len(tab) < 6
+	if (tab_len(tab) < 6
 	|| (radius_hight[0] = ft_atof(tab[3]) / 2) < 0.0
 	|| (radius_hight[1] = ft_atof(tab[4])) < 0.0
 	|| get_coord_from_line(pos_orient, tab[1])
 	|| get_coord_from_line(pos_orient + 1, tab[2])
 	|| check_in_range(pos_orient[1], -1.0, 1.0)
-	|| get_color_from_line(&color, tab[5])))
+	|| get_color_from_line(&color, tab[5]))
 		return (file_error(app, "CYLINDRE", ERR_BAD_VALUE));
-	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, 0)))
+	texture = (tab[6]) ? get_texture(tab[6]) : 0;
+	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, texture)))
 		return (file_error(app, "CYLINDRE", ERR_MALLOC));
-	return (save_obj_in_scene(CYLINDRE, cyl));
+	return (save_obj_in_scene(app->scene, CYLINDRE, cyl));
 }
 
 /*
@@ -129,14 +138,16 @@ int		get_triangle(t_app *app, char **tab)
 	t_triangle	*triangle;
 	t_vec3		pos[3];
 	t_color		color;
+	int			texture;
 
-	if ((tab_len(tab) < 5
+	if (tab_len(tab) < 5
 	|| get_coord_from_line(pos, tab[1])
 	|| get_coord_from_line(pos + 1, tab[2])
 	|| get_coord_from_line(pos + 2, tab[3])
-	|| get_color_from_line(&color, tab[4])))
+	|| get_color_from_line(&color, tab[4]))
 		return (file_error(app, "TRIANGLE", ERR_BAD_VALUE));
-	if (!(triangle = malloc_triangle(pos, color, 0)))
+	texture = (tab[5]) ? get_texture(tab[5]) : 0;
+	if (!(triangle = malloc_triangle(pos, color, texture)))
 		return (file_error(app, "TRIANGLE", ERR_MALLOC));
-	return (save_obj_in_scene(TRIANGLE, triangle));
+	return (save_obj_in_scene(app->scene, TRIANGLE, triangle));
 }

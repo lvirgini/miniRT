@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2021/02/13 16:00:53 by lvirgini         ###   ########.fr        #
+#    Updated: 2021/03/17 14:45:32 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,12 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 #	 COMPILATION	#
 # ----------------- #
 
-CC 		=	gcc
+CC 		=	clang
 
-CFLAG 	= 	-Wall -Wextra -g -std=gnu99 -Wpedantic -fsanitize=leak
+CFLAG 	= 	-Wall -Wextra -Wpedantic -g  -fsanitize=leak
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
 #LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
-
 
 # ----------------- #
 #	  FONCTIONS		#
@@ -52,7 +51,7 @@ all:		$(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 			@mkdir -p $(OBJ_DIR)
-			@$(CC) -Wall -Wextra -g $(IFLAG) -o $@ -c $< 
+			$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
 			$(CC) $(CFLAG) $(IFLAG) $(OBJ) $(LFLAG)-o $@ -lX11 -lXext -lXdamage -lXfixes -lXtst -lm -lbsd
@@ -65,8 +64,8 @@ install :
 re-install :
 			@make -C lib/libft re
 			@make -C lib/minilibx-linux re
-
-bonus : all
+				
+bonus :  all
 
 show	:
 			@echo "SRC_DIR : $(SRC_DIR)\n"

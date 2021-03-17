@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 13:50:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:17:49 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 ** Minimum : camera, resolution, lumiere ambiante
 */
 
-static int		check_file_is_complete(const t_vec2 size)
+static int		check_file_is_complete(const t_vec2 size, t_scene *scene)
 {
 	if (size.x == 0 || size.y == 0)
 		return (file_error(0, "RESOLUTION", ERR_UNDEF));
-	if (g_scene->light_ambiant == NULL)
+	if (scene->light_ambiant == NULL)
 		return (file_error(0, "AMBIANT LIGHT", ERR_UNDEF));
-	if (g_scene->cam == NULL)
+	if (scene->cam == NULL)
 		return (file_error(0, "CAMERA", ERR_UNDEF));
 	return (0);
 }
@@ -55,5 +55,5 @@ int				file_checking(int ac, char **av, t_app *app)
 		return (file_error(app, 0, ERR_NOT_RT));
 	if (read_file(av[1], app) == -1)
 		return (-1);
-	return (check_file_is_complete(app->size));
+	return (check_file_is_complete(app->size, app->scene));
 }

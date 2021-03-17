@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:34:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/09 10:29:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:16:13 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 */
 
 typedef	unsigned char	t_uchar;
-
-# define SPECULAR_VALUE	45
 
 /*
 ** RAY_T_MIN : pour eviter que le rayon s'intersecte lui-même

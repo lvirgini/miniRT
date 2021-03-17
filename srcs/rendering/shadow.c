@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   if_shadow.c                                        :+:      :+:    :+:   */
+/*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 12:24:13 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 17:19:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:22:28 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 **   la lumiere : le point d'intersection se trouve dans son ombre.
 */
 
-int		check_if_shadow(t_ray *ray_origin, t_light *light)
+int		check_if_shadow(t_ray *ray_origin, t_light *light, t_obj *objs)
 {
 	double		distance_light2;
 	t_vec3		obj_to_light;
@@ -34,7 +34,7 @@ int		check_if_shadow(t_ray *ray_origin, t_light *light)
 	ray_light = create_ray(add_vec3(ray_origin->pt_inter,
 			mul_vec3(ray_origin->normal, RAY_T_MIN)),
 			normalize_vec3((obj_to_light)), create_vec3(0, 0, 0));
-	if (closest_object(&ray_light, g_scene->objs) != NULL)
+	if (closest_object(&ray_light, objs) != NULL)
 	{
 		distance_light2 = norme2_vec3(obj_to_light);
 		if (ray_light.t * ray_light.t < distance_light2)

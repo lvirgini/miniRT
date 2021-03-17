@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/09 11:11:53 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:23:20 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void		free_ray(t_ray *ray);
 */
 
 int			generate_raytracing(t_app *app);
-int			browse_image_for_intersection(t_camera *cam, int win_x, int win_y,
-				t_image *img);
+int			browse_image_for_intersection(t_camera *cam, t_image *img,
+					t_app *app, t_vec2 size);
 t_obj		*closest_object(t_ray *ray, t_obj *obj);
 double		intersect_sphere(t_ray *ray, t_sphere *sphere,
 				t_vec3 *pt_inter, t_vec3 *normal);
@@ -64,7 +64,7 @@ double		intersect_triangle(t_ray *ray, t_triangle *triangle,
 double		intersect_square(t_ray *ray, t_square *square,
 				t_vec3 *pt_inter, t_vec3 *normal);
 
-int			check_if_shadow(t_ray *ray_origin, t_light *light);
+int			check_if_shadow(t_ray *ray_origin, t_light *light, t_obj *objs);
 t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light);
 
 #endif

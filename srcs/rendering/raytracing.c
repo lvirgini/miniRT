@@ -6,27 +6,14 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:36:18 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 10:11:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:10:14 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int		exit_minirt(t_app *app)
-{
-	printf("IN EXIT\n");
-	exit_free_minirt(app, 0, 0);
-	return (0);
-}
-
 /*
-** Mise en place du raytracing
-**	- clear_application = couleur de fond
-** 	- parcours l'image pour modifier la couleur de chaque pixel s'il y a
-**		 intersection
-**	- affiche l'image resultante sur la fenetre.
-**	- mise en place des actions suivant la touche clavier ou souris.
-**	- quitte le programme si la fenetre est fermee.
+** for each camera, create an image.
 */
 
 int				generate_raytracing(t_app *app)
@@ -38,9 +25,11 @@ int				generate_raytracing(t_app *app)
 	nb_cam = app->scene->nb_cam;
 	cam = app->scene->cam;
 	img = app->img;
+	if (app->scene->total_intens < 1.0)
+		app->scene->total_intens = 1.0;
 	while (nb_cam--)
 	{
-		browse_image_for_intersection(cam, app->size.x, app->size.y, img);
+		browse_image_for_intersection(cam, img, app, app->size);
 		cam = cam->next;
 		img = img->next;
 	}
@@ -48,20 +37,8 @@ int				generate_raytracing(t_app *app)
 }
 
 /*
-** Derniere chose a faire : demarrer l'application.
+** check if weight and hight demand are inside maximum size of display.
 */
-
-int				run_application(t_app *app)
-{
-	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr,
-			app->img->img_ptr, 0, 0);
-	mlx_hook(app->win_ptr, 33, StructureNotifyMask, exit_minirt, app);
-	mlx_key_hook(app->win_ptr, handle_key, app);
-	mlx_mouse_hook(app->win_ptr, handle_mouse, g_scene->objs);
-	mlx_loop(app->mlx_ptr);
-	exit_free_minirt(app, 0, 0);
-	return (0);
-}
 
 static void		check_max_display(void *mlx_ptr, t_vec2 *size)
 {
@@ -74,6 +51,11 @@ static void		check_max_display(void *mlx_ptr, t_vec2 *size)
 	if (size->y > max_y)
 		size->y = max_y;
 }
+
+/*
+** create with malloc one image for each camera
+** make a circle list of images.
+*/
 
 static t_image	*generate_all_img(void *mlx_ptr, double x, double y, int nb_cam)
 {
@@ -93,6 +75,12 @@ static t_image	*generate_all_img(void *mlx_ptr, double x, double y, int nb_cam)
 	tmp->next = img;
 	return (img);
 }
+
+/*
+** generate mlx ptr
+** open windows if not bmp file request
+** create malloc image for each camera.
+*/
 
 int				generate_mlx_content(t_app *app)
 {

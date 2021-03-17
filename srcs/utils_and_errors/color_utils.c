@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:24:32 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/09 10:23:37 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:34:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ t_color		add_color(t_color a, t_color b)
 	return (res);
 }
 
-t_color		mul_color(t_color a, t_color b)
-{
-	t_color		res;
-
-	res.r = a.r * b.r;
-	res.g = a.g * b.g;
-	res.b = a.b * b.b;
-	return (res);
-}
-
 t_color		mul_color_ratio(t_color color, double ratio)
 {
 	t_color		res;
@@ -53,15 +43,20 @@ t_color		mul_color_ratio(t_color color, double ratio)
 ** adjust the min 0 and max 255 color.
 */
 
-t_color		adjust_final_color(t_color final_color, t_color obj_color)
+t_color		adjust_min_max_color(t_color res)
+{
+	res.r = fmax(0, fmin(255, res.r));
+	res.g = fmax(0, fmin(255, res.g));
+	res.b = fmax(0, fmin(255, res.b));
+	return (res);
+}
+
+t_color		adjust_final_obj_color(t_color final_color, t_color obj_color)
 {
 	t_color res;
 
 	res.r = obj_color.r * (final_color.r / 255);
 	res.g = obj_color.g * (final_color.g / 255);
 	res.b = obj_color.b * (final_color.b / 255);
-	res.r = fmax(0, fmin(255, res.r));
-	res.g = fmax(0, fmin(255, res.g));
-	res.b = fmax(0, fmin(255, res.b));
-	return (res);
+	return (adjust_min_max_color(res));
 }

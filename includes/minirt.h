@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 17:28:27 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:11:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # include "minirt_pixel.h"
 # include "minirt_parsing.h"
 # include "minirt_error.h"
+# include "minirt_bonus.h"
 
 // Foncitons a supprimer : fichier print
 
@@ -60,10 +61,10 @@ void		print_all_cam(t_camera *cam);
 void		print_all_lights(t_light *l, t_light *la);
 void		print_all_scene(t_scene *scene);
 
-t_color		find_mirroir_color(t_ray ray_incident);
-t_color		find_good_color(t_ray *ray_origin, t_color obj_color,
-				int texture, t_light *light);
+t_color		find_mirroir_color(t_ray ray_incident, t_app *app);
+t_color		find_good_color(t_ray *ray, t_color obj_color,
+					int texture, t_app *app);
 
-extern		t_scene	*g_scene;
+
 
 #endif

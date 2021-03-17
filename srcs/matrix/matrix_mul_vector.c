@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:36:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 10:13:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:21:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ t_vec3		m4x4_mul_vec_inverse(t_m4x4 m, t_vec3 v)
 	double	x;
 	double	y;
 	double	z;
-	double	w;
 
 	x = (v.x * m[0][0]) + (v.y * m[1][0]) + (v.z * m[2][0]) + m[3][0];
 	y = (v.x * m[0][1]) + (v.y * m[1][1]) + (v.z * m[2][1]) + m[3][1];

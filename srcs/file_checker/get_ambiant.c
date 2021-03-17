@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 13:49:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/12 15:45:06 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		get_light(t_app *app, char **tab)
 	t_light		*light;
 
 	if (tab_len(tab) < 4
-	|| (ratio = ft_atof(tab[2])) > 1
-	|| ratio < 0
+	|| (ratio = ft_atof(tab[2])) > 1.0
+	|| ratio < 0.0
 	|| get_color_from_line(&light_color, tab[3])
 	|| get_coord_from_line(&pos, tab[1]))
 		return (file_error(app, "LIGHT", ERR_BAD_VALUE));

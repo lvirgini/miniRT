@@ -6,15 +6,15 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/11 18:01:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:41:10 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		get_color_ambiant(t_light amb, t_color *result)
+static void	get_color_ambiant(t_light amb, t_color *res, double total_intens)
 {
-	add_color_light(result, amb.color, amb.ratio / g_scene->total_intens);
+	add_color_light(res, amb.color, amb.ratio / total_intens);
 }
 
 /*
@@ -28,7 +28,7 @@ static void		get_color_ambiant(t_light amb, t_color *result)
 ** Couleur finale += couleur lumiere * intensity speculaire
 */
 
-static void		get_color_specular(t_light light, t_ray ray, t_color *result)
+static void	get_color_specular(t_light light, t_ray ray, t_color *result)
 {
 	double		intensity;
 	double		r_dot_v;
@@ -44,8 +44,6 @@ static void		get_color_specular(t_light light, t_ray ray, t_color *result)
 		r_dot_v = r_dot_v / norme_vec3(reflect) * norme_vec3(ray.direction);
 		intensity = light.ratio * pow(r_dot_v, SPECULAR_VALUE);
 		add_color_light(result, light.color, intensity);
-		/*intensity = light.ratio * pow(r_dot_v, SPECULAR_VALUE/10);
-		add_color_light(result, light.color, intensity);*/
 	}
 }
 
@@ -60,7 +58,8 @@ static void		get_color_specular(t_light light, t_ray ray, t_color *result)
 ** NO GAMMA intensity = light.ratio * light_scalaire / g_scene->total_intens;
 */
 
-static void		get_color_diffus(t_light light, t_ray ray, t_color *result)
+static void	get_color_diffus(t_light light, t_ray ray, t_color *res,
+				double total_intens)
 {
 	double		intensity;
 	double		light_scalaire;
@@ -70,37 +69,41 @@ static void		get_color_diffus(t_light light, t_ray ray, t_color *result)
 	light_scalaire = dot_vec3(normalize_vec3(light_vec), ray.normal);
 	if (light_scalaire < 0)
 		light_scalaire = 0;
-	intensity = light.ratio * light_scalaire / g_scene->total_intens;
-	add_color_light(result, light.color, intensity);
+	intensity = light.ratio * light_scalaire / total_intens;
+	add_color_light(res, light.color, intensity);
 }
 
-t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
-					int texture, t_light *light)
+/*
+** Check all lights and texture and get all illumination of a pixel
+*/
+
+t_color		find_good_color(t_ray *ray, t_color obj_color,
+					int texture, t_app *app)
 {
 	t_color		final_color;
 	t_light		*l;
+	double		total_intens;
 
-	if (g_scene->total_intens < 1.0)
-		g_scene->total_intens = 1.0;
-	if (texture == TEXTURE_MIRROIR)
-		return (find_mirroir_color(*ray_origin));
-	final_color = (t_color){0, 0, 0};
-	//final_color = find_mirroir_color(*ray_origin);
-	/*
-	if (texture == REFLEC)
-		add_color_light(&final_color, find_mirroir_color(*ray_origin), obj reflect0.1);*/
-	get_color_ambiant(*(g_scene)->light_ambiant, &final_color);
-	l = light;
+	total_intens = app->scene->total_intens;
+	final_color = create_color(0, 0, 0);
+	if (texture != TEXTURE_MIRROIR)
+		get_color_ambiant(*app->scene->light_ambiant, &final_color,
+			total_intens);
+	l = app->scene->light;
 	while (l)
 	{
-		if (check_if_shadow(ray_origin, l) == 0)
+		if (check_if_shadow(ray, l, app->scene->objs) == 0)
 		{
-			get_color_diffus(*l, *ray_origin, &final_color);
-			get_color_specular(*l, *ray_origin, &final_color);
+			if (texture != TEXTURE_MIRROIR)
+				get_color_diffus(*l, *ray, &final_color, total_intens);
+			get_color_specular(*l, *ray, &final_color);
 		}
 		l = l->next;
 	}
-	return (adjust_final_color(final_color, obj_color));
+	if (texture != TEXTURE_MIRROIR)
+		return (adjust_final_obj_color(final_color, obj_color));
+	final_color = add_color(final_color, find_mirroir_color(*ray, app));
+	return (adjust_min_max_color(final_color));
 }
 
 /*
@@ -108,23 +111,23 @@ t_color			find_good_color(t_ray *ray_origin, t_color obj_color,
 ** retourne la couleur obtenue.
 */
 
-t_color			find_pixel_color(t_obj *obj, t_ray *ray)
+t_color		find_pixel_color(int type, void *shape, t_ray *ray, t_app *app)
 {
-	if (obj->type == SPHERE)
-		return (find_good_color(ray, ((t_sphere *)obj->shape)->color,
-				((t_sphere *)obj->shape)->texture, g_scene->light));
-	else if (obj->type == PLANE)
-		return (find_good_color(ray, ((t_plane *)obj->shape)->color,
-				((t_plane *)obj->shape)->texture, g_scene->light));
-	else if (obj->type == TRIANGLE)
-		return (find_good_color(ray, ((t_triangle *)obj->shape)->color,
-				((t_triangle *)obj->shape)->texture, g_scene->light));
-	else if (obj->type == SQUARE)
-		return (find_good_color(ray, ((t_square *)obj->shape)->color,
-				((t_square *)obj->shape)->texture, g_scene->light));
-	else if (obj->type == CYLINDRE)
-		return (find_good_color(ray, ((t_cyl *)obj->shape)->color,
-				((t_cyl *)obj->shape)->texture, g_scene->light));
+	if (type == SPHERE)
+		return (find_good_color(ray, ((t_sphere *)shape)->color,
+				((t_sphere *)shape)->texture, app));
+	else if (type == PLANE)
+		return (find_good_color(ray, ((t_plane *)shape)->color,
+				((t_plane *)shape)->texture, app));
+	else if (type == TRIANGLE)
+		return (find_good_color(ray, ((t_triangle *)shape)->color,
+				((t_triangle *)shape)->texture, app));
+	else if (type == SQUARE)
+		return (find_good_color(ray, ((t_square *)shape)->color,
+				((t_square *)shape)->texture, app));
+	else if (type == CYLINDRE)
+		return (find_good_color(ray, ((t_cyl *)shape)->color,
+				((t_cyl *)shape)->texture, app));
 	else
 		return (create_color(255, 255, 255));
 }
