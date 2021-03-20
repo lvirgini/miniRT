@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2021/03/17 14:45:32 by lvirgini         ###   ########.fr        #
+#    Updated: 2021/03/17 16:09:45 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 
 CC 		=	clang
 
-CFLAG 	= 	-Wall -Wextra -Wpedantic -g  -fsanitize=leak
+CFLAG 	= 	-Wall -Wextra -g  -fsanitize=leak
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
 #LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )

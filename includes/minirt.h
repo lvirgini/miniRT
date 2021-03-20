@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:11:34 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/19 10:28:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,5 @@ void		print_all_scene(t_scene *scene);
 t_color		find_mirroir_color(t_ray ray_incident, t_app *app);
 t_color		find_good_color(t_ray *ray, t_color obj_color,
 					int texture, t_app *app);
-
-
 
 #endif

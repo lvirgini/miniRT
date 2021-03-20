@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/12 15:45:06 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:16:58 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **	"R"			"1920"		"1080"
 */
 
-int		get_resolution(t_app *app, char **tab)
+int			get_resolution(t_app *app, char **tab)
 {
 	static int	get_resolution = 0;
 
@@ -42,7 +42,7 @@ int		get_resolution(t_app *app, char **tab)
 **	"A"			"0.2"		"255,255,255"
 */
 
-int		get_ambiant_ligth(t_app *app, char **tab)
+int			get_ambiant_ligth(t_app *app, char **tab)
 {
 	t_color		ambiant_color;
 	double		ratio;
@@ -66,7 +66,7 @@ int		get_ambiant_ligth(t_app *app, char **tab)
 **	"l"			"-40,0,30"	"0.2"		"255,255,255"
 */
 
-int		get_light(t_app *app, char **tab)
+int			get_light(t_app *app, char **tab)
 {
 	t_color		light_color;
 	double		ratio;
@@ -88,13 +88,32 @@ int		get_light(t_app *app, char **tab)
 }
 
 /*
+** put on list camera, first in first out
+*/
+
+static void	put_camera(t_scene *scene, t_camera *to_add)
+{
+	t_camera	*tmp;
+
+	if (!scene->cam)
+		scene->cam = to_add;
+	else
+	{
+		tmp = scene->cam;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = to_add;
+	}
+}
+
+/*
 ** Recuperation d'une camera a partir de la ligne c du fichier.rt
 **  tab 0		tab 1 		tab 2		tab 3
 **	"c"			pos 		orient		fov
 **	"c"						[-1:1]	 	[0:180]
 */
 
-int		get_camera(t_app *app, char **tab)
+int			get_camera(t_app *app, char **tab)
 {
 	t_vec3		pos;
 	t_vec3		orient;
@@ -109,8 +128,7 @@ int		get_camera(t_app *app, char **tab)
 		return (file_error(app, "CAMERA", ERR_BAD_VALUE));
 	if (!(cam = malloc_camera(fov, pos, orient)))
 		return (file_error(app, "CAMERA", ERR_MALLOC));
-	cam->next = app->scene->cam;
-	app->scene->cam = cam;
+	put_camera(app->scene, cam);
 	app->scene->nb_cam++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:31:58 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/28 18:42:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/20 11:59:34 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		free_camera(t_camera *cam, int nb_cam)
 {
 	t_camera	*tmp;
 
-	while (nb_cam--)
+	while (nb_cam-- > 0)
 	{
 		tmp = cam->next;
 		free(cam);

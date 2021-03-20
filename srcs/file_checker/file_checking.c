@@ -6,11 +6,21 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:17:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/20 11:57:23 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void		get_cam_list_circle(t_camera *cam)
+{
+	t_camera *last;
+
+	last = cam;
+	while (last->next)
+		last = last->next;
+	last->next = cam;
+}
 
 /*
 ** check if a parameter is missing
@@ -18,14 +28,15 @@
 ** Minimum : camera, resolution, lumiere ambiante
 */
 
-static int		check_file_is_complete(const t_vec2 size, t_scene *scene)
+static int		check_file_is_complete(const t_vec2 size, t_app *app)
 {
 	if (size.x == 0 || size.y == 0)
-		return (file_error(0, "RESOLUTION", ERR_UNDEF));
-	if (scene->light_ambiant == NULL)
-		return (file_error(0, "AMBIANT LIGHT", ERR_UNDEF));
-	if (scene->cam == NULL)
-		return (file_error(0, "CAMERA", ERR_UNDEF));
+		return (file_error(app, "RESOLUTION", ERR_UNDEF));
+	if (app->scene->light_ambiant == NULL)
+		return (file_error(app, "AMBIANT LIGHT", ERR_UNDEF));
+	if (app->scene->cam == NULL)
+		return (file_error(app, "CAMERA", ERR_UNDEF));
+	get_cam_list_circle(app->scene->cam);
 	return (0);
 }
 
@@ -55,5 +66,5 @@ int				file_checking(int ac, char **av, t_app *app)
 		return (file_error(app, 0, ERR_NOT_RT));
 	if (read_file(av[1], app) == -1)
 		return (-1);
-	return (check_file_is_complete(app->size, app->scene));
+	return (check_file_is_complete(app->size, app));
 }
