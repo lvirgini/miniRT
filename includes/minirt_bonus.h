@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:14:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/16 11:43:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/21 11:26:47 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 # include "minirt.h"
 
 # define SPECULAR_VALUE 45
+
+int			check_image_transform(int key, t_image *img, t_app *app);
 
 #endif

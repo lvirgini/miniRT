@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:46:57 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/19 12:03:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/21 11:00:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ struct		s_image
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
+	t_image		*sepia;
+	t_image		*black;
 	t_image		*next;
 };
 

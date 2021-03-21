@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:49:45 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:11:18 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:35:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct	s_color
 **	Fonctions qui gèrent les couleurs
 */
 
-t_color	create_color(t_uchar r, t_uchar g, t_uchar b);
+t_color	create_color(double r, double g, double b);
 t_color	mul_color(t_color a, t_color b);
 t_color	add_color(t_color a, t_color b);
 void	add_color_light(t_color *res, t_color l_color, double ratio);

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 14:56:23 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/03 17:25:01 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/21 11:00:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_image		*malloc_image(int x, int y, void *mlx_ptr)
 								&(img->bits_per_pixel),
 								&(img->size_line),
 								&(img->endian));
+	img->sepia = NULL;
+	img->black = NULL;
 	return (img);
 }
 
@@ -43,6 +45,10 @@ void		free_image(t_image *to_free, void *mlx_ptr, int nb_img)
 	{
 		tmp = to_free->next;
 		mlx_destroy_image(mlx_ptr, to_free->img_ptr);
+		if (to_free->sepia)
+			mlx_destroy_image(mlx_ptr, to_free->sepia->img_ptr);
+		if (to_free->black)
+			mlx_destroy_image(mlx_ptr, to_free->black->img_ptr);
 		free(to_free);
 		to_free = tmp;
 	}

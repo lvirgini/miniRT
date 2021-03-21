@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 16:44:02 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/13 14:38:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/21 10:55:48 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct		s_app
 void		init_application(t_app *app);
 void		destroy_application(t_app *app);
 int			generate_mlx_content(t_app *app);
-int			run_application(t_app *app);
+int			run_application(t_app *app, t_image *img);
 int			generate_bmp_file(t_app *app);
 
 /*

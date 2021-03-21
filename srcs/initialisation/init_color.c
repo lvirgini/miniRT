@@ -6,13 +6,13 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:46:07 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 13:14:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:35:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color		create_color(t_uchar r, t_uchar g, t_uchar b)
+t_color		create_color(double r, double g, double b)
 {
 	t_color color;
 
