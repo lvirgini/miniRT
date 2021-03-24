@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:19:07 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:16:43 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static double	intersect_obj(t_ray *ray, t_obj *obj, t_vec3 *p, t_vec3 *normal)
 		return (intersect_triangle(ray, (t_triangle *)obj->shape, p, normal));
 	else if (obj->type == SQUARE)
 		return (intersect_square(ray, (t_square *)obj->shape, p, normal));
-	/*else if (obj->type == CYLINDRE)
-		return (intersect_cylindre(ray, (t_cyl *)obj->shape, p, normal));*/
+	else if (obj->type == CYLINDER)
+		return (intersect_cylinder(ray, (t_cyl *)obj->shape, p, normal));
 	return (0);
 }
 
@@ -75,8 +75,8 @@ t_obj			*closest_object(t_ray *ray, t_obj *objs)
 static void		reinit_ray_direction(t_ray *ray, t_m4x4 matrix,
 					t_vec3 xy_canvas)
 {
-	ray->direction = normalize_vec3(add_vec3(xy_canvas, ray->dir_std));
-	ray->direction = m4x4_mul_vec(matrix, ray->direction);
+	ray->dir = normalize_vec3(add_vec3(xy_canvas, ray->dir_std));
+	ray->dir = m4x4_mul_vec(matrix, ray->dir);
 	ray->pt_inter = create_vec3(0, 0, 0);
 	ray->normal = create_vec3(0, 0, 0);
 }

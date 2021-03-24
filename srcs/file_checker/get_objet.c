@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/16 11:44:49 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:15:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,11 @@ int		get_cyl(t_app *app, char **tab)
 	|| get_coord_from_line(pos_orient + 1, tab[2])
 	|| check_in_range(pos_orient[1], -1.0, 1.0)
 	|| get_color_from_line(&color, tab[5]))
-		return (file_error(app, "CYLINDRE", ERR_BAD_VALUE));
+		return (file_error(app, "CYLINDER", ERR_BAD_VALUE));
 	texture = (tab[6]) ? get_texture(tab[6]) : 0;
 	if (!(cyl = malloc_cyl(pos_orient, radius_hight, color, texture)))
-		return (file_error(app, "CYLINDRE", ERR_MALLOC));
-	return (save_obj_in_scene(app->scene, CYLINDRE, cyl));
+		return (file_error(app, "CYLINDER", ERR_MALLOC));
+	return (save_obj_in_scene(app->scene, CYLINDER, cyl));
 }
 
 /*

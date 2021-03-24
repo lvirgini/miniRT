@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:44:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/12 10:56:42 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:20:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double		intersect_triangle(t_ray *ray, t_triangle *tri, t_vec3 *pt_inter,
 	t_vec3	vec[2];
 	double	angle[2];
 
-	vec[0] = cross_vec3(ray->direction, tri->ac);
+	vec[0] = cross_vec3(ray->dir, tri->ac);
 	det = dot_vec3(tri->ab, vec[0]);
 	if (fabs(det) < RAY_T_MIN)
 		return (0);
@@ -44,13 +44,13 @@ double		intersect_triangle(t_ray *ray, t_triangle *tri, t_vec3 *pt_inter,
 	if (angle[0] < 0.0 || angle[0] > 1.0)
 		return (0);
 	vec[1] = cross_vec3(oa, tri->ab);
-	angle[1] = det * dot_vec3(ray->direction, vec[1]);
+	angle[1] = det * dot_vec3(ray->dir, vec[1]);
 	if (angle[1] < 0.0 || angle[0] + angle[1] > 1.0)
 		return (0);
 	t = det * dot_vec3(tri->ac, vec[1]);
 	if (t < RAY_T_MIN)
 		return (0);
-	*pt_inter = add_vec3(ray->origin, mul_vec3(ray->direction, t));
+	*pt_inter = add_vec3(ray->origin, mul_vec3(ray->dir, t));
 	*normal = tri->normal;
 	return (t);
 }

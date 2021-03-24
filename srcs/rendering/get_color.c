@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/18 10:18:35 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:16:03 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static void	get_color_specular(t_light light, t_ray ray, t_color *result)
 	light_vec = normalize_vec3(sub_vec3(light.pos, ray.pt_inter));
 	reflect = sub_vec3(mul_vec3(mul_vec3(ray.normal,
 			dot_vec3(ray.normal, light_vec)), 2), light_vec);
-	r_dot_v = dot_vec3(reflect, mul_vec3(ray.direction, -1));
+	r_dot_v = dot_vec3(reflect, mul_vec3(ray.dir, -1));
 	if (r_dot_v > 0)
 	{
-		r_dot_v = r_dot_v / norme_vec3(reflect) * norme_vec3(ray.direction);
+		r_dot_v = r_dot_v / norme_vec3(reflect) * norme_vec3(ray.dir);
 		intensity = light.ratio * pow(r_dot_v, SPECULAR_VALUE);
 		add_color_light(result, light.color, intensity);
 	}
@@ -125,7 +125,7 @@ t_color		find_pixel_color(int type, void *shape, t_ray *ray, t_app *app)
 	else if (type == SQUARE)
 		return (find_good_color(ray, ((t_square *)shape)->color,
 				((t_square *)shape)->texture, app));
-	else if (type == CYLINDRE)
+	else if (type == CYLINDER)
 		return (find_good_color(ray, ((t_cyl *)shape)->color,
 				((t_cyl *)shape)->texture, app));
 	else

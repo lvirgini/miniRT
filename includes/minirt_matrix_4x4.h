@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 14:06:22 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/08 10:09:54 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:32:59 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef double	t_m4x4[4][4];
 ** [20 21 22 23]
 ** [30 31 32 33]
 */
-
-void	m4x4_print(t_m4x4 m); //
 
 void	m4x4_get_identity(t_m4x4 m);
 void	m4x4_init_zero(t_m4x4 m);

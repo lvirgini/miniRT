@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:12:13 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:12:02 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define SPHERE		1
 # define PLANE		2
 # define SQUARE		3
-# define CYLINDRE	4
+# define CYLINDER	4
 # define TRIANGLE	5
 
 # define TEXTURE_DIFFUS		0
@@ -102,6 +102,7 @@ struct		s_square
 struct		s_cyl
 {
 	t_vec3		pos;
+	t_vec3		pos_hight;
 	t_vec3		orient;
 	t_color		color;
 	double		hight;

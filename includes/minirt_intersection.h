@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 14:23:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:32:38 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,16 @@
 # include "minirt.h"
 
 /*
-** Defini le nom t_point pour diférencier un point d'un vecteur. a voir si ca
-** pose probleme par la suite.
-*/
-
-typedef	struct s_vec2		t_pt2; //
-typedef	struct s_vec3		t_pt3;
-typedef struct s_ray		t_ray;
-
-/*
 ** Rayon avec un point origine, un vecteur de direction, si intersection :
 ** pt_inter sur un objet, et la normal a ce pt d'intersection.
 */
 
+typedef struct s_ray		t_ray;
+
 struct		s_ray
 {
-	t_pt3		origin;
-	t_vec3		direction;
+	t_vec3		origin;
+	t_vec3		dir;
 	t_vec3		dir_std;
 	t_vec3		pt_inter;
 	t_vec3		normal;
@@ -63,8 +56,8 @@ double		intersect_triangle(t_ray *ray, t_triangle *triangle,
 				t_vec3 *pt_inter, t_vec3 *normal);
 double		intersect_square(t_ray *ray, t_square *square,
 				t_vec3 *pt_inter, t_vec3 *normal);
-
-int			check_if_shadow(t_ray *ray_origin, t_light *light, t_obj *objs);
-t_color		calculate_shadow(t_color color, t_ray *ray_origin, t_light *light);
+double		intersect_cylinder(t_ray *ray, t_cyl *cyl, t_vec3 *p,
+				t_vec3 *normal);
+double		quadratic_equation(double a, double b, double c, double t[2]);
 
 #endif
