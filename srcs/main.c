@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 19:30:11 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:56:46 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ static void	print_help_key(void)
 	ft_putstr("switch camera : Space\n");
 	ft_putstr("Move camera position : Z Q S D W X\n");
 	ft_putstr("Move camera orient x : 4 6 	y: 8 2 	z: 9 3\n");
-	ft_putstr("Use the mouse wheel on a object to grow it or get it smaller\n");
 	ft_putstr("switch to image in Sepia mode : T\n");
 	ft_putstr("Switch to image in black and white mode : Y\n");
-	ft_putstr("Switch to image in blue mode : B\n");
 	ft_putstr("* -------------------------------------------------------- *\n");
 }
 
