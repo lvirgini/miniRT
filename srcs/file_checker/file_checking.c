@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/20 21:51:15 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:21:44 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int				file_checking(int ac, char **av, t_app *app)
 {
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
 		app->save = 1;
-	//if (ac >= 4 && (ft_strcmp(av[2], "-sepia"))
 	if (ac < 2)
 		return (file_error(app, 0, ERR_NO_FILE));
 	if (file_type(av[1]) == -1)

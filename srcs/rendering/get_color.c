@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 17:16:03 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:36:39 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ t_color		find_pixel_color(int type, void *shape, t_ray *ray, t_app *app)
 	else if (type == CYLINDER)
 		return (find_good_color(ray, ((t_cyl *)shape)->color,
 				((t_cyl *)shape)->texture, app));
+	else if (type == DISC)
+		return (find_good_color(ray, ((t_disc *)shape)->color,
+				((t_disc *)shape)->texture, app));
 	else
 		return (create_color(255, 255, 255));
 }

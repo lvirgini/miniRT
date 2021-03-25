@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 12:24:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 17:16:43 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:34:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static double	intersect_obj(t_ray *ray, t_obj *obj, t_vec3 *p, t_vec3 *normal)
 		return (intersect_square(ray, (t_square *)obj->shape, p, normal));
 	else if (obj->type == CYLINDER)
 		return (intersect_cylinder(ray, (t_cyl *)obj->shape, p, normal));
+	else if (obj->type == DISC)
+		return (intersect_disc(ray, (t_disc *)obj->shape, p, normal));
 	return (0);
 }
 

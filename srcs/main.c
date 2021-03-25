@@ -6,14 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:26:47 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/21 10:56:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:30:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// intersection cylindre
-// integration de "bonus".
 
 static void	print_help_key(void)
 {
@@ -39,8 +36,7 @@ int			main(int ac, char **av)
 	init_scene(&scene);
 	app.scene = &scene;
 	if (file_checking(ac, av, &app) == -1)
-		return (-1);
-	print_all_scene(app.scene);
+		exit_free_minirt(&app, 0, -1);
 	generate_mlx_content(&app);
 	generate_raytracing((void *)&app);
 	print_help_key();

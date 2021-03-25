@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:06:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 17:32:38 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:44:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ double		intersect_triangle(t_ray *ray, t_triangle *triangle,
 double		intersect_square(t_ray *ray, t_square *square,
 				t_vec3 *pt_inter, t_vec3 *normal);
 double		intersect_cylinder(t_ray *ray, t_cyl *cyl, t_vec3 *p,
+				t_vec3 *normal);
+double		intersect_disc(t_ray *ray, t_disc *disc, t_vec3 *pt_inter,
 				t_vec3 *normal);
 double		quadratic_equation(double a, double b, double c, double t[2]);
 

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 15:07:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:22:31 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,41 +91,4 @@ int			handle_key(int key, t_app *app)
 ** 3 = clic droit
 ** 4 = molette vers le haut
 ** 5 molette vers le bas.
-*/
-
-/*
-int			handle_mouse(int button, int x, int y, t_app *app)
-{
-	t_ray		ray;
-	t_sphere	*sphere;
-	t_obj		*first_obj;
-	t_camera	*cam;
-
-	
-//	printf("button = %d		x = %d	y = %d\n", button, x, y);
-	int X = ((y * app->img->size.x) + x) * 4;
-	t_color c = create_color(app->img->pixels[X + RED_PIXEL],
-								app->img->pixels[X + GREEN_PIXEL],
-								app->img->pixels[X + BLUE_PIXEL]);
-	print_color(c);*/
-
-/*	cam = app->scene->cam;
-	ray = create_ray(cam->pos, add_vec3(cam->pos, cam->orient),
-		create_vec3(0, 0, 0));
-	ray.direction = normalize_vec3(create_vec3(y - (app->size.x / 2)
-					+ 0.5, x - (app->size.y / 2) + 0.5, -app->size.x /
-					(2 * tan(cam->angle))));
-	first_obj = closest_object(&ray, app->scene->objs);
-	if (first_obj && first_obj->type == SPHERE)
-	{
-		sphere = first_obj->shape;
-		if (button == 4)
-			sphere->radius += 1;
-		if (button == 5 && sphere->radius > 1)
-			sphere->radius -= 1;
-		generate_raytracing(app);
-		run_application(app);
-	}
-	return (0);
-}
 */

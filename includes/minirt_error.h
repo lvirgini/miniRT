@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 11:25:29 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/02/16 09:58:32 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 22:29:36 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ enum	e_nb_error
 };
 
 int			file_error(t_app *app, char *location, unsigned int nb_error);
-void		exit_free_minirt(t_app *app, char *location, unsigned int if_error);
+void		exit_free_minirt(t_app *app, char *location, int if_error);
 
 #endif

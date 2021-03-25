@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:56:37 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 17:12:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:29:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define SQUARE		3
 # define CYLINDER	4
 # define TRIANGLE	5
+# define DISC		6
 
 # define TEXTURE_DIFFUS		0
 # define TEXTURE_MIRROIR	1
@@ -105,8 +106,10 @@ struct		s_cyl
 	t_vec3		pos_hight;
 	t_vec3		orient;
 	t_color		color;
+	t_disc		*disc;
+	t_disc		*disc2;
 	double		hight;
-	double		radius;
+	double		radius2;
 	int			texture;
 };
 

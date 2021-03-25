@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/17 13:13:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:21:17 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,5 @@ int			get_texture(char *line)
 {
 	if (line[0] == 'm')
 		return (TEXTURE_MIRROIR);
-	if (line[0] == 'r' && line[1])
-	{
-		line++;
-		return (ft_atoi(line));
-	}
 	return (TEXTURE_DIFFUS);
 }
