@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/20 12:16:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:42:06 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int			get_resolution(t_app *app, char **tab)
 	static int	get_resolution = 0;
 
 	if (get_resolution == 1)
-		return (file_error(app, "RESOLUTION", ERR_DEF_TWICE));
+		return (file_error("RESOLUTION", ERR_DEF_TWICE));
 	if (tab_len(tab) != 3)
-		return (file_error(app, "RESOLUTION", ERR_BAD_VALUE));
+		return (file_error("RESOLUTION", ERR_BAD_VALUE));
 	app->size = create_vec2(ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if (app->size.x <= 0 || app->size.y <= 0)
-		return (file_error(app, "RESOLUTION", ERR_BAD_VALUE));
+		return (file_error("RESOLUTION", ERR_BAD_VALUE));
 	get_resolution = 1;
 	return (0);
 }
@@ -51,10 +51,10 @@ int			get_ambiant_ligth(t_app *app, char **tab)
 	|| (ratio = ft_atof(tab[1])) > 1.0
 	|| ratio < 0.0
 	|| get_color_from_line(&ambiant_color, tab[2]))
-		return (file_error(app, "AMBIANT LIGHT", ERR_BAD_VALUE));
+		return (file_error("AMBIANT LIGHT", ERR_BAD_VALUE));
 	if (!(app->scene->light_ambiant = malloc_light(create_vec3(0, 0, 0),
 	ratio, ambiant_color)))
-		return (file_error(app, "AMBIANT LIGHT", ERR_MALLOC));
+		return (file_error("AMBIANT LIGHT", ERR_MALLOC));
 	return (0);
 }
 
@@ -78,9 +78,9 @@ int			get_light(t_app *app, char **tab)
 	|| ratio < 0.0
 	|| get_color_from_line(&light_color, tab[3])
 	|| get_coord_from_line(&pos, tab[1]))
-		return (file_error(app, "LIGHT", ERR_BAD_VALUE));
+		return (file_error("LIGHT", ERR_BAD_VALUE));
 	if (!(light = malloc_light(pos, ratio, light_color)))
-		return (file_error(app, "LIGHT", ERR_MALLOC));
+		return (file_error("LIGHT", ERR_MALLOC));
 	light->next = app->scene->light;
 	app->scene->light = light;
 	app->scene->total_intens += light->ratio;
@@ -125,9 +125,9 @@ int			get_camera(t_app *app, char **tab)
 	|| get_coord_from_line(&orient, tab[2])
 	|| check_in_range(orient, -1.0, 1.0)
 	|| (fov = ft_atof(tab[3])) <= 0 || fov > 180)
-		return (file_error(app, "CAMERA", ERR_BAD_VALUE));
+		return (file_error("CAMERA", ERR_BAD_VALUE));
 	if (!(cam = malloc_camera(fov, pos, orient)))
-		return (file_error(app, "CAMERA", ERR_MALLOC));
+		return (file_error("CAMERA", ERR_MALLOC));
 	put_camera(app->scene, cam);
 	app->scene->nb_cam++;
 	return (0);

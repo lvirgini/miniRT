@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:14:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/12 15:16:12 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:42:29 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static size_t	index_set(char *s)
 	while (i < 9 && ft_strcmp(set[i], s) != 0)
 		i++;
 	if (i == 0 && a_done++ == 1)
-		return (file_error(0, "AMBIANT LIGHT", ERR_DEF_TWICE));
+		return (file_error("AMBIANT LIGHT", ERR_DEF_TWICE));
 	else if (i == 8 && r_done++ == 1)
-		return (file_error(0, "RESOLUTION", ERR_DEF_TWICE));
+		return (file_error("RESOLUTION", ERR_DEF_TWICE));
 	else if (i == 9)
-		return (file_error(0, s, ERR_NOT_TYPE));
+		return (file_error(s, ERR_NOT_TYPE));
 	return (i);
 }
 
@@ -90,7 +90,7 @@ int				read_file(char *str, t_app *app)
 	int		ret;
 
 	if ((fd = open(str, O_RDONLY)) == -1)
-		return (file_error(app, str, ERR_NOT_READ));
+		return (file_error(str, ERR_NOT_READ));
 	set_functions_get(f);
 	while ((ret = get_next_line(fd, &line)) > 0 || (ret == 0 && line[0] != 0))
 	{

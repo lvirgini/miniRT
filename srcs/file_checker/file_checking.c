@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:47:44 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:21:44 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:40:56 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static void		get_cam_list_circle(t_camera *cam)
 static int		check_file_is_complete(const t_vec2 size, t_app *app)
 {
 	if (size.x == 0 || size.y == 0)
-		return (file_error(app, "RESOLUTION", ERR_UNDEF));
+		return (file_error("RESOLUTION", ERR_UNDEF));
 	if (app->scene->light_ambiant == NULL)
-		return (file_error(app, "AMBIANT LIGHT", ERR_UNDEF));
+		return (file_error("AMBIANT LIGHT", ERR_UNDEF));
 	if (app->scene->cam == NULL)
-		return (file_error(app, "CAMERA", ERR_UNDEF));
+		return (file_error("CAMERA", ERR_UNDEF));
 	get_cam_list_circle(app->scene->cam);
 	return (0);
 }
@@ -61,9 +61,9 @@ int				file_checking(int ac, char **av, t_app *app)
 	if (ac == 3 && (ft_strcmp(av[2], "--save") || ft_strcmp(av[2], "-save")))
 		app->save = 1;
 	if (ac < 2)
-		return (file_error(app, 0, ERR_NO_FILE));
+		return (file_error(0, ERR_NO_FILE));
 	if (file_type(av[1]) == -1)
-		return (file_error(app, 0, ERR_NOT_RT));
+		return (file_error(0, ERR_NOT_RT));
 	if (read_file(av[1], app) == -1)
 		return (-1);
 	return (check_file_is_complete(app->size, app));

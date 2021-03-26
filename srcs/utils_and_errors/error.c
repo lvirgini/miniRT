@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/26 09:58:57 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:44:15 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void			exit_free_minirt(t_app *app, char *location,
 {
 	if (if_error > 0)
 		print_error(location, if_error);
-	free_all_minirt(app, app->scene);
+	if (app)
+		free_all_minirt(app, app->scene);
 	exit(if_error);
 }
 
@@ -70,13 +71,11 @@ void			exit_free_minirt(t_app *app, char *location,
 ** file error and return -1 // no exit
 */
 
-int				file_error(t_app *app, char *location, unsigned int n_error)
+int				file_error(char *location, unsigned int n_error)
 {
 	if (n_error)
 		print_error(location, n_error);
 	if (errno)
 		ft_putstr(strerror(errno));
-	if (app)
-		free_all_minirt(app, app->scene);
 	return (-1);
 }
