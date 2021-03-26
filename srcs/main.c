@@ -37,8 +37,8 @@ int			main(int ac, char **av)
 		exit_free_minirt(&app, 0, -1);
 	generate_mlx_content(&app);
 	generate_raytracing((void *)&app);
-	print_help_key();
 	if (app.save == 1)
 		return (generate_bmp_file(&app));
+	print_help_key();
 	return (run_application(&app, app.img));
 }

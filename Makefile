@@ -21,7 +21,7 @@ SRC_DIR =	$(shell find srcs -type d)
 INC_DIR = 	$(shell find includes -type d) lib/libft/includes lib/minilibx-linux
 OBJ_DIR =	obj/
 
-LIB		=	ft mlx m GLEW glfw GL
+LIB		=	ft mlx Xext X11 m bsd 
 SRC 	=	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdir $(file))))
 OBJ 	=	$(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 HEADERS = 	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
@@ -55,7 +55,7 @@ $(OBJ_DIR)%.o: %.c $(HEADERS)
 			@$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
-			@$(CC) $(CFLAG) $(IFLAG) $(OBJ) $(LFLAG)-o $@ -lX11 -lXext -lXdamage -lXfixes -lXtst -lm -lbsd
+			@$(CC) $(CFLAG) $(IFLAG) $(OBJ) -o $@ $(LFLAG)
 			@echo "\n*     Compilation $(NAME)     *\t   \033[32;1m--> \033[4;5mComplete\033[0m"
 
 			

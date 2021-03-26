@@ -16,7 +16,7 @@
 # include "minirt.h"
 
 # define SPECULAR_VALUE 45
-# define MAX_REBOUND	8
+# define MAX_REBOUND	10
 
 int			check_image_transform(int key, t_image *img, t_app *app);
 int			malloc_caps_cylinder(t_cyl *cyl, t_app *app);

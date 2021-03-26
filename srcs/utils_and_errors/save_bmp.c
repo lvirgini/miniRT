@@ -85,7 +85,6 @@ static int		img_to_bmp(t_app *app)
 
 	fd = open("Minirt.bmp", O_RDWR | O_CREAT | O_TRUNC,
 		S_IRWXU | S_IRWXG | S_IRWXO);
-	printf("FD = %d\n", fd);
 	if (fd == -1)
 		exit_free_minirt(app, __FILE__, ERR_FD);
 	bmp_write_header(fd, app->img);
