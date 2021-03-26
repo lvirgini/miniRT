@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:16:39 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:08:56 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:07:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		get_sphere(t_app *app, char **tab)
 	|| get_coord_from_line(&pos, tab[1])
 	|| get_color_from_line(&color, tab[3]))
 		return (file_error(app, "SPHERE", ERR_BAD_VALUE));
-	texture = (tab[4]) ? get_texture(tab[4]) : 0;
+	texture = (tab_len(tab) == 5 && tab[4]) ? get_texture(tab[4]) : 0;
 	if (!(sphere = malloc_sphere(pos, radius, color, texture)))
 		return (file_error(app, "SPHERE", ERR_MALLOC));
 	return (save_obj_in_scene(app->scene, SPHERE, sphere));
@@ -61,7 +61,7 @@ int		get_plane(t_app *app, char **tab)
 	|| check_in_range(orient, -1.0, 1.0)
 	|| get_color_from_line(&color, tab[3]))
 		return (file_error(app, "PLANE", ERR_BAD_VALUE));
-	texture = (tab[4]) ? get_texture(tab[4]) : 0;
+	texture = (tab_len(tab) == 5 && tab[4]) ? get_texture(tab[4]) : 0;
 	if (!(plane = malloc_plane(pos, orient, color, texture)))
 		return (file_error(app, "PLANE", ERR_MALLOC));
 	return (save_obj_in_scene(app->scene, PLANE, plane));
@@ -90,7 +90,7 @@ int		get_square(t_app *app, char **tab)
 	|| check_in_range(pos_orient[1], -1.0, 1.0)
 	|| get_color_from_line(&color, tab[4]))
 		return (file_error(app, "SQUARE", ERR_BAD_VALUE));
-	texture = (tab[5]) ? get_texture(tab[5]) : 0;
+	texture = (tab_len(tab) == 6 && tab[5]) ? get_texture(tab[5]) : 0;
 	if (!(square = malloc_square(pos_orient, hight, color, texture)))
 		return (file_error(app, "SQUARE", ERR_MALLOC));
 	return (save_obj_in_scene(app->scene, SQUARE, square));
@@ -148,7 +148,7 @@ int		get_triangle(t_app *app, char **tab)
 	|| get_coord_from_line(pos + 2, tab[3])
 	|| get_color_from_line(&color, tab[4]))
 		return (file_error(app, "TRIANGLE", ERR_BAD_VALUE));
-	texture = (tab[5]) ? get_texture(tab[5]) : 0;
+	texture = (tab_len(tab) == 6 && tab[5]) ? get_texture(tab[5]) : 0;
 	if (!(triangle = malloc_triangle(pos, color, texture)))
 		return (file_error(app, "TRIANGLE", ERR_MALLOC));
 	return (save_obj_in_scene(app->scene, TRIANGLE, triangle));

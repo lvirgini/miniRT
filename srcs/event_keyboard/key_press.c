@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 17:38:26 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:22:31 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:56:45 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int	camera_pos_changing(int key, t_camera *cam)
 
 int			handle_key(int key, t_app *app)
 {
-	printf("key = %x\n", key);
 	if (key == XK_Escape)
 		exit_free_minirt(app, 0, 0);
 	else if (key == XK_space)
@@ -76,7 +75,8 @@ int			handle_key(int key, t_app *app)
 	else if (check_image_transform(key, app->img, app))
 		;
 	else if (camera_pos_changing(key, app->scene->cam))
-		generate_raytracing(app);
+		browse_image_for_intersection(app->scene->cam, app->img, app,
+				app->size);
 	else
 		return (0);
 	return (run_application(app, app->img));

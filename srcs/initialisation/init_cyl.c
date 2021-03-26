@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 11:33:24 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:24:47 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 10:44:55 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int				malloc_caps_cylinder(t_cyl *cyl, t_app *app)
 		|| save_obj_in_scene(app->scene, DISC, cyl->disc) != 0
 		|| save_obj_in_scene(app->scene, DISC, cyl->disc2) != 0)
 		exit_free_minirt(app, "CYLINDER_CAPS", ERR_MALLOC);
-	printf("OK CAPS DONE\n");
 	return (0);
 }
 
@@ -50,7 +49,7 @@ t_cyl			*malloc_cyl(t_vec3 pos_orient[2], double radius_hight[2],
 		return (NULL);
 	cyl->pos = pos_orient[0];
 	cyl->orient = normalize_vec3(pos_orient[1]);
-	cyl->radius2 = pow(radius_hight[0] / 2, 2);
+	cyl->radius2 = pow(radius_hight[0], 2);
 	cyl->hight = radius_hight[1];
 	cyl->pos_hight = add_vec3(cyl->pos, mul_vec3(cyl->orient, cyl->hight));
 	cyl->color = col;

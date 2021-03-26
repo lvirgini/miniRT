@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:46:56 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:54:48 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:55:08 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ double			intersect_cylinder(t_ray *ray, t_cyl *cyl, t_vec3 *p,
 	get_cyl_normal(cyl, p, normal);
 	if (res == t[1])
 	{
-		if (cyl->disc)
-			return (cylinder_caps(ray, cyl, p, normal));
+		if (cyl->disc && (t[1] = cylinder_caps(ray, cyl, p, normal)) != 0)
+			return (t[1]);
 		*normal = mul_vec3(*normal, -1);
 	}
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:19:10 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:44:14 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 12:10:50 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 ** INCLUDES de librairies officielles
 */
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include <errno.h>
 # include <math.h>
 

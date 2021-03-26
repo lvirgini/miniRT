@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:38:19 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/24 22:33:15 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:58:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				file_error(t_app *app, char *location, unsigned int n_error)
 	if (n_error)
 		print_error(location, n_error);
 	if (errno)
-		printf("%s", strerror(errno));
+		ft_putstr(strerror(errno));
 	if (app)
 		free_all_minirt(app, app->scene);
 	return (-1);

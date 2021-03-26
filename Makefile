@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 17:38:13 by lvirgini          #+#    #+#              #
-#    Updated: 2021/03/17 16:09:45 by lvirgini         ###   ########.fr        #
+#    Updated: 2021/03/26 12:22:12 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 #	 COMPILATION	#
 # ----------------- #
 
-CC 		=	clang
+CC 		=	gcc
 
-CFLAG 	= 	-Wall -Wextra -g  -fsanitize=leak
+CFLAG 	= 	-Wall -Wextra -Werror -g  -fsanitize=leak
 IFLAG 	= 	$(foreach dir, $(INC_DIR), -I $(dir) )
 LFLAG 	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
 #LFLAG 	+= 	$(foreach framework, $(FRAMEWORK), -framework $(framework) )
@@ -51,11 +51,14 @@ all:		$(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 			@mkdir -p $(OBJ_DIR)
-			$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
+			@echo "\033[32mCompilation de ... $(foreach file, $< , $(notdir $<))"
+			@$(CC) $(CFLAG) $(IFLAG) -o $@ -c $< 
 
 $(NAME): 	install $(OBJ)
-			$(CC) $(CFLAG) $(IFLAG) $(OBJ) $(LFLAG)-o $@ -lX11 -lXext -lXdamage -lXfixes -lXtst -lm -lbsd
+			@$(CC) $(CFLAG) $(IFLAG) $(OBJ) $(LFLAG)-o $@ -lX11 -lXext -lXdamage -lXfixes -lXtst -lm -lbsd
+			@echo "\n*     Compilation $(NAME)     *\t   \033[32;1m--> \033[4;5mComplete\033[0m"
 
+			
 
 install :
 			@make -C lib/libft
@@ -89,6 +92,6 @@ clean:
 fclean: clean
 			rm -f $(NAME)
 
-re: fclean all
+re: 	fclean all
 
 .PHONY: all clean flcean re

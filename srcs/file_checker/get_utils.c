@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 11:57:28 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/25 13:21:17 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:04:26 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			get_color_from_line(t_color *result, char *line)
 
 int			get_texture(char *line)
 {
-	if (line[0] == 'm')
+	if (line && line[0] == 'm')
 		return (TEXTURE_MIRROIR);
 	return (TEXTURE_DIFFUS);
 }

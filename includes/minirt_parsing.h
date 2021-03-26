@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:50:01 by lvirgini          #+#    #+#             */
-/*   Updated: 2021/03/12 15:37:26 by lvirgini         ###   ########.fr       */
+/*   Updated: 2021/03/26 10:00:30 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ int			get_coord_from_line(t_vec3 *result, char *line);
 int			get_color_from_line(t_color *result, char *line);
 int			save_obj_in_scene(t_scene *scene, int type, void *shape);
 int			get_texture(char *line);
+
 #endif
